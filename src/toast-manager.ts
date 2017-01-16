@@ -58,7 +58,7 @@ export class ToastsManager {
 
         // create and load ToastContainer
         let toastFactory = this.componentFactoryResolver.resolveComponentFactory(ToastContainer);
-        let childInjector = ReflectiveInjector.fromResolvedProviders(providers, this._rootViewContainerRef.parentInjector);
+        let childInjector = ReflectiveInjector.fromResolvedProviders(providers);
         this.container = toastFactory.create(childInjector);
         this.appRef.attachView(this.container.hostView);
         // this.container = this._rootViewContainerRef.createComponent(toastFactory, this._rootViewContainerRef.length, childInjector);

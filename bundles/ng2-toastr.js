@@ -192,7 +192,7 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
             useValue: _this.options
           }]);
           var toastFactory = _this.componentFactoryResolver.resolveComponentFactory(toast_container_component_1.ToastContainer);
-          var childInjector = core_1.ReflectiveInjector.fromResolvedProviders(providers, _this._rootViewContainerRef.parentInjector);
+          var childInjector = core_1.ReflectiveInjector.fromResolvedProviders(providers);
           _this.container = toastFactory.create(childInjector);
           _this.appRef.attachView(_this.container.hostView);
           _this.container.instance.onToastClicked = function(toast) {

@@ -45,7 +45,7 @@ var ToastsManager = (function () {
                 ]);
                 // create and load ToastContainer
                 var toastFactory = _this.componentFactoryResolver.resolveComponentFactory(toast_container_component_1.ToastContainer);
-                var childInjector = core_1.ReflectiveInjector.fromResolvedProviders(providers, _this._rootViewContainerRef.parentInjector);
+                var childInjector = core_1.ReflectiveInjector.fromResolvedProviders(providers);
                 _this.container = toastFactory.create(childInjector);
                 _this.appRef.attachView(_this.container.hostView);
                 // this.container = this._rootViewContainerRef.createComponent(toastFactory, this._rootViewContainerRef.length, childInjector);
