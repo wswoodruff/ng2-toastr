@@ -191,7 +191,11 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
             reject(err);
           }
           if (!_this._rootViewContainerRef) {
-            _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+            try {
+              _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_parentView'].compView_0._vc_0.vcRef;
+            } catch (e) {
+              _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+            }
           }
           var providers = core_1.ReflectiveInjector.resolve([{
             provide: toast_options_1.ToastOptions,
