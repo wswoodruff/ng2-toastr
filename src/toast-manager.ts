@@ -1,6 +1,6 @@
 import {
   Injectable, ComponentRef, ApplicationRef,
-  Optional, ReflectiveInjector, ViewContainerRef, ComponentFactoryResolver, Injector,
+  Optional, ReflectiveInjector, ViewContainerRef, ComponentFactoryResolver,
 } from '@angular/core';
 import {ToastContainer} from './toast-container.component';
 import {ToastOptions} from './toast-options';
@@ -19,7 +19,6 @@ export class ToastsManager {
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
-              private injector: Injector,
               @Optional() options: ToastOptions) {
     if (options) {
       Object.assign(this.options, options);
@@ -37,20 +36,14 @@ export class ToastsManager {
   show(toast: Toast, options?: Object): Promise<Toast> {
     return new Promise((resolve, reject) => {
       if (!this.container) {
-        // if (!this.appRef['_rootComponents'].length) {
-        //   const err = new Error('Application root component cannot be found. Try accessing application reference in the later life cycle of angular app.');
-        //   console.error(err);
-        //   reject(err);
-        // }
-        //
-        // // get app root view component ref
-        // if (!this._rootViewContainerRef) {
-        //   try {
-        //     this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_parentView']._vc_0.vcRef;
-        //   } catch (e) {
-        //     this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
-        //   }
-        // }
+        // get app root view component ref
+        if (!this._rootViewContainerRef) {
+          try {
+            this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+          } catch (e) {
+            reject(new Error('Please set root ViewContainerRef using setRootViewContainerRef(vRef: ViewContainerRef) method.'));
+          }
+        }
 
         // get options providers
         let providers = ReflectiveInjector.resolve([
@@ -59,10 +52,8 @@ export class ToastsManager {
 
         // create and load ToastContainer
         let toastFactory = this.componentFactoryResolver.resolveComponentFactory(ToastContainer);
-        let childInjector = ReflectiveInjector.fromResolvedProviders(providers, this.injector);
-        this.container = toastFactory.create(childInjector);
-        this.appRef.attachView(this.container.hostView);
-        // this.container = this._rootViewContainerRef.createComponent(toastFactory, this._rootViewContainerRef.length, childInjector);
+        let childInjector = ReflectiveInjector.fromResolvedProviders(providers, this._rootViewContainerRef.parentInjector);
+        this.container = this._rootViewContainerRef.createComponent(toastFactory, this._rootViewContainerRef.length, childInjector);
         this.container.instance.onToastClicked = (toast: Toast) => {
           this._onToastClicked(toast);
         }
@@ -134,7 +125,6 @@ export class ToastsManager {
     // using timeout to allow animation to finish
     setTimeout(() => {
       if (this.container && !this.container.instance.anyToast()) {
-        this.appRef.detachView(this.container.hostView);
         this.container.destroy();
         this.container = null;
       }
