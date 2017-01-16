@@ -45,9 +45,10 @@ var ToastsManager = (function () {
                 // get app root view component ref
                 if (!_this._rootViewContainerRef) {
                     try {
-                        _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
-                    } catch (e) {
                         _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_parentView'].compView_0._vc_0.vcRef;
+                    }
+                    catch (e) {
+                        _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
                     }
                 }
                 // get options providers
