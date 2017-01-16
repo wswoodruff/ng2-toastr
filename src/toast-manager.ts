@@ -36,18 +36,12 @@ export class ToastsManager {
   show(toast: Toast, options?: Object): Promise<Toast> {
     return new Promise((resolve, reject) => {
       if (!this.container) {
-        if (!this.appRef['_rootComponents'].length) {
-          const err = new Error('Application root component cannot be found. Try accessing application reference in the later life cycle of angular app.');
-          console.error(err);
-          reject(err);
-        }
-
         // get app root view component ref
         if (!this._rootViewContainerRef) {
           try {
-            this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_parentView']._vc_0.vcRef;
-          } catch (e) {
             this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+          } catch (e) {
+            reject(new Error('Please set root ViewContainerRef using setRootViewContainerRef(vRef: ViewContainerRef) method.'));
           }
         }
 
