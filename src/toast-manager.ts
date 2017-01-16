@@ -1,6 +1,6 @@
 import {
   Injectable, ComponentRef, ApplicationRef,
-  Optional, ReflectiveInjector, ViewContainerRef, ComponentFactoryResolver,
+  Optional, ReflectiveInjector, ViewContainerRef, ComponentFactoryResolver, Injector,
 } from '@angular/core';
 import {ToastContainer} from './toast-container.component';
 import {ToastOptions} from './toast-options';
@@ -19,6 +19,7 @@ export class ToastsManager {
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
+              private injector: Injector,
               @Optional() options: ToastOptions) {
     if (options) {
       Object.assign(this.options, options);
@@ -58,7 +59,7 @@ export class ToastsManager {
 
         // create and load ToastContainer
         let toastFactory = this.componentFactoryResolver.resolveComponentFactory(ToastContainer);
-        let childInjector = ReflectiveInjector.fromResolvedProviders(providers);
+        let childInjector = ReflectiveInjector.fromResolvedProviders(providers, this.injector);
         this.container = toastFactory.create(childInjector);
         this.appRef.attachView(this.container.hostView);
         // this.container = this._rootViewContainerRef.createComponent(toastFactory, this._rootViewContainerRef.length, childInjector);

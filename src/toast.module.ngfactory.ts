@@ -28,7 +28,7 @@ class ToastModuleInjector extends import0.NgModuleInjector<import1.ToastModule> 
     return this.__NgLocalization_2;
   }
   get _ToastsManager_3():import4.ToastsManager {
-    if ((this.__ToastsManager_3 == null)) { (this.__ToastsManager_3 = new import4.ToastsManager(this,this.parent.get(import8.ApplicationRef),this.parent.get(import9.ToastOptions,(null as any)))); }
+    if ((this.__ToastsManager_3 == null)) { (this.__ToastsManager_3 = new import4.ToastsManager(this,this.parent.get(import8.ApplicationRef),this,this.parent.get(import9.ToastOptions,(null as any)))); }
     return this.__ToastsManager_3;
   }
   createInternal():import1.ToastModule {

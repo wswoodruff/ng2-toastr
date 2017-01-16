@@ -37,7 +37,7 @@ var ToastModuleInjector = (function (_super) {
     Object.defineProperty(ToastModuleInjector.prototype, "_ToastsManager_3", {
         get: function () {
             if ((this.__ToastsManager_3 == null)) {
-                (this.__ToastsManager_3 = new import4.ToastsManager(this, this.parent.get(import8.ApplicationRef), this.parent.get(import9.ToastOptions, null)));
+                (this.__ToastsManager_3 = new import4.ToastsManager(this, this.parent.get(import8.ApplicationRef), this, this.parent.get(import9.ToastOptions, null)));
             }
             return this.__ToastsManager_3;
         },

@@ -167,9 +167,10 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
   var toast_1 = $__require('./toast');
   var Subject_1 = $__require('rxjs/Subject');
   var ToastsManager = (function() {
-    function ToastsManager(componentFactoryResolver, appRef, options) {
+    function ToastsManager(componentFactoryResolver, appRef, injector, options) {
       this.componentFactoryResolver = componentFactoryResolver;
       this.appRef = appRef;
+      this.injector = injector;
       this.options = {};
       this.index = 0;
       this.toastClicked = new Subject_1.Subject();
@@ -192,7 +193,7 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
             useValue: _this.options
           }]);
           var toastFactory = _this.componentFactoryResolver.resolveComponentFactory(toast_container_component_1.ToastContainer);
-          var childInjector = core_1.ReflectiveInjector.fromResolvedProviders(providers);
+          var childInjector = core_1.ReflectiveInjector.fromResolvedProviders(providers, _this.injector);
           _this.container = toastFactory.create(childInjector);
           _this.appRef.attachView(_this.container.hostView);
           _this.container.instance.onToastClicked = function(toast) {
@@ -288,7 +289,7 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
     };
     ToastsManager.decorators = [{type: core_1.Injectable}];
     ToastsManager.ctorParameters = function() {
-      return [{type: core_1.ComponentFactoryResolver}, {type: core_1.ApplicationRef}, {
+      return [{type: core_1.ComponentFactoryResolver}, {type: core_1.ApplicationRef}, {type: core_1.Injector}, {
         type: toast_options_1.ToastOptions,
         decorators: [{type: core_1.Optional}]
       }];
