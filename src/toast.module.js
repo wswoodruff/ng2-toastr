@@ -25,7 +25,7 @@ var ToastModule = (function () {
                 },] },
     ];
     /** @nocollapse */
-    ToastModule.ctorParameters = [];
+    ToastModule.ctorParameters = function () { return []; };
     return ToastModule;
 }());
 exports.ToastModule = ToastModule;
