@@ -1,7 +1,7 @@
 Angular 2: Toastr
 ===================
 
-[![](https://img.shields.io/badge/npm-v1.3.1-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
+[![](https://img.shields.io/badge/npm-v1.3.4-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
 
 NOTE: Since version 1.1.0, ng2-toastr has added animation for displaying/dismissing toasts. 
 For configuration, see [Choose animation option](#animate-option). 
@@ -15,13 +15,13 @@ Please update Angular 2 to latest version to avoid any unexpected issues.
 
 ## Breaking change solution for Angular v2.2.x
 
-    ```
-    // AppComponent.ts (Root component of your app)
     
-    constructor(public toastr: ToastsManager, vRef: ViewContainerRef) {
-        this.toastr.setRootViewContainerRef(vRef);
-              }
-    ```
+        // AppComponent.ts (Root component of your app)
+    
+        constructor(public toastr: ToastsManager, vRef: ViewContainerRef) {
+            this.toastr.setRootViewContainerRef(vRef);
+        }
+    
 
 ## What's New
 1. Added `onClickToast` observable on `ToastManager` instance.

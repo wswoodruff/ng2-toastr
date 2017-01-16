@@ -3,14 +3,14 @@ var core_1 = require('@angular/core');
 var toast_container_component_1 = require('./toast-container.component');
 var toast_options_1 = require('./toast-options');
 var toast_1 = require('./toast');
-var Rx_1 = require('rxjs/Rx');
+var Subject_1 = require('rxjs/Subject');
 var ToastsManager = (function () {
     function ToastsManager(componentFactoryResolver, appRef, options) {
         this.componentFactoryResolver = componentFactoryResolver;
         this.appRef = appRef;
         this.options = {};
         this.index = 0;
-        this.toastClicked = new Rx_1.Subject();
+        this.toastClicked = new Subject_1.Subject();
         if (options) {
             Object.assign(this.options, options);
         }
@@ -32,7 +32,12 @@ var ToastsManager = (function () {
                 }
                 // get app root view component ref
                 if (!_this._rootViewContainerRef) {
-                    _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+                    try {
+                        _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_parentView']._vc_0.vcRef;
+                    }
+                    catch (e) {
+                        _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+                    }
                 }
                 // get options providers
                 var providers = core_1.ReflectiveInjector.resolve([

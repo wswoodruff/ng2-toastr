@@ -1,5 +1,5 @@
 import {
-  Component, ViewContainerRef
+  Component, ViewContainerRef, ApplicationRef
 } from '@angular/core';
 import {ToastsManager, Toast} from 'ng2-toastr/ng2-toastr';
 
@@ -7,7 +7,7 @@ import {ToastsManager, Toast} from 'ng2-toastr/ng2-toastr';
   selector: 'my-app',
   template:  `
       <h1> Angular 2 Toastr Demo.</h1>
-      <div style="border: .2rem solid #f7f7f9; position: relative; margin: 1rem -1rem; padding: 10px;" (swipeleft)="swiped($event)" (swiperight)="swiped($event)">
+      <div style="border: .2rem solid #f7f7f9; position: relative; margin: 1rem -1rem; padding: 10px;">
         <button type="button" class="btn btn-success" (click)="showSuccess()">Success</button>
         <button type="button" class="btn btn-info" (click)="showInfo()">Information</button>
         <button type="button" class="btn btn-warning" (click)="showWarning()">Warning</button>
@@ -23,8 +23,9 @@ import {ToastsManager, Toast} from 'ng2-toastr/ng2-toastr';
 })
 export class AppComponent {
 
-  constructor(private toastr: ToastsManager, containerRef: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(containerRef);
+  constructor(private toastr: ToastsManager, containerRef: ViewContainerRef, app: ApplicationRef) {
+    // this.toastr.setRootViewContainerRef(containerRef);
+    console.log(app);
   }
 
   showSuccess() {

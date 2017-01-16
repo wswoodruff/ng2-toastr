@@ -5,7 +5,8 @@ import {
 import {ToastContainer} from './toast-container.component';
 import {ToastOptions} from './toast-options';
 import {Toast} from './toast';
-import {Subject, Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ToastsManager {
@@ -43,7 +44,11 @@ export class ToastsManager {
 
         // get app root view component ref
         if (!this._rootViewContainerRef) {
-          this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+          try {
+            this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_parentView']._vc_0.vcRef;
+          } catch (e) {
+            this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+          }
         }
 
         // get options providers
