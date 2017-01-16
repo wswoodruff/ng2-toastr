@@ -44,7 +44,11 @@ export class ToastsManager {
 
         // get app root view component ref
         if (!this._rootViewContainerRef) {
-          this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+          try {
+            this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+          } catch (e) {
+            this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_parentView'].compView_0._vc_0.vcRef;
+          }
         }
 
         // get options providers

@@ -44,7 +44,11 @@ var ToastsManager = (function () {
                 }
                 // get app root view component ref
                 if (!_this._rootViewContainerRef) {
-                    _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+                    try {
+                        _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+                    } catch (e) {
+                        _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_parentView'].compView_0._vc_0.vcRef;
+                    }
                 }
                 // get options providers
                 var providers = core_1.ReflectiveInjector.resolve([
