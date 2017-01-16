@@ -1,16 +1,4 @@
 "use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var core_1 = require('@angular/core');
 var toast_container_component_1 = require('./toast-container.component');
 var toast_options_1 = require('./toast-options');
@@ -37,20 +25,20 @@ var ToastsManager = (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             if (!_this.container) {
-                if (!_this.appRef['_rootComponents'].length) {
-                    var err = new Error('Application root component cannot be found. Try accessing application reference in the later life cycle of angular app.');
-                    console.error(err);
-                    reject(err);
-                }
-                // get app root view component ref
-                if (!_this._rootViewContainerRef) {
-                    try {
-                        _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_parentView']._vc_0.vcRef;
-                    }
-                    catch (e) {
-                        _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
-                    }
-                }
+                // if (!this.appRef['_rootComponents'].length) {
+                //   const err = new Error('Application root component cannot be found. Try accessing application reference in the later life cycle of angular app.');
+                //   console.error(err);
+                //   reject(err);
+                // }
+                //
+                // // get app root view component ref
+                // if (!this._rootViewContainerRef) {
+                //   try {
+                //     this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_parentView']._vc_0.vcRef;
+                //   } catch (e) {
+                //     this._rootViewContainerRef = this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
+                //   }
+                // }
                 // get options providers
                 var providers = core_1.ReflectiveInjector.resolve([
                     { provide: toast_options_1.ToastOptions, useValue: _this.options }
@@ -58,7 +46,9 @@ var ToastsManager = (function () {
                 // create and load ToastContainer
                 var toastFactory = _this.componentFactoryResolver.resolveComponentFactory(toast_container_component_1.ToastContainer);
                 var childInjector = core_1.ReflectiveInjector.fromResolvedProviders(providers, _this._rootViewContainerRef.parentInjector);
-                _this.container = _this._rootViewContainerRef.createComponent(toastFactory, _this._rootViewContainerRef.length, childInjector);
+                _this.container = toastFactory.create(childInjector);
+                _this.appRef.attachView(_this.container.hostView);
+                // this.container = this._rootViewContainerRef.createComponent(toastFactory, this._rootViewContainerRef.length, childInjector);
                 _this.container.instance.onToastClicked = function (toast) {
                     _this._onToastClicked(toast);
                 };
@@ -120,6 +110,7 @@ var ToastsManager = (function () {
         // using timeout to allow animation to finish
         setTimeout(function () {
             if (_this.container && !_this.container.instance.anyToast()) {
+                _this.appRef.detachView(_this.container.hostView);
                 _this.container.destroy();
                 _this.container = null;
             }
@@ -151,11 +142,15 @@ var ToastsManager = (function () {
         var toast = new toast_1.Toast('custom', message, title, data);
         return this.show(toast, options);
     };
-    ToastsManager = __decorate([
-        core_1.Injectable(),
-        __param(2, core_1.Optional()), 
-        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ApplicationRef, toast_options_1.ToastOptions])
-    ], ToastsManager);
+    ToastsManager.decorators = [
+        { type: core_1.Injectable },
+    ];
+    /** @nocollapse */
+    ToastsManager.ctorParameters = function () { return [
+        { type: core_1.ComponentFactoryResolver, },
+        { type: core_1.ApplicationRef, },
+        { type: toast_options_1.ToastOptions, decorators: [{ type: core_1.Optional },] },
+    ]; };
     return ToastsManager;
 }());
 exports.ToastsManager = ToastsManager;

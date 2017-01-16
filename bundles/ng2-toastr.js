@@ -114,10 +114,12 @@ System.registerDynamic("ng2-toastr/src/toast-container.component", ["@angular/co
         }))])])]
       }]
     }];
-    ToastContainer.ctorParameters = [{type: platform_browser_1.DomSanitizer}, {type: core_1.ChangeDetectorRef}, {
-      type: toast_options_1.ToastOptions,
-      decorators: [{type: core_1.Optional}]
-    }];
+    ToastContainer.ctorParameters = function() {
+      return [{type: platform_browser_1.DomSanitizer}, {type: core_1.ChangeDetectorRef}, {
+        type: toast_options_1.ToastOptions,
+        decorators: [{type: core_1.Optional}]
+      }];
+    };
     return ToastContainer;
   }());
   exports.ToastContainer = ToastContainer;
@@ -185,25 +187,14 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
       var _this = this;
       return new Promise(function(resolve, reject) {
         if (!_this.container) {
-          if (!_this.appRef['_rootComponents'].length) {
-            var err = new Error('Application root component cannot be found. Try accessing application reference in the later life cycle of angular app.');
-            console.error(err);
-            reject(err);
-          }
-          if (!_this._rootViewContainerRef) {
-            try {
-              _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_parentView']._vc_0.vcRef;
-            } catch (e) {
-              _this._rootViewContainerRef = _this.appRef['_rootComponents'][0]['_hostElement'].vcRef;
-            }
-          }
           var providers = core_1.ReflectiveInjector.resolve([{
             provide: toast_options_1.ToastOptions,
             useValue: _this.options
           }]);
           var toastFactory = _this.componentFactoryResolver.resolveComponentFactory(toast_container_component_1.ToastContainer);
           var childInjector = core_1.ReflectiveInjector.fromResolvedProviders(providers, _this._rootViewContainerRef.parentInjector);
-          _this.container = _this._rootViewContainerRef.createComponent(toastFactory, _this._rootViewContainerRef.length, childInjector);
+          _this.container = toastFactory.create(childInjector);
+          _this.appRef.attachView(_this.container.hostView);
           _this.container.instance.onToastClicked = function(toast) {
             _this._onToastClicked(toast);
           };
@@ -264,6 +255,7 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
       var _this = this;
       setTimeout(function() {
         if (_this.container && !_this.container.instance.anyToast()) {
+          _this.appRef.detachView(_this.container.hostView);
           _this.container.destroy();
           _this.container = null;
         }
@@ -295,10 +287,12 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
       return this.show(toast, options);
     };
     ToastsManager.decorators = [{type: core_1.Injectable}];
-    ToastsManager.ctorParameters = [{type: core_1.ComponentFactoryResolver}, {type: core_1.ApplicationRef}, {
-      type: toast_options_1.ToastOptions,
-      decorators: [{type: core_1.Optional}]
-    }];
+    ToastsManager.ctorParameters = function() {
+      return [{type: core_1.ComponentFactoryResolver}, {type: core_1.ApplicationRef}, {
+        type: toast_options_1.ToastOptions,
+        decorators: [{type: core_1.Optional}]
+      }];
+    };
     return ToastsManager;
   }());
   exports.ToastsManager = ToastsManager;
@@ -322,7 +316,9 @@ System.registerDynamic("ng2-toastr/src/toast-options", ["@angular/core"], true, 
       Object.assign(this, options);
     }
     ToastOptions.decorators = [{type: core_1.Injectable}];
-    ToastOptions.ctorParameters = [{type: Object}];
+    ToastOptions.ctorParameters = function() {
+      return [{type: Object}];
+    };
     return ToastOptions;
   }());
   exports.ToastOptions = ToastOptions;
@@ -362,7 +358,9 @@ System.registerDynamic("ng2-toastr/src/toast.module", ["@angular/core", "@angula
         entryComponents: [toast_container_component_1.ToastContainer]
       }]
     }];
-    ToastModule.ctorParameters = [];
+    ToastModule.ctorParameters = function() {
+      return [];
+    };
     return ToastModule;
   }());
   exports.ToastModule = ToastModule;
