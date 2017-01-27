@@ -9,27 +9,19 @@ import * as import0 from '@angular/core/src/linker/ng_module_factory';
 import * as import1 from './toast.module';
 import * as import2 from '@angular/common/src/common_module';
 import * as import3 from '@angular/common/src/localization';
-import * as import4 from './toast-manager';
-import * as import5 from '@angular/core/src/di/injector';
-import * as import6 from './toast-container.component.ngfactory';
-import * as import7 from '@angular/core/src/i18n/tokens';
-import * as import8 from '@angular/core/src/application_ref';
-import * as import9 from './toast-options';
+import * as import4 from '@angular/core/src/di/injector';
+import * as import5 from './toast-container.component.ngfactory';
+import * as import6 from '@angular/core/src/i18n/tokens';
 class ToastModuleInjector extends import0.NgModuleInjector<import1.ToastModule> {
   _CommonModule_0:import2.CommonModule;
   _ToastModule_1:import1.ToastModule;
   __NgLocalization_2:import3.NgLocaleLocalization;
-  __ToastsManager_3:import4.ToastsManager;
-  constructor(parent:import5.Injector) {
-    super(parent,[import6.ToastContainerNgFactory],([] as any[]));
+  constructor(parent:import4.Injector) {
+    super(parent,[import5.ToastContainerNgFactory],([] as any[]));
   }
   get _NgLocalization_2():import3.NgLocaleLocalization {
-    if ((this.__NgLocalization_2 == null)) { (this.__NgLocalization_2 = new import3.NgLocaleLocalization(this.parent.get(import7.LOCALE_ID))); }
+    if ((this.__NgLocalization_2 == null)) { (this.__NgLocalization_2 = new import3.NgLocaleLocalization(this.parent.get(import6.LOCALE_ID))); }
     return this.__NgLocalization_2;
-  }
-  get _ToastsManager_3():import4.ToastsManager {
-    if ((this.__ToastsManager_3 == null)) { (this.__ToastsManager_3 = new import4.ToastsManager(this,this.parent.get(import8.ApplicationRef),this,this.parent.get(import9.ToastOptions,(null as any)))); }
-    return this.__ToastsManager_3;
   }
   createInternal():import1.ToastModule {
     this._CommonModule_0 = new import2.CommonModule();
@@ -40,7 +32,6 @@ class ToastModuleInjector extends import0.NgModuleInjector<import1.ToastModule> 
     if ((token === import2.CommonModule)) { return this._CommonModule_0; }
     if ((token === import1.ToastModule)) { return this._ToastModule_1; }
     if ((token === import3.NgLocalization)) { return this._NgLocalization_2; }
-    if ((token === import4.ToastsManager)) { return this._ToastsManager_3; }
     return notFoundResult;
   }
   destroyInternal():void {

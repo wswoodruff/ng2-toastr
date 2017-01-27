@@ -347,7 +347,7 @@ System.registerDynamic("ng2-toastr/src/toast.module", ["@angular/core", "@angula
     ToastModule.forRoot = function(config) {
       return {
         ngModule: ToastModule,
-        providers: [{
+        providers: [toast_manager_1.ToastsManager, {
           provide: toast_options_1.ToastOptions,
           useValue: config
         }]
@@ -359,7 +359,6 @@ System.registerDynamic("ng2-toastr/src/toast.module", ["@angular/core", "@angula
         imports: [common_1.CommonModule],
         declarations: [toast_container_component_1.ToastContainer],
         exports: [toast_container_component_1.ToastContainer],
-        providers: [toast_manager_1.ToastsManager],
         entryComponents: [toast_container_component_1.ToastContainer]
       }]
     }];
