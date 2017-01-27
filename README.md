@@ -1,7 +1,7 @@
 Angular 2: Toastr
 ===================
 
-[![](https://img.shields.io/badge/npm-1.3.7-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
+[![](https://img.shields.io/badge/npm-1.4.0-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
 
 NOTE: Since version 1.1.0, ng2-toastr has added animation for displaying/dismissing toasts. 
 For configuration, see [Choose animation option](#animate-option). 
@@ -73,7 +73,7 @@ Please update Angular 2 to latest version to avoid any unexpected issues.
         import {ToastModule} from 'ng2-toastr/ng2-toastr';
         
         @NgModule({
-          imports: [BrowserModule, ToastModule],
+          imports: [BrowserModule, ToastModule.forRoot()],
           declarations: [AppComponent],
           bootstrap: [AppComponent],
         })
@@ -84,7 +84,7 @@ Please update Angular 2 to latest version to avoid any unexpected issues.
 
 4. Inject 'ToastsManager' class in your component class.
 
-    ```javascript
+    ```typescript
         import { ToastsManager } from 'ng2-toastr/ng2-toastr';
         
         @Component({
@@ -93,7 +93,9 @@ Please update Angular 2 to latest version to avoid any unexpected issues.
         })
         export class AppComponent {
         
-          constructor(public toastr: ToastsManager) {
+          constructor(public toastr: ToastsManager, vcr: ViewContainerRef) {
+             // Use with angular v2.2 or above
+             this.toastr.setRootViewContainerRef(vcr);
           }
             
           showSuccess() {

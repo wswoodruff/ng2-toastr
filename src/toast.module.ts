@@ -1,4 +1,4 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {NgModule, ModuleWithProviders, Provider} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ToastContainer} from './toast-container.component';
 import {ToastsManager} from './toast-manager';
@@ -11,13 +11,16 @@ import {ToastOptions} from './toast-options';
   entryComponents: [ToastContainer]
 })
 export class ToastModule {
-  static forRoot(config: ToastOptions): ModuleWithProviders {
+  static forRoot(config?: ToastOptions): ModuleWithProviders {
+    let providers: Provider[] = [ToastsManager];
+
+    if (config) {
+      providers.push({provide: ToastOptions, useValue: config});
+    }
+
     return {
       ngModule: ToastModule,
-      providers: [
-        ToastsManager,
-        {provide: ToastOptions, useValue: config }
-      ]
+      providers: providers,
     };
   }
 }
