@@ -8,7 +8,6 @@ import {ToastOptions} from './toast-options';
   imports: [CommonModule],
   declarations: [ToastContainer],
   exports: [ToastContainer],
-  providers: [ToastsManager],
   entryComponents: [ToastContainer]
 })
 export class ToastModule {
@@ -16,6 +15,7 @@ export class ToastModule {
     return {
       ngModule: ToastModule,
       providers: [
+        ToastsManager,
         {provide: ToastOptions, useValue: config }
       ]
     };
