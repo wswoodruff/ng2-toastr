@@ -1,4 +1,4 @@
-Angular 2: Toastr
+Angular: Toastr
 ===================
 
 [![](https://img.shields.io/badge/npm-1.4.0-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
@@ -9,7 +9,7 @@ For some browsers, a polyfill is required. Grab [web-animations.min.js](https://
 and add it to your page.
 
 The lib is inspired by [angular-toastr] (https://github.com/Foxandxss/angular-toastr), and will show bootstrap-like toasts. 
-Please update Angular 2 to latest version to avoid any unexpected issues.
+Please update Angular to latest version to avoid any unexpected issues.
 
 ![Examples](toastr-examples.jpg?raw=true "Bootstrap Toasts")
 
