@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var toast_container_component_1 = require('./toast-container.component');
-var toast_manager_1 = require('./toast-manager');
 var toast_options_1 = require('./toast-options');
 var ToastModule = (function () {
     function ToastModule() {
@@ -22,7 +21,6 @@ var ToastModule = (function () {
             ngModule: ToastModule,
             providers: [
                 { provide: toast_options_1.ToastOptions, useValue: options },
-                toast_manager_1.ToastsManager,
             ],
         };
     };
