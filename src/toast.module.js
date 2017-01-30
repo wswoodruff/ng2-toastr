@@ -13,6 +13,10 @@ var common_1 = require('@angular/common');
 var toast_container_component_1 = require('./toast-container.component');
 var toast_manager_1 = require('./toast-manager');
 var toast_options_1 = require('./toast-options');
+function toastsManagerFactory(componentFactoryResolver, appRef, options) {
+    return new toast_manager_1.ToastsManager(componentFactoryResolver, appRef, options);
+}
+exports.toastsManagerFactory = toastsManagerFactory;
 var ToastModule = (function () {
     function ToastModule() {
     }
@@ -21,7 +25,7 @@ var ToastModule = (function () {
             ngModule: ToastModule,
             providers: [
                 { provide: toast_options_1.ToastOptions, useValue: config },
-                toast_manager_1.ToastsManager,
+                { provide: toast_manager_1.ToastsManager, useFactory: toastsManagerFactory, deps: [core_1.ComponentFactoryResolver, core_1.ApplicationRef, toast_options_1.ToastOptions] },
             ],
         };
     };
