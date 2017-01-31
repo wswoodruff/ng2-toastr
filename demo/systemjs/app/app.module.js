@@ -26,7 +26,7 @@ var AppModule = (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule,
-                ng2_toastr_1.ToastModule.forRoot(config),
+                ng2_toastr_1.ToastModule.forRoot(),
             ],
             declarations: [app_component_1.AppComponent],
             bootstrap: [app_component_1.AppComponent],

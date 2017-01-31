@@ -15,7 +15,7 @@ let config = new ToastOptions({
 
 @NgModule({
   imports: [BrowserModule,
-    ToastModule.forRoot(config),
+    ToastModule.forRoot(),
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
