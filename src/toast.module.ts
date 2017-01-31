@@ -17,7 +17,7 @@ export class ToastModule {
     return {
       ngModule: ToastModule,
       providers: [
-        {provide: ToastOptions, useValue: options},
+        // {provide: ToastOptions, useValue: options},
         ToastsManager,
       ],
     };

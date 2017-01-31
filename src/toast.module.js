@@ -12,7 +12,7 @@ var ToastModule = (function () {
         return {
             ngModule: ToastModule,
             providers: [
-                { provide: toast_options_1.ToastOptions, useValue: options },
+                // {provide: ToastOptions, useValue: options},
                 toast_manager_1.ToastsManager,
             ],
         };

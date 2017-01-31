@@ -348,10 +348,7 @@ System.registerDynamic("ng2-toastr/src/toast.module", ["@angular/core", "@angula
       var options = config ? new toast_options_1.ToastOptions(config) : new toast_options_1.ToastOptions({});
       return {
         ngModule: ToastModule,
-        providers: [{
-          provide: toast_options_1.ToastOptions,
-          useValue: options
-        }, toast_manager_1.ToastsManager]
+        providers: [toast_manager_1.ToastsManager]
       };
     };
     ToastModule.decorators = [{
