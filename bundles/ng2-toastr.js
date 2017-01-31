@@ -379,16 +379,16 @@ System.registerDynamic("ng2-toastr/ng2-toastr", ["./src/toast", "./src/toast-man
   var global = this,
       __define = global.define;
   global.define = undefined;
-  function __export(m) {
-    for (var p in m)
-      if (!exports.hasOwnProperty(p))
-        exports[p] = m[p];
-  }
-  __export($__require('./src/toast'));
-  __export($__require('./src/toast-manager'));
-  __export($__require('./src/toast-container.component'));
-  __export($__require('./src/toast-options'));
-  __export($__require('./src/toast.module'));
+  var toast_1 = $__require('./src/toast');
+  exports.Toast = toast_1.Toast;
+  var toast_manager_1 = $__require('./src/toast-manager');
+  exports.ToastsManager = toast_manager_1.ToastsManager;
+  var toast_container_component_1 = $__require('./src/toast-container.component');
+  exports.ToastContainer = toast_container_component_1.ToastContainer;
+  var toast_options_1 = $__require('./src/toast-options');
+  exports.ToastOptions = toast_options_1.ToastOptions;
+  var toast_module_1 = $__require('./src/toast.module');
+  exports.ToastModule = toast_module_1.ToastModule;
   global.define = __define;
   return module.exports;
 });
