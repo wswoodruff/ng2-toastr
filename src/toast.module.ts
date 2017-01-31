@@ -11,14 +11,14 @@ import {ToastOptions} from './toast-options';
   entryComponents: [ToastContainer]
 })
 export class ToastModule {
-  public static forRoot(config?: any): ModuleWithProviders {
-    let options = config ? new ToastOptions(config) : new ToastOptions({});
+  public static forRoot(config: ToastOptions): ModuleWithProviders {
+    // let options = config ? new ToastOptions(config) : new ToastOptions({});
 
     return {
       ngModule: ToastModule,
       providers: [
-        {provide: ToastOptions, useValue: options},
-        // ToastsManager,
+        {provide: ToastOptions, useValue: config},
+        ToastsManager,
       ],
     };
   }
