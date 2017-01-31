@@ -8,13 +8,12 @@ var ToastModule = (function () {
     function ToastModule() {
     }
     ToastModule.forRoot = function (config) {
-        // let options = config ? new ToastOptions(config) : new ToastOptions({});
         return {
             ngModule: ToastModule,
-            providers: [
+            providers: config ? [
                 { provide: toast_options_1.ToastOptions, useValue: config },
                 toast_manager_1.ToastsManager,
-            ],
+            ] : [toast_manager_1.ToastsManager],
         };
     };
     ToastModule.decorators = [
