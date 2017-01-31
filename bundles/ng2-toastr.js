@@ -345,16 +345,13 @@ System.registerDynamic("ng2-toastr/src/toast.module", ["@angular/core", "@angula
   var ToastModule = (function() {
     function ToastModule() {}
     ToastModule.forRoot = function(config) {
-      var providers = [toast_manager_1.ToastsManager];
-      if (config) {
-        providers.push({
-          provide: toast_options_1.ToastOptions,
-          useValue: config
-        });
-      }
+      var options = config ? new toast_options_1.ToastOptions(config) : new toast_options_1.ToastOptions({});
       return {
         ngModule: ToastModule,
-        providers: providers
+        providers: [{
+          provide: toast_options_1.ToastOptions,
+          useValue: options
+        }, toast_manager_1.ToastsManager]
       };
     };
     ToastModule.decorators = [{

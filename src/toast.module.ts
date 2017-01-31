@@ -1,13 +1,8 @@
-import {NgModule, ModuleWithProviders, ApplicationRef, ComponentFactoryResolver} from '@angular/core';
+import {NgModule, ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ToastContainer} from './toast-container.component';
 import {ToastsManager} from './toast-manager';
 import {ToastOptions} from './toast-options';
-
-export function toastsManagerFactory(componentFactoryResolver: ComponentFactoryResolver, appRef: ApplicationRef, options: ToastOptions) {
-  return new ToastsManager(componentFactoryResolver, appRef, options);
-}
-
 
 @NgModule({
   imports: [CommonModule],
@@ -16,12 +11,14 @@ export function toastsManagerFactory(componentFactoryResolver: ComponentFactoryR
   entryComponents: [ToastContainer]
 })
 export class ToastModule {
-  public static forRoot(config: ToastOptions): ModuleWithProviders {
+  public static forRoot(config?: any): ModuleWithProviders {
+    let options = config ? new ToastOptions(config) : new ToastOptions({});
+
     return {
       ngModule: ToastModule,
       providers: [
-        {provide: ToastOptions, useValue: config},
-        {provide: ToastsManager, useFactory: toastsManagerFactory, deps: [ComponentFactoryResolver, ApplicationRef, ToastOptions]},
+        {provide: ToastOptions, useValue: options},
+        ToastsManager,
       ],
     };
   }
