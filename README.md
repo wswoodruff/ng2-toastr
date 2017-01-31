@@ -1,7 +1,7 @@
-Angular: Toastr
+Angular: Toaster (ng2-toastr)
 ===================
 
-[![](https://img.shields.io/badge/npm-1.4.0-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
+[![](https://img.shields.io/badge/npm-1.4.1-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
 
 NOTE: Since version 1.1.0, ng2-toastr has added animation for displaying/dismissing toasts. 
 For configuration, see [Choose animation option](#animate-option). 
@@ -9,10 +9,19 @@ For some browsers, a polyfill is required. Grab [web-animations.min.js](https://
 and add it to your page.
 
 The lib is inspired by [angular-toastr] (https://github.com/Foxandxss/angular-toastr), and will show bootstrap-like toasts. 
-Please update Angular to latest version to avoid any unexpected issues.
+Please update Modern Angular (v2.0.0 and above) to latest version to avoid any unexpected issues.
 
 ![Examples](toastr-examples.jpg?raw=true "Bootstrap Toasts")
 
+## Breaking change solution for Angular v2.2.x
+
+    
+        // AppComponent.ts (Root component of your app)
+    
+        constructor(public toastr: ToastsManager, vRef: ViewContainerRef) {
+            this.toastr.setRootViewContainerRef(vRef);
+        }
+        
 ## What's New
 1. Added `onClickToast` observable on `ToastManager` instance.
 
