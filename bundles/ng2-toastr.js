@@ -318,11 +318,17 @@ System.registerDynamic("ng2-toastr/src/toast-options", ["@angular/core"], true, 
       this.animate = 'fade';
       this.enableHTML = false;
       this.showCloseButton = false;
+      if (!options) {
+        options = {};
+      }
       Object.assign(this, options);
     }
     ToastOptions.decorators = [{type: core_1.Injectable}];
     ToastOptions.ctorParameters = function() {
-      return [{type: Object}];
+      return [{
+        type: Object,
+        decorators: [{type: core_1.Optional}]
+      }];
     };
     return ToastOptions;
   }());

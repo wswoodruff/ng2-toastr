@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import {ToastModule} from 'ng2-toastr';
+import {ToastModule, ToastOptions} from 'ng2-toastr';
 
-let config: any = {
-  animate: 'flyRight',
-  newestOnTop: false,
-  showCloseButton: true,
-};
+// let config = new ToastOptions({
+//   animate: 'flyRight',
+//   newestOnTop: false,
+//   showCloseButton: true,
+// });
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ let config: any = {
     BrowserModule,
     FormsModule,
     HttpModule,
-    ToastModule.forRoot(config),
+    ToastModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

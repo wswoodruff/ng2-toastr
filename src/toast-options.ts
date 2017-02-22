@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Optional} from '@angular/core';
 
 @Injectable()
 export class ToastOptions {
@@ -15,7 +15,11 @@ export class ToastOptions {
   titleClass?: string;
   showCloseButton?: boolean = false;
 
-  constructor(options: Object) {
+  constructor(@Optional() options: Object) {
+    if (!options) {
+      options = {};
+    }
+
     Object.assign(this, options);
   }
 }
