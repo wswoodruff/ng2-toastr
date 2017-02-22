@@ -15,11 +15,9 @@ export class ToastOptions {
   titleClass?: string;
   showCloseButton?: boolean = false;
 
-  constructor(@Optional() options: Object) {
-    if (!options) {
-      options = {};
+  constructor(@Optional() options: any) {
+    if (options) {
+      Object.assign(this, options);
     }
-
-    Object.assign(this, options);
   }
 }
