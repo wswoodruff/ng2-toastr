@@ -1,5 +1,6 @@
 "use strict";
-var core_1 = require('@angular/core');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
 var ToastOptions = (function () {
     function ToastOptions() {
         this.positionClass = 'toast-top-right';
@@ -17,12 +18,12 @@ var ToastOptions = (function () {
     ToastOptions.prototype.set = function (options) {
         Object.assign(this, options);
     };
-    ToastOptions.decorators = [
-        { type: core_1.Injectable },
-    ];
-    /** @nocollapse */
-    ToastOptions.ctorParameters = function () { return []; };
     return ToastOptions;
 }());
+ToastOptions.decorators = [
+    { type: core_1.Injectable },
+];
+/** @nocollapse */
+ToastOptions.ctorParameters = function () { return []; };
 exports.ToastOptions = ToastOptions;
 //# sourceMappingURL=toast-options.js.map
