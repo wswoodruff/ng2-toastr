@@ -11,7 +11,7 @@
     "build:dev": "webpack-dev-server --hot --inline --colors --display-error-details --display-cached",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "ngc": "ngc",
+    "ngc": "ngc -p tsconfig-aot.json",
     "lite": "lite-server",
     "start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "prepublish": "gulp clean && ngc && node make.js && gulp bundle-css"

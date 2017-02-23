@@ -3,12 +3,8 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ToastOption extends ToastOptions {
-  constructor() {
-    super({
-      animate: 'flyRight',
-      newestOnTop: false,
-      showCloseButton: true,
-    });
-  }
+  animate: string = 'flyRight';
+  newestOnTop: boolean = false;
+  showCloseButton: boolean = true;
 }
 
