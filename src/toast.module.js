@@ -13,7 +13,7 @@ var ToastModule = (function () {
             providers: config ? [
                 { provide: toast_options_1.ToastOptions, useValue: config },
                 toast_manager_1.ToastsManager,
-            ] : [toast_manager_1.ToastsManager],
+            ] : [toast_options_1.ToastOptions, toast_manager_1.ToastsManager],
         };
     };
     ToastModule.decorators = [

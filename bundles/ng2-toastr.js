@@ -313,21 +313,24 @@ System.registerDynamic("ng2-toastr/src/toast-options", ["@angular/core"], true, 
   global.define = undefined;
   var core_1 = $__require('@angular/core');
   var ToastOptions = (function() {
-    function ToastOptions(options) {
+    function ToastOptions() {
+      this.positionClass = 'toast-top-right';
+      this.maxShown = 5;
       this.newestOnTop = false;
       this.animate = 'fade';
+      this.toastLife = 5000;
       this.enableHTML = false;
+      this.dismiss = 'auto';
+      this.messageClass = 'toast-message';
+      this.titleClass = 'toast-title';
       this.showCloseButton = false;
-      if (options) {
-        Object.assign(this, options);
-      }
     }
+    ToastOptions.prototype.set = function(options) {
+      Object.assign(this, options);
+    };
     ToastOptions.decorators = [{type: core_1.Injectable}];
     ToastOptions.ctorParameters = function() {
-      return [{
-        type: undefined,
-        decorators: [{type: core_1.Optional}]
-      }];
+      return [];
     };
     return ToastOptions;
   }());
@@ -355,7 +358,7 @@ System.registerDynamic("ng2-toastr/src/toast.module", ["@angular/core", "@angula
         providers: config ? [{
           provide: toast_options_1.ToastOptions,
           useValue: config
-        }, toast_manager_1.ToastsManager] : [toast_manager_1.ToastsManager]
+        }, toast_manager_1.ToastsManager] : [toast_options_1.ToastOptions, toast_manager_1.ToastsManager]
       };
     };
     ToastModule.decorators = [{

@@ -17,7 +17,7 @@ export class ToastModule {
       providers: config ? [
         {provide: ToastOptions, useValue: config},
         ToastsManager,
-      ] : [ToastsManager],
+      ] : [ToastOptions, ToastsManager],
     };
   }
 }

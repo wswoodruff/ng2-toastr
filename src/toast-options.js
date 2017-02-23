@@ -1,22 +1,27 @@
 "use strict";
 var core_1 = require('@angular/core');
 var ToastOptions = (function () {
-    function ToastOptions(options) {
+    function ToastOptions() {
+        this.positionClass = 'toast-top-right';
+        this.maxShown = 5;
         this.newestOnTop = false;
         this.animate = 'fade';
+        // override-able properties
+        this.toastLife = 5000;
         this.enableHTML = false;
+        this.dismiss = 'auto';
+        this.messageClass = 'toast-message';
+        this.titleClass = 'toast-title';
         this.showCloseButton = false;
-        if (options) {
-            Object.assign(this, options);
-        }
     }
+    ToastOptions.prototype.set = function (options) {
+        Object.assign(this, options);
+    };
     ToastOptions.decorators = [
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    ToastOptions.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core_1.Optional },] },
-    ]; };
+    ToastOptions.ctorParameters = function () { return []; };
     return ToastOptions;
 }());
 exports.ToastOptions = ToastOptions;
