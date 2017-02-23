@@ -1,16 +1,14 @@
 import {ToastOptions} from 'ng2-toastr';
-/**
- * Created by dereks on 2/23/17.
- */
+import {Injectable} from '@angular/core';
 
+@Injectable()
 export class ToastOption extends ToastOptions {
   constructor() {
-    super();
-
-    Object.assign({
+    super({
       animate: 'flyRight',
       newestOnTop: false,
       showCloseButton: true,
     });
   }
 }
+

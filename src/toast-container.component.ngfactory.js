@@ -5,23 +5,17 @@
  */
 /* tslint:disable */
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var import0 = require("./toast-container.component");
-var import1 = require("@angular/core");
-var import2 = require("../node_modules/@angular/common/index.ngfactory");
-var import3 = require("@angular/common");
-var import4 = require("@angular/platform-browser/src/security/dom_sanitization_service");
-var import5 = require("./toast-options");
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var import0 = require('./toast-container.component');
+var import1 = require('@angular/core');
+var import2 = require('../node_modules/@angular/common/index.ngfactory');
+var import3 = require('@angular/common');
+var import4 = require('@angular/platform-browser/src/security/dom_sanitization_service');
+var import5 = require('./toast-options');
 var Wrapper_ToastContainer = (function () {
     function Wrapper_ToastContainer(p0, p1, p2) {
         this._changed = false;
@@ -228,7 +222,7 @@ function ToastContainer_inOut_factory(view, element, currentState, nextState) {
 var View_ToastContainer_2 = (function (_super) {
     __extends(View_ToastContainer_2, _super);
     function View_ToastContainer_2(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        return _super.call(this, View_ToastContainer_2, exports.RenderType_ToastContainer, import1.ɵViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+        _super.call(this, View_ToastContainer_2, exports.RenderType_ToastContainer, import1.ɵViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways, declaredViewContainer);
     }
     View_ToastContainer_2.prototype.createInternal = function (rootSelector) {
         this._el_0 = import1.ɵview_utils.createRenderElement(this.renderer, null, 'div', new import1.ɵview_utils.InlineArray2(2, 'class', 'toast-close-button'), null);
@@ -257,10 +251,9 @@ var View_ToastContainer_2 = (function (_super) {
 var View_ToastContainer_3 = (function (_super) {
     __extends(View_ToastContainer_3, _super);
     function View_ToastContainer_3(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_ToastContainer_3, exports.RenderType_ToastContainer, import1.ɵViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
-        _this._expr_2 = undefined;
-        _this._expr_3 = undefined;
-        return _this;
+        _super.call(this, View_ToastContainer_3, exports.RenderType_ToastContainer, import1.ɵViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways, declaredViewContainer);
+        this._expr_2 = undefined;
+        this._expr_3 = undefined;
     }
     View_ToastContainer_3.prototype.createInternal = function (rootSelector) {
         this._el_0 = import1.ɵview_utils.createRenderElement(this.renderer, null, 'div', import1.ɵview_utils.EMPTY_INLINE_ARRAY, null);
@@ -285,9 +278,8 @@ var View_ToastContainer_3 = (function (_super) {
 var View_ToastContainer_4 = (function (_super) {
     __extends(View_ToastContainer_4, _super);
     function View_ToastContainer_4(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_ToastContainer_4, exports.RenderType_ToastContainer, import1.ɵViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
-        _this._expr_1 = undefined;
-        return _this;
+        _super.call(this, View_ToastContainer_4, exports.RenderType_ToastContainer, import1.ɵViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways, declaredViewContainer);
+        this._expr_1 = undefined;
     }
     View_ToastContainer_4.prototype.createInternal = function (rootSelector) {
         this._el_0 = import1.ɵview_utils.createRenderElement(this.renderer, null, 'span', import1.ɵview_utils.EMPTY_INLINE_ARRAY, null);
@@ -306,10 +298,9 @@ var View_ToastContainer_4 = (function (_super) {
 var View_ToastContainer_5 = (function (_super) {
     __extends(View_ToastContainer_5, _super);
     function View_ToastContainer_5(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_ToastContainer_5, exports.RenderType_ToastContainer, import1.ɵViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
-        _this._expr_2 = undefined;
-        _this._expr_3 = undefined;
-        return _this;
+        _super.call(this, View_ToastContainer_5, exports.RenderType_ToastContainer, import1.ɵViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways, declaredViewContainer);
+        this._expr_2 = undefined;
+        this._expr_3 = undefined;
     }
     View_ToastContainer_5.prototype.createInternal = function (rootSelector) {
         this._el_0 = import1.ɵview_utils.createRenderElement(this.renderer, null, 'span', import1.ɵview_utils.EMPTY_INLINE_ARRAY, null);
@@ -334,10 +325,9 @@ var View_ToastContainer_5 = (function (_super) {
 var View_ToastContainer_1 = (function (_super) {
     __extends(View_ToastContainer_1, _super);
     function View_ToastContainer_1(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_ToastContainer_1, exports.RenderType_ToastContainer, import1.ɵViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
-        _this._expr_26 = undefined;
-        _this._expr_27 = undefined;
-        return _this;
+        _super.call(this, View_ToastContainer_1, exports.RenderType_ToastContainer, import1.ɵViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways, declaredViewContainer);
+        this._expr_26 = undefined;
+        this._expr_27 = undefined;
     }
     View_ToastContainer_1.prototype.createInternal = function (rootSelector) {
         this._el_0 = import1.ɵview_utils.createRenderElement(this.renderer, null, 'div', import1.ɵview_utils.EMPTY_INLINE_ARRAY, null);
@@ -483,10 +473,9 @@ exports.RenderType_ToastContainer = import1.ɵview_utils.createRenderComponentTy
 var View_ToastContainer_0 = (function (_super) {
     __extends(View_ToastContainer_0, _super);
     function View_ToastContainer_0(viewUtils, parentView, parentIndex, parentElement) {
-        var _this = _super.call(this, View_ToastContainer_0, exports.RenderType_ToastContainer, import1.ɵViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways) || this;
-        _this._expr_10 = undefined;
-        _this._expr_11 = undefined;
-        return _this;
+        _super.call(this, View_ToastContainer_0, exports.RenderType_ToastContainer, import1.ɵViewType.COMPONENT, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways);
+        this._expr_10 = undefined;
+        this._expr_11 = undefined;
     }
     Object.defineProperty(View_ToastContainer_0.prototype, "_NgFor_3_7", {
         get: function () {
@@ -557,7 +546,7 @@ var RenderType_ToastContainer_Host = import1.ɵview_utils.createRenderComponentT
 var View_ToastContainer_Host_0 = (function (_super) {
     __extends(View_ToastContainer_Host_0, _super);
     function View_ToastContainer_Host_0(viewUtils, parentView, parentIndex, parentElement) {
-        return _super.call(this, View_ToastContainer_Host_0, RenderType_ToastContainer_Host, import1.ɵViewType.HOST, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways) || this;
+        _super.call(this, View_ToastContainer_Host_0, RenderType_ToastContainer_Host, import1.ɵViewType.HOST, viewUtils, parentView, parentIndex, parentElement, import1.ɵChangeDetectorStatus.CheckAlways);
     }
     View_ToastContainer_Host_0.prototype.createInternal = function (rootSelector) {
         this._el_0 = import1.ɵview_utils.selectOrCreateRenderHostElement(this.renderer, 'toast-container', import1.ɵview_utils.EMPTY_INLINE_ARRAY, rootSelector, null);
