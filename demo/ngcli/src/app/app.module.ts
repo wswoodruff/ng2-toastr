@@ -6,11 +6,6 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import {ToastModule, ToastOptions} from 'ng2-toastr';
 
-// let config = new ToastOptions({
-//   animate: 'flyRight',
-//   newestOnTop: false,
-//   showCloseButton: true,
-// });
 
 @NgModule({
   declarations: [
@@ -20,7 +15,7 @@ import {ToastModule, ToastOptions} from 'ng2-toastr';
     BrowserModule,
     FormsModule,
     HttpModule,
-    ToastModule.forRoot(),
+    ToastModule.forRoot(config),
   ],
   providers: [],
   bootstrap: [AppComponent]

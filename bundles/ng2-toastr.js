@@ -329,9 +329,6 @@ System.registerDynamic("ng2-toastr/src/toast-options", ["@angular/core"], true, 
       this.titleClass = 'toast-title';
       this.showCloseButton = false;
     }
-    ToastOptions.prototype.set = function(options) {
-      Object.assign(this, options);
-    };
     return ToastOptions;
   }());
   ToastOptions.decorators = [{type: core_1.Injectable}];

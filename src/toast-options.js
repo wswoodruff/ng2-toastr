@@ -15,9 +15,6 @@ var ToastOptions = (function () {
         this.titleClass = 'toast-title';
         this.showCloseButton = false;
     }
-    ToastOptions.prototype.set = function (options) {
-        Object.assign(this, options);
-    };
     return ToastOptions;
 }());
 ToastOptions.decorators = [

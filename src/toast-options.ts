@@ -15,7 +15,5 @@ export class ToastOptions {
   titleClass: string = 'toast-title';
   showCloseButton: boolean = false;
 
-  set(options: any) {
-    Object.assign(this, options);
-  }
+  constructor() {}
 }
