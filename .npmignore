@@ -23,5 +23,4 @@ demo/webpack/webpack.config.js
 !/src/*.d.ts
 !/bundles/*.js.map
 
-/compiled
 *.ngFactory.ts
