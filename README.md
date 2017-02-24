@@ -1,7 +1,7 @@
 Angular: Toaster (ng2-toastr)
 ===================
 
-[![](https://img.shields.io/badge/npm-1.4.1-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
+[![](https://img.shields.io/badge/npm-v1.5.0-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
 
 NOTE: Since version 1.1.0, ng2-toastr has added animation for displaying/dismissing toasts. 
 For configuration, see [Choose animation option](#animate-option). 
@@ -13,49 +13,39 @@ Please update Modern Angular (v2.0.0 and above) to latest version to avoid any u
 
 ![Examples](toastr-examples.jpg?raw=true "Bootstrap Toasts")
 
-## Breaking change solution for Angular v2.2.x
+## <a name="breaking-changes"></a>Breaking Changes on v1.5.0
+v1.5.0 and above works with Angular v4 (Tested with Angular v4.0.0-beta.8 and Angular-Cli v1.0.0-beta.32.3).
+In order to custom global options for toaster, you have to subclass `ToastOptions`. 
 
+```
+    // custom-option.ts
+    import {ToastOptions} from 'ng2-toastr';
     
-        // AppComponent.ts (Root component of your app)
-    
-        constructor(public toastr: ToastsManager, vRef: ViewContainerRef) {
-            this.toastr.setRootViewContainerRef(vRef);
-        }
-        
-## What's New
-1. Added `onClickToast` observable on `ToastManager` instance.
-
-2. Now you can added custom data object to each toast.
-
-    Following example shows how to allow user to click on toast to navigate to new path:
-    
-    ```
-    this.toastr.onClickToast()
-        .subscribe( toast => {            
-            if (toast.data && toast.data.url) {
-              // navigate to
-              this.router.navigate(toast.data.url);
-            }
-        });
-        
-    this.toastr.success('You are awesome! Click to view details.', 'Success!', {data: {url: '/path/to/successUrl'}});
-    ```
-
-3. Each `Toast` instance includes `timeoutId`, which allows developer to stop auto-dismiss.
-   
-    ```
-    if (toast.timeoutId) {
-      clearTimeout(toast.timeoutId);
-      // do something before dismiss the toast
-      this.toastr.dismiss(toast);    
+    export class CustomOption extends ToastOptions {
+      animate = 'flyRight'; // you can override any options available
+      newestOnTop = false;
+      showCloseButton = true;
     }
-    ```
     
+    // app.module.ts
+    import { CustomOption } from './custom-option';
+    
+    @NgModule({
+      declarations: [ ... ],
+      imports: [
+        ...
+        ToastModule.forRoot(),
+      ],
+      providers: [ 
+        {provide: ToastOptions, useClass: CustomOption},
+        ...
+      ],
+      bootstrap: [ ... ]
+    })
 
-4. Removed `autoDismiss` on `ToastOptions`, use `dismiss` instead.
-
-5. Added `newestOnTop` and `showCloseButton` on `ToastOptions`.
-
+```
+      
+    
 ## Usage
 
 1. Install ng2-toastr using npm:
@@ -192,7 +182,8 @@ Defaults to 'fade'. You can set `animate: null` to disable animations.
 ##### enableHTML: (boolean)
 Allow input of message to be HTML. Default to false.
 
-Use dependency inject for custom configurations. You can either inject into `app.module.ts` or any component class:
+Use dependency inject for custom configurations. You can either inject into `app.module.ts` or any component class 
+(v1.4.x and before). For v1.5.x and above, see [Breaking Changes](#breaking-changes):
    
     import {NgModule} from '@angular/core';
     import {BrowserModule} from '@angular/platform-browser';
@@ -223,6 +214,33 @@ Use dependency inject for custom configurations. You can either inject into `app
     this.toastr.info('<span style="color: red">Message in red.</span>', null, {enableHTML: true});
  
  NOTE: specify a value for `toastLife` overrides `dismiss` and always set `dismiss = 'auto'`.
+
+
+## Use `onClickToast` observable on `ToastManager` instance
+1. Now you can added custom data object to each toast.
+
+    Following example shows how to allow user to click on toast to navigate to new path:
+    
+    ```
+    this.toastr.onClickToast()
+        .subscribe( toast => {            
+            if (toast.data && toast.data.url) {
+              // navigate to
+              this.router.navigate(toast.data.url);
+            }
+        });
+        
+    this.toastr.success('You are awesome! Click to view details.', 'Success!', {data: {url: '/path/to/successUrl'}});
+    ```
+
+2. Each `Toast` instance includes `timeoutId`, which allows developer to stop auto-dismiss.
+   
+    ```
+    if (toast.timeoutId) {
+      clearTimeout(toast.timeoutId);
+      // do something before dismiss the toast
+      this.toastr.dismiss(toast);    
+    }
 
 ## Run demo app
     
