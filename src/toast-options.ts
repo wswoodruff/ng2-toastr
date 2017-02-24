@@ -2,20 +2,18 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ToastOptions {
-  positionClass?: string;
-  maxShown?: number;
-  newestOnTop?: boolean = false;
-  animate?: string = 'fade';
+  positionClass: string = 'toast-top-right';
+  maxShown: number = 5;
+  newestOnTop: boolean = false;
+  animate: string = 'fade';
 
   // override-able properties
-  toastLife?: number;
-  enableHTML?: boolean = false;
-  dismiss?: 'auto' | 'click' | 'controlled';
-  messageClass?: string;
-  titleClass?: string;
-  showCloseButton?: boolean = false;
+  toastLife: number = 5000;
+  enableHTML: boolean = false;
+  dismiss: 'auto' | 'click' | 'controlled' = 'auto';
+  messageClass: string = 'toast-message';
+  titleClass: string = 'toast-title';
+  showCloseButton: boolean = false;
 
-  constructor(options: Object) {
-    Object.assign(this, options);
-  }
+  constructor() {}
 }

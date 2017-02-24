@@ -11,11 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var core_1 = require('@angular/core');
-var toast_container_component_1 = require('./toast-container.component');
-var toast_options_1 = require('./toast-options');
-var toast_1 = require('./toast');
-var Subject_1 = require('rxjs/Subject');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var toast_container_component_1 = require("./toast-container.component");
+var toast_options_1 = require("./toast-options");
+var toast_1 = require("./toast");
+var Subject_1 = require("rxjs/Subject");
 var ToastsManager = (function () {
     function ToastsManager(componentFactoryResolver, appRef, options) {
         this.componentFactoryResolver = componentFactoryResolver;
@@ -146,12 +147,14 @@ var ToastsManager = (function () {
         var toast = new toast_1.Toast('custom', message, title, data);
         return this.show(toast, options);
     };
-    ToastsManager = __decorate([
-        core_1.Injectable(),
-        __param(2, core_1.Optional()), 
-        __metadata('design:paramtypes', [core_1.ComponentFactoryResolver, core_1.ApplicationRef, toast_options_1.ToastOptions])
-    ], ToastsManager);
     return ToastsManager;
 }());
+ToastsManager = __decorate([
+    core_1.Injectable(),
+    __param(2, core_1.Optional()),
+    __metadata("design:paramtypes", [core_1.ComponentFactoryResolver,
+        core_1.ApplicationRef,
+        toast_options_1.ToastOptions])
+], ToastsManager);
 exports.ToastsManager = ToastsManager;
 //# sourceMappingURL=toast-manager.js.map

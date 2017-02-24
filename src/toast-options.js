@@ -8,20 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
 var ToastOptions = (function () {
-    function ToastOptions(options) {
+    function ToastOptions() {
+        this.positionClass = 'toast-top-right';
+        this.maxShown = 5;
         this.newestOnTop = false;
         this.animate = 'fade';
+        // override-able properties
+        this.toastLife = 5000;
         this.enableHTML = false;
+        this.dismiss = 'auto';
+        this.messageClass = 'toast-message';
+        this.titleClass = 'toast-title';
         this.showCloseButton = false;
-        Object.assign(this, options);
     }
-    ToastOptions = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [Object])
-    ], ToastOptions);
     return ToastOptions;
 }());
+ToastOptions = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], ToastOptions);
 exports.ToastOptions = ToastOptions;
 //# sourceMappingURL=toast-options.js.map

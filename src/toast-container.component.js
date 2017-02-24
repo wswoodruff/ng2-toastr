@@ -11,9 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var core_1 = require('@angular/core');
-var toast_options_1 = require('./toast-options');
-var platform_browser_1 = require('@angular/platform-browser');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var toast_options_1 = require("./toast-options");
+var platform_browser_1 = require("@angular/platform-browser");
 var ToastContainer = (function () {
     function ToastContainer(sanitizer, cdr, options) {
         this.sanitizer = sanitizer;
@@ -85,85 +86,87 @@ var ToastContainer = (function () {
         }
         return null;
     };
-    ToastContainer = __decorate([
-        core_1.Component({
-            selector: 'toast-container',
-            template: "\n    <div #toastContainer id=\"toast-container\" [style.position]=\"position\" class=\"{{positionClass}}\">\n      <div *ngFor=\"let toast of toasts\" [@inOut]=\"animate\" class=\"toast toast-{{toast.type}}\" \n      (click)=\"clicked(toast)\">\n        <div class=\"toast-close-button\" *ngIf=\"toast.config.showCloseButton\" (click)=\"removeToast(toast)\">&times;\n        </div> \n        <div *ngIf=\"toast.title\" class=\"{{toast.config.titleClass || titleClass}}\">{{toast.title}}</div>\n        <div [ngSwitch]=\"toast.config.enableHTML\">\n          <span *ngSwitchCase=\"true\" [innerHTML]=\"sanitizer.bypassSecurityTrustHtml(toast.message)\"></span>\n          <span *ngSwitchDefault class=\"{{toast.config.messageClass || messageClass}}\">{{toast.message}}</span>\n        </div>             \n      </div>\n    </div>\n    ",
-            animations: [
-                core_1.trigger('inOut', [
-                    core_1.state('flyRight, flyLeft', core_1.style({ opacity: 1, transform: 'translateX(0)' })),
-                    core_1.state('fade', core_1.style({ opacity: 1 })),
-                    core_1.state('slideDown, slideUp', core_1.style({ opacity: 1, transform: 'translateY(0)' })),
-                    core_1.transition('void => flyRight', [
-                        core_1.style({
-                            opacity: 0,
-                            transform: 'translateX(100%)'
-                        }),
-                        core_1.animate('0.2s ease-in')
-                    ]),
-                    core_1.transition('flyRight => void', [
-                        core_1.animate('0.2s 10 ease-out', core_1.style({
-                            opacity: 0,
-                            transform: 'translateX(100%)'
-                        }))
-                    ]),
-                    core_1.transition('void => flyLeft', [
-                        core_1.style({
-                            opacity: 0,
-                            transform: 'translateX(-100%)'
-                        }),
-                        core_1.animate('0.2s ease-in')
-                    ]),
-                    core_1.transition('flyLeft => void', [
-                        core_1.animate('0.2s 10 ease-out', core_1.style({
-                            opacity: 0,
-                            transform: 'translateX(-100%)'
-                        }))
-                    ]),
-                    core_1.transition('void => fade', [
-                        core_1.style({
-                            opacity: 0,
-                        }),
-                        core_1.animate('0.3s ease-in')
-                    ]),
-                    core_1.transition('fade => void', [
-                        core_1.animate('0.3s 10 ease-out', core_1.style({
-                            opacity: 0,
-                        }))
-                    ]),
-                    core_1.transition('void => slideDown', [
-                        core_1.style({
-                            opacity: 0,
-                            transform: 'translateY(-200%)'
-                        }),
-                        core_1.animate('0.3s ease-in')
-                    ]),
-                    core_1.transition('slideDown => void', [
-                        core_1.animate('0.3s 10 ease-out', core_1.style({
-                            opacity: 0,
-                            transform: 'translateY(-200%)'
-                        }))
-                    ]),
-                    core_1.transition('void => slideUp', [
-                        core_1.style({
-                            opacity: 0,
-                            transform: 'translateY(200%)'
-                        }),
-                        core_1.animate('0.3s ease-in')
-                    ]),
-                    core_1.transition('slideUp => void', [
-                        core_1.animate('0.3s 10 ease-out', core_1.style({
-                            opacity: 0,
-                            transform: 'translateY(200%)'
-                        }))
-                    ]),
-                ]),
-            ],
-        }),
-        __param(2, core_1.Optional()), 
-        __metadata('design:paramtypes', [platform_browser_1.DomSanitizer, core_1.ChangeDetectorRef, toast_options_1.ToastOptions])
-    ], ToastContainer);
     return ToastContainer;
 }());
+ToastContainer = __decorate([
+    core_1.Component({
+        selector: 'toast-container',
+        template: "\n    <div #toastContainer id=\"toast-container\" [style.position]=\"position\" class=\"{{positionClass}}\">\n      <div *ngFor=\"let toast of toasts\" [@inOut]=\"animate\" class=\"toast toast-{{toast.type}}\" \n      (click)=\"clicked(toast)\">\n        <div class=\"toast-close-button\" *ngIf=\"toast.config.showCloseButton\" (click)=\"removeToast(toast)\">&times;\n        </div> \n        <div *ngIf=\"toast.title\" class=\"{{toast.config.titleClass || titleClass}}\">{{toast.title}}</div>\n        <div [ngSwitch]=\"toast.config.enableHTML\">\n          <span *ngSwitchCase=\"true\" [innerHTML]=\"sanitizer.bypassSecurityTrustHtml(toast.message)\"></span>\n          <span *ngSwitchDefault class=\"{{toast.config.messageClass || messageClass}}\">{{toast.message}}</span>\n        </div>             \n      </div>\n    </div>\n    ",
+        animations: [
+            core_1.trigger('inOut', [
+                core_1.state('flyRight, flyLeft', core_1.style({ opacity: 1, transform: 'translateX(0)' })),
+                core_1.state('fade', core_1.style({ opacity: 1 })),
+                core_1.state('slideDown, slideUp', core_1.style({ opacity: 1, transform: 'translateY(0)' })),
+                core_1.transition('void => flyRight', [
+                    core_1.style({
+                        opacity: 0,
+                        transform: 'translateX(100%)'
+                    }),
+                    core_1.animate('0.2s ease-in')
+                ]),
+                core_1.transition('flyRight => void', [
+                    core_1.animate('0.2s 10 ease-out', core_1.style({
+                        opacity: 0,
+                        transform: 'translateX(100%)'
+                    }))
+                ]),
+                core_1.transition('void => flyLeft', [
+                    core_1.style({
+                        opacity: 0,
+                        transform: 'translateX(-100%)'
+                    }),
+                    core_1.animate('0.2s ease-in')
+                ]),
+                core_1.transition('flyLeft => void', [
+                    core_1.animate('0.2s 10 ease-out', core_1.style({
+                        opacity: 0,
+                        transform: 'translateX(-100%)'
+                    }))
+                ]),
+                core_1.transition('void => fade', [
+                    core_1.style({
+                        opacity: 0,
+                    }),
+                    core_1.animate('0.3s ease-in')
+                ]),
+                core_1.transition('fade => void', [
+                    core_1.animate('0.3s 10 ease-out', core_1.style({
+                        opacity: 0,
+                    }))
+                ]),
+                core_1.transition('void => slideDown', [
+                    core_1.style({
+                        opacity: 0,
+                        transform: 'translateY(-200%)'
+                    }),
+                    core_1.animate('0.3s ease-in')
+                ]),
+                core_1.transition('slideDown => void', [
+                    core_1.animate('0.3s 10 ease-out', core_1.style({
+                        opacity: 0,
+                        transform: 'translateY(-200%)'
+                    }))
+                ]),
+                core_1.transition('void => slideUp', [
+                    core_1.style({
+                        opacity: 0,
+                        transform: 'translateY(200%)'
+                    }),
+                    core_1.animate('0.3s ease-in')
+                ]),
+                core_1.transition('slideUp => void', [
+                    core_1.animate('0.3s 10 ease-out', core_1.style({
+                        opacity: 0,
+                        transform: 'translateY(200%)'
+                    }))
+                ]),
+            ]),
+        ],
+    }),
+    __param(2, core_1.Optional()),
+    __metadata("design:paramtypes", [platform_browser_1.DomSanitizer,
+        core_1.ChangeDetectorRef,
+        toast_options_1.ToastOptions])
+], ToastContainer);
 exports.ToastContainer = ToastContainer;
 //# sourceMappingURL=toast-container.component.js.map
