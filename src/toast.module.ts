@@ -2,6 +2,7 @@ import {NgModule, ModuleWithProviders} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ToastContainer} from './toast-container.component';
 import {ToastsManager} from './toast-manager';
+import {ToastOptions} from './toast-options';
 
 @NgModule({
   imports: [CommonModule],
@@ -10,10 +11,13 @@ import {ToastsManager} from './toast-manager';
   entryComponents: [ToastContainer]
 })
 export class ToastModule {
-  public static forRoot(): ModuleWithProviders {
+  public static forRoot(config?: ToastOptions): ModuleWithProviders {
     return {
       ngModule: ToastModule,
-      providers: [ToastsManager],
+      providers: config ? [
+        {provide: ToastOptions, useValue: config},
+        ToastsManager,
+      ] : [ToastsManager],
     };
   }
 }
