@@ -39,4 +39,4 @@ node_modules
 *.map
 /src/*.js
 /src/*.map.js
-
+/compiled
