@@ -128,6 +128,38 @@ System.registerDynamic("ng2-toastr/src/toast-container.component", ["@angular/co
   return module.exports;
 });
 
+System.registerDynamic("ng2-toastr/src/toast-options", ["@angular/core"], true, function($__require, exports, module) {
+  "use strict";
+  ;
+  var global = this,
+      __define = global.define;
+  global.define = undefined;
+  Object.defineProperty(exports, "__esModule", {value: true});
+  var core_1 = $__require('@angular/core');
+  var ToastOptions = (function() {
+    function ToastOptions() {
+      this.positionClass = 'toast-top-right';
+      this.maxShown = 5;
+      this.newestOnTop = false;
+      this.animate = 'fade';
+      this.toastLife = 5000;
+      this.enableHTML = false;
+      this.dismiss = 'auto';
+      this.messageClass = 'toast-message';
+      this.titleClass = 'toast-title';
+      this.showCloseButton = false;
+    }
+    return ToastOptions;
+  }());
+  ToastOptions.decorators = [{type: core_1.Injectable}];
+  ToastOptions.ctorParameters = function() {
+    return [];
+  };
+  exports.ToastOptions = ToastOptions;
+  global.define = __define;
+  return module.exports;
+});
+
 System.registerDynamic("ng2-toastr/src/toast", [], true, function($__require, exports, module) {
   "use strict";
   ;
@@ -308,39 +340,7 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
   return module.exports;
 });
 
-System.registerDynamic("ng2-toastr/src/toast-options", ["@angular/core"], true, function($__require, exports, module) {
-  "use strict";
-  ;
-  var global = this,
-      __define = global.define;
-  global.define = undefined;
-  Object.defineProperty(exports, "__esModule", {value: true});
-  var core_1 = $__require('@angular/core');
-  var ToastOptions = (function() {
-    function ToastOptions() {
-      this.positionClass = 'toast-top-right';
-      this.maxShown = 5;
-      this.newestOnTop = false;
-      this.animate = 'fade';
-      this.toastLife = 5000;
-      this.enableHTML = false;
-      this.dismiss = 'auto';
-      this.messageClass = 'toast-message';
-      this.titleClass = 'toast-title';
-      this.showCloseButton = false;
-    }
-    return ToastOptions;
-  }());
-  ToastOptions.decorators = [{type: core_1.Injectable}];
-  ToastOptions.ctorParameters = function() {
-    return [];
-  };
-  exports.ToastOptions = ToastOptions;
-  global.define = __define;
-  return module.exports;
-});
-
-System.registerDynamic("ng2-toastr/src/toast.module", ["@angular/core", "@angular/common", "./toast-container.component", "./toast-manager", "./toast-options"], true, function($__require, exports, module) {
+System.registerDynamic("ng2-toastr/src/toast.module", ["@angular/core", "@angular/common", "./toast-container.component", "./toast-manager"], true, function($__require, exports, module) {
   "use strict";
   ;
   var global = this,
@@ -351,16 +351,12 @@ System.registerDynamic("ng2-toastr/src/toast.module", ["@angular/core", "@angula
   var common_1 = $__require('@angular/common');
   var toast_container_component_1 = $__require('./toast-container.component');
   var toast_manager_1 = $__require('./toast-manager');
-  var toast_options_1 = $__require('./toast-options');
   var ToastModule = (function() {
     function ToastModule() {}
-    ToastModule.forRoot = function(config) {
+    ToastModule.forRoot = function() {
       return {
         ngModule: ToastModule,
-        providers: config ? [{
-          provide: toast_options_1.ToastOptions,
-          useValue: config
-        }, toast_manager_1.ToastsManager] : [toast_manager_1.ToastsManager]
+        providers: [toast_manager_1.ToastsManager]
       };
     };
     return ToastModule;
