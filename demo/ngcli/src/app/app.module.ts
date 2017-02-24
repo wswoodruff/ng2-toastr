@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ToastModule, ToastOptions } from 'ng2-toastr';
-import { ToastOption } from './toast-option';
+import { CustomOption } from './custom-option';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { ToastOption } from './toast-option';
     HttpModule,
     ToastModule.forRoot(),
   ],
-  providers: [{provide: ToastOptions, useClass: ToastOption }],
+  providers: [{provide: ToastOptions, useClass: CustomOption}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
