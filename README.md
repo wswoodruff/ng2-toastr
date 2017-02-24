@@ -13,9 +13,10 @@ Please update Modern Angular (v2.0.0 and above) to latest version to avoid any u
 
 ![Examples](toastr-examples.jpg?raw=true "Bootstrap Toasts")
 
-## <a name="breaking-changes"></a>Breaking Changes on v1.5.0
-v1.5.0 and above works with Angular v4 (Tested with Angular v4.0.0-beta.8 and Angular-Cli v1.0.0-beta.32.3).
-In order to custom global options for toaster, you have to subclass `ToastOptions`. 
+## <a name="breaking-changes"></a>Breaking Changes v1.5.0
+Version 1.5.x and above works with Angular v4 (Tested with Angular v4.0.0-beta.8 and Angular-Cli v1.0.0-beta.32.3).
+
+In v1.5.x, in order to custom global options for toaster you have to subclass `ToastOptions`, see example below: 
 
 ```
     // custom-option.ts
