@@ -40,5 +40,3 @@ node_modules
 /src/*.js
 /src/*.map.js
 
-/compiled
-*.metadata.json
