@@ -5,7 +5,7 @@ export declare class ToastOptions {
     animate: string;
     toastLife: number;
     enableHTML: boolean;
-    dismiss: 'auto' | 'click' | 'controlled';
+    dismiss: string;
     messageClass: string;
     titleClass: string;
     showCloseButton: boolean;
