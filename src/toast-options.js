@@ -19,7 +19,7 @@ var ToastOptions = (function () {
         // override-able properties
         this.toastLife = 5000;
         this.enableHTML = false;
-        this.dismiss = 'auto';
+        this.dismiss = 'auto'; //'auto' | 'click' | 'controlled'
         this.messageClass = 'toast-message';
         this.titleClass = 'toast-title';
         this.showCloseButton = false;
