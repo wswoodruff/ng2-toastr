@@ -198,7 +198,6 @@ export class ToastContainer implements OnDestroy {
   }
 
   onAnimationEnd(event: AnimationTransitionEvent) {
-    console.log(event);
     if (event.toState === 'void' && !this.anyToast()) {
       this._ngExit();
     } else if (this._fresh && event.fromState === 'void') {

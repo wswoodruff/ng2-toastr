@@ -105,7 +105,6 @@ var ToastContainer = (function () {
     };
     ToastContainer.prototype.onAnimationEnd = function (event) {
         var _this = this;
-        console.log(event);
         if (event.toState === 'void' && !this.anyToast()) {
             this._ngExit();
         }
