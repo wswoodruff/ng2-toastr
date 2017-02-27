@@ -122,13 +122,8 @@ export class ToastsManager {
   }
 
   dispose() {
-    // using timeout to allow animation to finish
-    setTimeout(() => {
-      if (this.container && !this.container.instance.anyToast()) {
-        this.container.destroy();
-        this.container = null;
-      }
-    }, 2000);
+    this.container.destroy();
+    this.container = null;
   }
 
   error(message: string, title?: string, options?: any): Promise<Toast> {
