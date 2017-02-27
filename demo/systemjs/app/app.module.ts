@@ -7,15 +7,9 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {ToastModule, ToastOptions} from 'ng2-toastr/ng2-toastr';
 
-let config = new ToastOptions({
-  animate: 'flyRight',
-  newestOnTop: false,
-  showCloseButton: true,
-});
-
 @NgModule({
   imports: [BrowserModule,
-    ToastModule.forRoot(config),
+    ToastModule.forRoot(),
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

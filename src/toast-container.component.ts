@@ -105,8 +105,8 @@ export class ToastContainer implements OnDestroy {
   maxShown = 5;
   newestOnTop = false;
   animate: string = 'fade';
-  private _fresh = true;
 
+  private _fresh: boolean = true;
   private onToastClicked: (toast: Toast) => void;
 
   private _onEnter: Subject<any> = new Subject();
@@ -199,18 +199,17 @@ export class ToastContainer implements OnDestroy {
 
   onAnimationEnd(event: AnimationTransitionEvent) {
     console.log(event);
-    if (event.toState === 'void') {
+    if (event.toState === 'void' && !this.anyToast()) {
       this._ngExit();
-    } else {
-      if (this._fresh) {
+    } else if (this._fresh && event.fromState === 'void') {
         // notify when first animation is done
         this._fresh = false;
         this._zone.run(() => {
           this._onEnter.next();
           this._onEnter.complete();
         });
-      }
     }
+
   }
 
   private _ngExit() {

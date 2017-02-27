@@ -58,6 +58,9 @@ var ToastsManager = (function () {
                 _this.container.instance.onToastClicked = function (toast) {
                     _this._onToastClicked(toast);
                 };
+                _this.container.instance.onExit().subscribe(function () {
+                    _this.dispose();
+                });
             }
             resolve(_this.setupToast(toast, options));
         });
@@ -99,9 +102,6 @@ var ToastsManager = (function () {
         if (this.container) {
             var instance = this.container.instance;
             instance.removeToast(toast);
-            if (!instance.anyToast()) {
-                this.dispose();
-            }
         }
     };
     ToastsManager.prototype.clearAllToasts = function () {

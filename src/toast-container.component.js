@@ -106,18 +106,16 @@ var ToastContainer = (function () {
     ToastContainer.prototype.onAnimationEnd = function (event) {
         var _this = this;
         console.log(event);
-        if (event.toState === 'void') {
+        if (event.toState === 'void' && !this.anyToast()) {
             this._ngExit();
         }
-        else {
-            if (this._fresh) {
-                // notify when first animation is done
-                this._fresh = false;
-                this._zone.run(function () {
-                    _this._onEnter.next();
-                    _this._onEnter.complete();
-                });
-            }
+        else if (this._fresh && event.fromState === 'void') {
+            // notify when first animation is done
+            this._fresh = false;
+            this._zone.run(function () {
+                _this._onEnter.next();
+                _this._onEnter.complete();
+            });
         }
     };
     ToastContainer.prototype._ngExit = function () {

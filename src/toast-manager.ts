@@ -56,7 +56,11 @@ export class ToastsManager {
         this.container = this._rootViewContainerRef.createComponent(toastFactory, this._rootViewContainerRef.length, childInjector);
         this.container.instance.onToastClicked = (toast: Toast) => {
           this._onToastClicked(toast);
-        }
+        };
+
+        this.container.instance.onExit().subscribe(() => {
+          this.dispose();
+        });
       }
 
       resolve(this.setupToast(toast, options));
@@ -107,9 +111,6 @@ export class ToastsManager {
     if (this.container) {
       let instance = this.container.instance;
       instance.removeToast(toast);
-      if (!instance.anyToast()) {
-        this.dispose();
-      }
     }
   }
 
