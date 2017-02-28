@@ -1,6 +1,7 @@
 'use strict';
-var http = require('http');
-var app_1 = require('./app');
+Object.defineProperty(exports, "__esModule", { value: true });
+var http = require("http");
+var app_1 = require("./app");
 var expressApp = new app_1.App();
 var port = 3000;
 http.createServer(expressApp.app).listen(port, function () {

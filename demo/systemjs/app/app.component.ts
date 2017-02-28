@@ -64,11 +64,6 @@ export class AppComponent {
       });
   }
 
-  swiped(event: any) {
-    console.log('swiped');
-    console.log(event);
-  }
-
   showCustomHTML() {
     this.toastr.custom('<span style="color: #bd362f">This message should be in red with blank background. Click to dismiss.</span>',
       'Custom Message', {dismiss: 'click'});

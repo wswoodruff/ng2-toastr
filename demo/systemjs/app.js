@@ -1,5 +1,6 @@
 'use strict';
-var express = require('express');
+Object.defineProperty(exports, "__esModule", { value: true });
+var express = require("express");
 var App = (function () {
     function App() {
         // create express app
