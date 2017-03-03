@@ -139,7 +139,7 @@ By default, the toastr will show up at top right corner of the page view, and wi
 You can configure the toasts using ToastOptions class. Currently we support following options:
 
 ##### toastLife: (number)
-Determines how long an auto-dismissed toast will be shown. Defaults to 3000 miliseconds.
+Determines how long an auto-dismissed toast will be shown. Defaults to 5000 miliseconds.
 
 ##### dismiss: (string)
 Determine how a displayed toaster can be dismissed. Allowed values are: 'auto', 'click', 'controlled' (value should all be lowercase).

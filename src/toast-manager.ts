@@ -71,8 +71,12 @@ export class ToastsManager {
     return task.toString();
   }
 
-  setupToast(toast: Toast, options?: Object): Toast {
+  setupToast(toast: Toast, options?: any): Toast {
     toast.id = ++this.index;
+
+    if (options && options.hasOwnProperty('toastLife')) {
+      options.dismiss = 'auto';
+    }
 
     const customConfig: any = Object.assign({}, this.options, options || {});
 
