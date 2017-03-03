@@ -281,6 +281,9 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
     };
     ToastsManager.prototype.setupToast = function(toast, options) {
       toast.id = ++this.index;
+      if (options && options.hasOwnProperty('toastLife')) {
+        options.dismiss = 'auto';
+      }
       var customConfig = Object.assign({}, this.options, options || {});
       Object.keys(toast.config).forEach(function(k) {
         if (customConfig.hasOwnProperty(k)) {
