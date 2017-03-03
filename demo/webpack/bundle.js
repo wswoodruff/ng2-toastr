@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 56);
+/******/ 	return __webpack_require__(__webpack_require__.s = 58);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -74,11 +74,11 @@
 /* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_observable_merge__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_operator_share__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_symbol_observable__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_symbol_observable__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_symbol_observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_symbol_observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__);
@@ -7129,7 +7129,7 @@ var SystemJsNgModuleLoader = function () {
             if (exportName === undefined) {
                 exportName = 'default';
             }
-            return __webpack_require__(13)(module).then(function (module) {
+            return __webpack_require__(15)(module).then(function (module) {
                 return module[exportName];
             }).then(function (type) {
                 return checkNotEmpty(type, module, exportName);
@@ -7155,7 +7155,7 @@ var SystemJsNgModuleLoader = function () {
                 exportName = 'default';
                 factoryClassSuffix = '';
             }
-            return __webpack_require__(13)(this._config.factoryPathPrefix + module + this._config.factoryPathSuffix).then(function (module) {
+            return __webpack_require__(15)(this._config.factoryPathPrefix + module + this._config.factoryPathSuffix).then(function (module) {
                 return module[exportName + factoryClassSuffix];
             }).then(function (factory) {
                 return checkNotEmpty(factory, module, exportName);
@@ -15353,8 +15353,8 @@ function transition(stateChangeExpr, steps) {
 "use strict";
 
 var root_1 = __webpack_require__(5);
-var toSubscriber_1 = __webpack_require__(53);
-var observable_1 = __webpack_require__(11);
+var toSubscriber_1 = __webpack_require__(54);
+var observable_1 = __webpack_require__(12);
 /**
  * A representation of any set of values over any amount of time. This the most basic building block
  * of RxJS.
@@ -15529,10 +15529,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var isFunction_1 = __webpack_require__(20);
-var Subscription_1 = __webpack_require__(6);
-var Observer_1 = __webpack_require__(18);
-var rxSubscriber_1 = __webpack_require__(12);
+var isFunction_1 = __webpack_require__(21);
+var Subscription_1 = __webpack_require__(8);
+var Observer_1 = __webpack_require__(19);
+var rxSubscriber_1 = __webpack_require__(13);
 /**
  * Implements the {@link Observer} interface and extends the
  * {@link Subscription} class. While the {@link Observer} is the public API for
@@ -15797,10 +15797,10 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Observable_1 = __webpack_require__(1);
 var Subscriber_1 = __webpack_require__(3);
-var Subscription_1 = __webpack_require__(6);
-var ObjectUnsubscribedError_1 = __webpack_require__(47);
-var SubjectSubscription_1 = __webpack_require__(33);
-var rxSubscriber_1 = __webpack_require__(12);
+var Subscription_1 = __webpack_require__(8);
+var ObjectUnsubscribedError_1 = __webpack_require__(48);
+var SubjectSubscription_1 = __webpack_require__(34);
+var rxSubscriber_1 = __webpack_require__(13);
 /**
  * @class SubjectSubscriber<T>
  */
@@ -15980,4510 +15980,11 @@ if (!exports.root) {
 
 /***/ }),
 /* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var isArray_1 = __webpack_require__(49);
-var isObject_1 = __webpack_require__(21);
-var isFunction_1 = __webpack_require__(20);
-var tryCatch_1 = __webpack_require__(54);
-var errorObject_1 = __webpack_require__(19);
-var UnsubscriptionError_1 = __webpack_require__(48);
-/**
- * Represents a disposable resource, such as the execution of an Observable. A
- * Subscription has one important method, `unsubscribe`, that takes no argument
- * and just disposes the resource held by the subscription.
- *
- * Additionally, subscriptions may be grouped together through the `add()`
- * method, which will attach a child Subscription to the current Subscription.
- * When a Subscription is unsubscribed, all its children (and its grandchildren)
- * will be unsubscribed as well.
- *
- * @class Subscription
- */
-var Subscription = (function () {
-    /**
-     * @param {function(): void} [unsubscribe] A function describing how to
-     * perform the disposal of resources when the `unsubscribe` method is called.
-     */
-    function Subscription(unsubscribe) {
-        /**
-         * A flag to indicate whether this Subscription has already been unsubscribed.
-         * @type {boolean}
-         */
-        this.closed = false;
-        this._parent = null;
-        this._parents = null;
-        this._subscriptions = null;
-        if (unsubscribe) {
-            this._unsubscribe = unsubscribe;
-        }
-    }
-    /**
-     * Disposes the resources held by the subscription. May, for instance, cancel
-     * an ongoing Observable execution or cancel any other type of work that
-     * started when the Subscription was created.
-     * @return {void}
-     */
-    Subscription.prototype.unsubscribe = function () {
-        var hasErrors = false;
-        var errors;
-        if (this.closed) {
-            return;
-        }
-        var _a = this, _parent = _a._parent, _parents = _a._parents, _unsubscribe = _a._unsubscribe, _subscriptions = _a._subscriptions;
-        this.closed = true;
-        this._parent = null;
-        this._parents = null;
-        // null out _subscriptions first so any child subscriptions that attempt
-        // to remove themselves from this subscription will noop
-        this._subscriptions = null;
-        var index = -1;
-        var len = _parents ? _parents.length : 0;
-        // if this._parent is null, then so is this._parents, and we
-        // don't have to remove ourselves from any parent subscriptions.
-        while (_parent) {
-            _parent.remove(this);
-            // if this._parents is null or index >= len,
-            // then _parent is set to null, and the loop exits
-            _parent = ++index < len && _parents[index] || null;
-        }
-        if (isFunction_1.isFunction(_unsubscribe)) {
-            var trial = tryCatch_1.tryCatch(_unsubscribe).call(this);
-            if (trial === errorObject_1.errorObject) {
-                hasErrors = true;
-                errors = errors || (errorObject_1.errorObject.e instanceof UnsubscriptionError_1.UnsubscriptionError ?
-                    flattenUnsubscriptionErrors(errorObject_1.errorObject.e.errors) : [errorObject_1.errorObject.e]);
-            }
-        }
-        if (isArray_1.isArray(_subscriptions)) {
-            index = -1;
-            len = _subscriptions.length;
-            while (++index < len) {
-                var sub = _subscriptions[index];
-                if (isObject_1.isObject(sub)) {
-                    var trial = tryCatch_1.tryCatch(sub.unsubscribe).call(sub);
-                    if (trial === errorObject_1.errorObject) {
-                        hasErrors = true;
-                        errors = errors || [];
-                        var err = errorObject_1.errorObject.e;
-                        if (err instanceof UnsubscriptionError_1.UnsubscriptionError) {
-                            errors = errors.concat(flattenUnsubscriptionErrors(err.errors));
-                        }
-                        else {
-                            errors.push(err);
-                        }
-                    }
-                }
-            }
-        }
-        if (hasErrors) {
-            throw new UnsubscriptionError_1.UnsubscriptionError(errors);
-        }
-    };
-    /**
-     * Adds a tear down to be called during the unsubscribe() of this
-     * Subscription.
-     *
-     * If the tear down being added is a subscription that is already
-     * unsubscribed, is the same reference `add` is being called on, or is
-     * `Subscription.EMPTY`, it will not be added.
-     *
-     * If this subscription is already in an `closed` state, the passed
-     * tear down logic will be executed immediately.
-     *
-     * @param {TeardownLogic} teardown The additional logic to execute on
-     * teardown.
-     * @return {Subscription} Returns the Subscription used or created to be
-     * added to the inner subscriptions list. This Subscription can be used with
-     * `remove()` to remove the passed teardown logic from the inner subscriptions
-     * list.
-     */
-    Subscription.prototype.add = function (teardown) {
-        if (!teardown || (teardown === Subscription.EMPTY)) {
-            return Subscription.EMPTY;
-        }
-        if (teardown === this) {
-            return this;
-        }
-        var subscription = teardown;
-        switch (typeof teardown) {
-            case 'function':
-                subscription = new Subscription(teardown);
-            case 'object':
-                if (subscription.closed || typeof subscription.unsubscribe !== 'function') {
-                    return subscription;
-                }
-                else if (this.closed) {
-                    subscription.unsubscribe();
-                    return subscription;
-                }
-                else if (typeof subscription._addParent !== 'function' /* quack quack */) {
-                    var tmp = subscription;
-                    subscription = new Subscription();
-                    subscription._subscriptions = [tmp];
-                }
-                break;
-            default:
-                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
-        }
-        var subscriptions = this._subscriptions || (this._subscriptions = []);
-        subscriptions.push(subscription);
-        subscription._addParent(this);
-        return subscription;
-    };
-    /**
-     * Removes a Subscription from the internal list of subscriptions that will
-     * unsubscribe during the unsubscribe process of this Subscription.
-     * @param {Subscription} subscription The subscription to remove.
-     * @return {void}
-     */
-    Subscription.prototype.remove = function (subscription) {
-        var subscriptions = this._subscriptions;
-        if (subscriptions) {
-            var subscriptionIndex = subscriptions.indexOf(subscription);
-            if (subscriptionIndex !== -1) {
-                subscriptions.splice(subscriptionIndex, 1);
-            }
-        }
-    };
-    Subscription.prototype._addParent = function (parent) {
-        var _a = this, _parent = _a._parent, _parents = _a._parents;
-        if (!_parent || _parent === parent) {
-            // If we don't have a parent, or the new parent is the same as the
-            // current parent, then set this._parent to the new parent.
-            this._parent = parent;
-        }
-        else if (!_parents) {
-            // If there's already one parent, but not multiple, allocate an Array to
-            // store the rest of the parent Subscriptions.
-            this._parents = [parent];
-        }
-        else if (_parents.indexOf(parent) === -1) {
-            // Only add the new parent to the _parents list if it's not already there.
-            _parents.push(parent);
-        }
-    };
-    Subscription.EMPTY = (function (empty) {
-        empty.closed = true;
-        return empty;
-    }(new Subscription()));
-    return Subscription;
-}());
-exports.Subscription = Subscription;
-function flattenUnsubscriptionErrors(errors) {
-    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
-}
-//# sourceMappingURL=Subscription.js.map
-
-/***/ }),
-/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgLocaleLocalization", function() { return NgLocaleLocalization; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgLocalization", function() { return NgLocalization; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonModule", function() { return CommonModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgClass", function() { return NgClass; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgFor", function() { return NgFor; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgForOf", function() { return NgForOf; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgIf", function() { return NgIf; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgPlural", function() { return NgPlural; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgPluralCase", function() { return NgPluralCase; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgStyle", function() { return NgStyle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgSwitch", function() { return NgSwitch; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgSwitchCase", function() { return NgSwitchCase; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgSwitchDefault", function() { return NgSwitchDefault; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgTemplateOutlet", function() { return NgTemplateOutlet; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgComponentOutlet", function() { return NgComponentOutlet; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AsyncPipe", function() { return AsyncPipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DatePipe", function() { return DatePipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "I18nPluralPipe", function() { return I18nPluralPipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "I18nSelectPipe", function() { return I18nSelectPipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JsonPipe", function() { return JsonPipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LowerCasePipe", function() { return LowerCasePipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrencyPipe", function() { return CurrencyPipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DecimalPipe", function() { return DecimalPipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PercentPipe", function() { return PercentPipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SlicePipe", function() { return SlicePipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpperCasePipe", function() { return UpperCasePipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TitleCasePipe", function() { return TitleCasePipe; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵPLATFORM_BROWSER_ID", function() { return PLATFORM_BROWSER_ID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵPLATFORM_SERVER_ID", function() { return PLATFORM_SERVER_ID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵPLATFORM_WORKER_APP_ID", function() { return PLATFORM_WORKER_APP_ID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵPLATFORM_WORKER_UI_ID", function() { return PLATFORM_WORKER_UI_ID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlatformBrowser", function() { return isPlatformBrowser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlatformServer", function() { return isPlatformServer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlatformWorkerApp", function() { return isPlatformWorkerApp; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlatformWorkerUi", function() { return isPlatformWorkerUi; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VERSION", function() { return VERSION; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlatformLocation", function() { return PlatformLocation; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocationStrategy", function() { return LocationStrategy; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "APP_BASE_HREF", function() { return APP_BASE_HREF; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HashLocationStrategy", function() { return HashLocationStrategy; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PathLocationStrategy", function() { return PathLocationStrategy; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Location", function() { return Location; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵc", function() { return COMMON_DIRECTIVES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return NgForOfRow; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function() { return NgIfContext; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵd", function() { return COMMON_PIPES; });
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * @license Angular v4.0.0-rc.2
- * (c) 2010-2017 Google, Inc. https://angular.io/
- * License: MIT
- */
-
-
-/**
- * This class should not be used directly by an application developer. Instead, use
- * {\@link Location}.
- *
- * `PlatformLocation` encapsulates all calls to DOM apis, which allows the Router to be platform
- * agnostic.
- * This means that we can have different implementation of `PlatformLocation` for the different
- * platforms
- * that angular supports. For example, the default `PlatformLocation` is {\@link
- * BrowserPlatformLocation},
- * however when you run your app in a WebWorker you use {\@link WebWorkerPlatformLocation}.
- *
- * The `PlatformLocation` class is used directly by all implementations of {\@link LocationStrategy}
- * when
- * they need to interact with the DOM apis like pushState, popState, etc...
- *
- * {\@link LocationStrategy} in turn is used by the {\@link Location} service which is used directly
- * by
- * the {\@link Router} in order to navigate between routes. Since all interactions between {\@link
- * Router} /
- * {\@link Location} / {\@link LocationStrategy} and DOM apis flow through the `PlatformLocation`
- * class
- * they are all platform independent.
- *
- * \@stable
- * @abstract
- */
-
-var PlatformLocation = function () {
-    function PlatformLocation() {
-        _classCallCheck(this, PlatformLocation);
-    }
-
-    _createClass(PlatformLocation, [{
-        key: 'getBaseHrefFromDOM',
-
-        /**
-         * @abstract
-         * @return {?}
-         */
-        value: function getBaseHrefFromDOM() {}
-        /**
-         * @abstract
-         * @param {?} fn
-         * @return {?}
-         */
-
-    }, {
-        key: 'onPopState',
-        value: function onPopState(fn) {}
-        /**
-         * @abstract
-         * @param {?} fn
-         * @return {?}
-         */
-
-    }, {
-        key: 'onHashChange',
-        value: function onHashChange(fn) {}
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'replaceState',
-
-        /**
-         * @abstract
-         * @param {?} state
-         * @param {?} title
-         * @param {?} url
-         * @return {?}
-         */
-        value: function replaceState(state, title, url) {}
-        /**
-         * @abstract
-         * @param {?} state
-         * @param {?} title
-         * @param {?} url
-         * @return {?}
-         */
-
-    }, {
-        key: 'pushState',
-        value: function pushState(state, title, url) {}
-        /**
-         * @abstract
-         * @return {?}
-         */
-
-    }, {
-        key: 'forward',
-        value: function forward() {}
-        /**
-         * @abstract
-         * @return {?}
-         */
-
-    }, {
-        key: 'back',
-        value: function back() {}
-    }, {
-        key: 'pathname',
-        get: function get() {
-            return null;
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'search',
-        get: function get() {
-            return null;
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'hash',
-        get: function get() {
-            return null;
-        }
-    }]);
-
-    return PlatformLocation;
-}();
-
-/**
- * `LocationStrategy` is responsible for representing and reading route state
- * from the browser's URL. Angular provides two strategies:
- * {\@link HashLocationStrategy} and {\@link PathLocationStrategy}.
- *
- * This is used under the hood of the {\@link Location} service.
- *
- * Applications should use the {\@link Router} or {\@link Location} services to
- * interact with application route state.
- *
- * For instance, {\@link HashLocationStrategy} produces URLs like
- * `http://example.com#/foo`, and {\@link PathLocationStrategy} produces
- * `http://example.com/foo` as an equivalent URL.
- *
- * See these two classes for more.
- *
- * \@stable
- * @abstract
- */
-
-
-var LocationStrategy = function () {
-    function LocationStrategy() {
-        _classCallCheck(this, LocationStrategy);
-    }
-
-    _createClass(LocationStrategy, [{
-        key: 'path',
-
-        /**
-         * @abstract
-         * @param {?=} includeHash
-         * @return {?}
-         */
-        value: function path(includeHash) {}
-        /**
-         * @abstract
-         * @param {?} internal
-         * @return {?}
-         */
-
-    }, {
-        key: 'prepareExternalUrl',
-        value: function prepareExternalUrl(internal) {}
-        /**
-         * @abstract
-         * @param {?} state
-         * @param {?} title
-         * @param {?} url
-         * @param {?} queryParams
-         * @return {?}
-         */
-
-    }, {
-        key: 'pushState',
-        value: function pushState(state, title, url, queryParams) {}
-        /**
-         * @abstract
-         * @param {?} state
-         * @param {?} title
-         * @param {?} url
-         * @param {?} queryParams
-         * @return {?}
-         */
-
-    }, {
-        key: 'replaceState',
-        value: function replaceState(state, title, url, queryParams) {}
-        /**
-         * @abstract
-         * @return {?}
-         */
-
-    }, {
-        key: 'forward',
-        value: function forward() {}
-        /**
-         * @abstract
-         * @return {?}
-         */
-
-    }, {
-        key: 'back',
-        value: function back() {}
-        /**
-         * @abstract
-         * @param {?} fn
-         * @return {?}
-         */
-
-    }, {
-        key: 'onPopState',
-        value: function onPopState(fn) {}
-        /**
-         * @abstract
-         * @return {?}
-         */
-
-    }, {
-        key: 'getBaseHref',
-        value: function getBaseHref() {}
-    }]);
-
-    return LocationStrategy;
-}();
-/**
- * The `APP_BASE_HREF` token represents the base href to be used with the
- * {@link PathLocationStrategy}.
- *
- * If you're using {@link PathLocationStrategy}, you must provide a provider to a string
- * representing the URL prefix that should be preserved when generating and recognizing
- * URLs.
- *
- * ### Example
- *
- * ```typescript
- * import {Component, NgModule} from '@angular/core';
- * import {APP_BASE_HREF} from '@angular/common';
- *
- * @NgModule({
- *   providers: [{provide: APP_BASE_HREF, useValue: '/my/app'}]
- * })
- * class AppModule {}
- * ```
- *
- * @stable
- */
-
-
-var /** @type {?} */APP_BASE_HREF = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["InjectionToken"]('appBaseHref');
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-var /** @type {?} */globalScope = void 0;
-if (typeof window === 'undefined') {
-    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
-        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
-        globalScope = self;
-    } else {
-        globalScope = global;
-    }
-} else {
-    globalScope = window;
-}
-// Need to declare a new variable for global here since TypeScript
-// exports the original value of the symbol.
-var /** @type {?} */_global = globalScope;
-/**
- * @param {?} type
- * @return {?}
- */
-function getTypeNameForDebugging(type) {
-    return type['name'] || (typeof type === 'undefined' ? 'undefined' : _typeof(type));
-}
-// TODO: remove calls to assert in production environment
-// Note: Can't just export this and import in in other files
-// as `assert` is a reserved keyword in Dart
-_global.assert = function assert(condition) {
-    // TODO: to be fixed properly via #2830, noop for now
-};
-/**
- * @param {?} obj
- * @return {?}
- */
-function isPresent(obj) {
-    return obj != null;
-}
-/**
- * @param {?} obj
- * @return {?}
- */
-function isBlank(obj) {
-    return obj == null;
-}
-/**
- * @param {?} token
- * @return {?}
- */
-function stringify(token) {
-    if (typeof token === 'string') {
-        return token;
-    }
-    if (token == null) {
-        return '' + token;
-    }
-    if (token.overriddenName) {
-        return '' + token.overriddenName;
-    }
-    if (token.name) {
-        return '' + token.name;
-    }
-    var /** @type {?} */res = token.toString();
-    var /** @type {?} */newLineIndex = res.indexOf('\n');
-    return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
-}
-
-var NumberWrapper = function () {
-    function NumberWrapper() {
-        _classCallCheck(this, NumberWrapper);
-    }
-
-    _createClass(NumberWrapper, null, [{
-        key: 'parseIntAutoRadix',
-
-        /**
-         * @param {?} text
-         * @return {?}
-         */
-        value: function parseIntAutoRadix(text) {
-            var /** @type {?} */result = parseInt(text);
-            if (isNaN(result)) {
-                throw new Error('Invalid integer literal when parsing ' + text);
-            }
-            return result;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-
-    }, {
-        key: 'isNumeric',
-        value: function isNumeric(value) {
-            return !isNaN(value - parseFloat(value));
-        }
-    }]);
-
-    return NumberWrapper;
-}();
-/**
- * @param {?} o
- * @return {?}
- */
-
-
-function isJsObject(o) {
-    return o !== null && (typeof o === 'function' || (typeof o === 'undefined' ? 'undefined' : _typeof(o)) === 'object');
-}
-var /** @type {?} */_symbolIterator = null;
-/**
- * @return {?}
- */
-function getSymbolIterator() {
-    if (!_symbolIterator) {
-        if (globalScope.Symbol && Symbol.iterator) {
-            _symbolIterator = Symbol.iterator;
-        } else {
-            // es6-shim specific logic
-            var /** @type {?} */keys = Object.getOwnPropertyNames(Map.prototype);
-            for (var /** @type {?} */i = 0; i < keys.length; ++i) {
-                var /** @type {?} */key = keys[i];
-                if (key !== 'entries' && key !== 'size' && Map.prototype[key] === Map.prototype['entries']) {
-                    _symbolIterator = key;
-                }
-            }
-        }
-    }
-    return _symbolIterator;
-}
-
-/**
- * \@whatItDoes `Location` is a service that applications can use to interact with a browser's URL.
- * \@description
- * Depending on which {\@link LocationStrategy} is used, `Location` will either persist
- * to the URL's path or the URL's hash segment.
- *
- * Note: it's better to use {\@link Router#navigate} service to trigger route changes. Use
- * `Location` only if you need to interact with or create normalized URLs outside of
- * routing.
- *
- * `Location` is responsible for normalizing the URL against the application's base href.
- * A normalized URL is absolute from the URL host, includes the application's base href, and has no
- * trailing slash:
- * - `/my/app/user/123` is normalized
- * - `my/app/user/123` **is not** normalized
- * - `/my/app/user/123/` **is not** normalized
- *
- * ### Example
- * {\@example common/location/ts/path_location_component.ts region='LocationComponent'}
- * \@stable
- */
-
-var Location = function () {
-    /**
-     * @param {?} platformStrategy
-     */
-    function Location(platformStrategy) {
-        var _this = this;
-
-        _classCallCheck(this, Location);
-
-        /** @internal */
-        this._subject = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
-        this._platformStrategy = platformStrategy;
-        var browserBaseHref = this._platformStrategy.getBaseHref();
-        this._baseHref = Location.stripTrailingSlash(_stripIndexHtml(browserBaseHref));
-        this._platformStrategy.onPopState(function (ev) {
-            _this._subject.emit({
-                'url': _this.path(true),
-                'pop': true,
-                'type': ev.type
-            });
-        });
-    }
-    /**
-     * @param {?=} includeHash
-     * @return {?}
-     */
-
-
-    _createClass(Location, [{
-        key: 'path',
-        value: function path() {
-            var includeHash = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-            return this.normalize(this._platformStrategy.path(includeHash));
-        }
-        /**
-         * Normalizes the given path and compares to the current normalized path.
-         * @param {?} path
-         * @param {?=} query
-         * @return {?}
-         */
-
-    }, {
-        key: 'isCurrentPathEqualTo',
-        value: function isCurrentPathEqualTo(path) {
-            var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-            return this.path() == this.normalize(path + Location.normalizeQueryParams(query));
-        }
-        /**
-         * Given a string representing a URL, returns the normalized URL path without leading or
-         * trailing slashes.
-         * @param {?} url
-         * @return {?}
-         */
-
-    }, {
-        key: 'normalize',
-        value: function normalize(url) {
-            return Location.stripTrailingSlash(_stripBaseHref(this._baseHref, _stripIndexHtml(url)));
-        }
-        /**
-         * Given a string representing a URL, returns the platform-specific external URL path.
-         * If the given URL doesn't begin with a leading slash (`'/'`), this method adds one
-         * before normalizing. This method will also add a hash if `HashLocationStrategy` is
-         * used, or the `APP_BASE_HREF` if the `PathLocationStrategy` is in use.
-         * @param {?} url
-         * @return {?}
-         */
-
-    }, {
-        key: 'prepareExternalUrl',
-        value: function prepareExternalUrl(url) {
-            if (url && url[0] !== '/') {
-                url = '/' + url;
-            }
-            return this._platformStrategy.prepareExternalUrl(url);
-        }
-        /**
-         * Changes the browsers URL to the normalized version of the given URL, and pushes a
-         * new item onto the platform's history.
-         * @param {?} path
-         * @param {?=} query
-         * @return {?}
-         */
-
-    }, {
-        key: 'go',
-        value: function go(path) {
-            var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-            this._platformStrategy.pushState(null, '', path, query);
-        }
-        /**
-         * Changes the browsers URL to the normalized version of the given URL, and replaces
-         * the top item on the platform's history stack.
-         * @param {?} path
-         * @param {?=} query
-         * @return {?}
-         */
-
-    }, {
-        key: 'replaceState',
-        value: function replaceState(path) {
-            var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-            this._platformStrategy.replaceState(null, '', path, query);
-        }
-        /**
-         * Navigates forward in the platform's history.
-         * @return {?}
-         */
-
-    }, {
-        key: 'forward',
-        value: function forward() {
-            this._platformStrategy.forward();
-        }
-        /**
-         * Navigates back in the platform's history.
-         * @return {?}
-         */
-
-    }, {
-        key: 'back',
-        value: function back() {
-            this._platformStrategy.back();
-        }
-        /**
-         * Subscribe to the platform's `popState` events.
-         * @param {?} onNext
-         * @param {?=} onThrow
-         * @param {?=} onReturn
-         * @return {?}
-         */
-
-    }, {
-        key: 'subscribe',
-        value: function subscribe(onNext) {
-            var onThrow = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-            var onReturn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
-            return this._subject.subscribe({ next: onNext, error: onThrow, complete: onReturn });
-        }
-        /**
-         * Given a string of url parameters, prepend with '?' if needed, otherwise return parameters as
-         * is.
-         * @param {?} params
-         * @return {?}
-         */
-
-    }], [{
-        key: 'normalizeQueryParams',
-        value: function normalizeQueryParams(params) {
-            return params && params[0] !== '?' ? '?' + params : params;
-        }
-        /**
-         * Given 2 parts of a url, join them with a slash if needed.
-         * @param {?} start
-         * @param {?} end
-         * @return {?}
-         */
-
-    }, {
-        key: 'joinWithSlash',
-        value: function joinWithSlash(start, end) {
-            if (start.length == 0) {
-                return end;
-            }
-            if (end.length == 0) {
-                return start;
-            }
-            var /** @type {?} */slashes = 0;
-            if (start.endsWith('/')) {
-                slashes++;
-            }
-            if (end.startsWith('/')) {
-                slashes++;
-            }
-            if (slashes == 2) {
-                return start + end.substring(1);
-            }
-            if (slashes == 1) {
-                return start + end;
-            }
-            return start + '/' + end;
-        }
-        /**
-         * If url has a trailing slash, remove it, otherwise return url as is.
-         * @param {?} url
-         * @return {?}
-         */
-
-    }, {
-        key: 'stripTrailingSlash',
-        value: function stripTrailingSlash(url) {
-            return url.replace(/\/$/, '');
-        }
-    }]);
-
-    return Location;
-}();
-
-Location.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] }];
-/** @nocollapse */
-Location.ctorParameters = function () {
-    return [{ type: LocationStrategy }];
-};
-/**
- * @param {?} baseHref
- * @param {?} url
- * @return {?}
- */
-function _stripBaseHref(baseHref, url) {
-    return baseHref && url.startsWith(baseHref) ? url.substring(baseHref.length) : url;
-}
-/**
- * @param {?} url
- * @return {?}
- */
-function _stripIndexHtml(url) {
-    return url.replace(/\/index.html$/, '');
-}
-
-/**
- * \@whatItDoes Use URL hash for storing application location data.
- * \@description
- * `HashLocationStrategy` is a {\@link LocationStrategy} used to configure the
- * {\@link Location} service to represent its state in the
- * [hash fragment](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax)
- * of the browser's URL.
- *
- * For instance, if you call `location.go('/foo')`, the browser's URL will become
- * `example.com#/foo`.
- *
- * ### Example
- *
- * {\@example common/location/ts/hash_location_component.ts region='LocationComponent'}
- *
- * \@stable
- */
-
-var HashLocationStrategy = function (_LocationStrategy) {
-    _inherits(HashLocationStrategy, _LocationStrategy);
-
-    /**
-     * @param {?} _platformLocation
-     * @param {?=} _baseHref
-     */
-    function HashLocationStrategy(_platformLocation, _baseHref) {
-        _classCallCheck(this, HashLocationStrategy);
-
-        var _this2 = _possibleConstructorReturn(this, (HashLocationStrategy.__proto__ || Object.getPrototypeOf(HashLocationStrategy)).call(this));
-
-        _this2._platformLocation = _platformLocation;
-        _this2._baseHref = '';
-        if (isPresent(_baseHref)) {
-            _this2._baseHref = _baseHref;
-        }
-        return _this2;
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-
-
-    _createClass(HashLocationStrategy, [{
-        key: 'onPopState',
-        value: function onPopState(fn) {
-            this._platformLocation.onPopState(fn);
-            this._platformLocation.onHashChange(fn);
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'getBaseHref',
-        value: function getBaseHref() {
-            return this._baseHref;
-        }
-        /**
-         * @param {?=} includeHash
-         * @return {?}
-         */
-
-    }, {
-        key: 'path',
-        value: function path() {
-            var includeHash = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-            // the hash value is always prefixed with a `#`
-            // and if it is empty then it will stay empty
-            var /** @type {?} */path = this._platformLocation.hash;
-            if (!isPresent(path)) path = '#';
-            return path.length > 0 ? path.substring(1) : path;
-        }
-        /**
-         * @param {?} internal
-         * @return {?}
-         */
-
-    }, {
-        key: 'prepareExternalUrl',
-        value: function prepareExternalUrl(internal) {
-            var /** @type {?} */url = Location.joinWithSlash(this._baseHref, internal);
-            return url.length > 0 ? '#' + url : url;
-        }
-        /**
-         * @param {?} state
-         * @param {?} title
-         * @param {?} path
-         * @param {?} queryParams
-         * @return {?}
-         */
-
-    }, {
-        key: 'pushState',
-        value: function pushState(state, title, path, queryParams) {
-            var /** @type {?} */url = this.prepareExternalUrl(path + Location.normalizeQueryParams(queryParams));
-            if (url.length == 0) {
-                url = this._platformLocation.pathname;
-            }
-            this._platformLocation.pushState(state, title, url);
-        }
-        /**
-         * @param {?} state
-         * @param {?} title
-         * @param {?} path
-         * @param {?} queryParams
-         * @return {?}
-         */
-
-    }, {
-        key: 'replaceState',
-        value: function replaceState(state, title, path, queryParams) {
-            var /** @type {?} */url = this.prepareExternalUrl(path + Location.normalizeQueryParams(queryParams));
-            if (url.length == 0) {
-                url = this._platformLocation.pathname;
-            }
-            this._platformLocation.replaceState(state, title, url);
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'forward',
-        value: function forward() {
-            this._platformLocation.forward();
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'back',
-        value: function back() {
-            this._platformLocation.back();
-        }
-    }]);
-
-    return HashLocationStrategy;
-}(LocationStrategy);
-
-HashLocationStrategy.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] }];
-/** @nocollapse */
-HashLocationStrategy.ctorParameters = function () {
-    return [{ type: PlatformLocation }, { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [APP_BASE_HREF] }] }];
-};
-
-/**
- * \@whatItDoes Use URL for storing application location data.
- * \@description
- * `PathLocationStrategy` is a {\@link LocationStrategy} used to configure the
- * {\@link Location} service to represent its state in the
- * [path](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax) of the
- * browser's URL.
- *
- * If you're using `PathLocationStrategy`, you must provide a {\@link APP_BASE_HREF}
- * or add a base element to the document. This URL prefix that will be preserved
- * when generating and recognizing URLs.
- *
- * For instance, if you provide an `APP_BASE_HREF` of `'/my/app'` and call
- * `location.go('/foo')`, the browser's URL will become
- * `example.com/my/app/foo`.
- *
- * Similarly, if you add `<base href='/my/app'/>` to the document and call
- * `location.go('/foo')`, the browser's URL will become
- * `example.com/my/app/foo`.
- *
- * ### Example
- *
- * {\@example common/location/ts/path_location_component.ts region='LocationComponent'}
- *
- * \@stable
- */
-
-var PathLocationStrategy = function (_LocationStrategy2) {
-    _inherits(PathLocationStrategy, _LocationStrategy2);
-
-    /**
-     * @param {?} _platformLocation
-     * @param {?=} href
-     */
-    function PathLocationStrategy(_platformLocation, href) {
-        _classCallCheck(this, PathLocationStrategy);
-
-        var _this3 = _possibleConstructorReturn(this, (PathLocationStrategy.__proto__ || Object.getPrototypeOf(PathLocationStrategy)).call(this));
-
-        _this3._platformLocation = _platformLocation;
-        if (isBlank(href)) {
-            href = _this3._platformLocation.getBaseHrefFromDOM();
-        }
-        if (isBlank(href)) {
-            throw new Error('No base href set. Please provide a value for the APP_BASE_HREF token or add a base element to the document.');
-        }
-        _this3._baseHref = href;
-        return _this3;
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-
-
-    _createClass(PathLocationStrategy, [{
-        key: 'onPopState',
-        value: function onPopState(fn) {
-            this._platformLocation.onPopState(fn);
-            this._platformLocation.onHashChange(fn);
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'getBaseHref',
-        value: function getBaseHref() {
-            return this._baseHref;
-        }
-        /**
-         * @param {?} internal
-         * @return {?}
-         */
-
-    }, {
-        key: 'prepareExternalUrl',
-        value: function prepareExternalUrl(internal) {
-            return Location.joinWithSlash(this._baseHref, internal);
-        }
-        /**
-         * @param {?=} includeHash
-         * @return {?}
-         */
-
-    }, {
-        key: 'path',
-        value: function path() {
-            var includeHash = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-            var /** @type {?} */pathname = this._platformLocation.pathname + Location.normalizeQueryParams(this._platformLocation.search);
-            var /** @type {?} */hash = this._platformLocation.hash;
-            return hash && includeHash ? '' + pathname + hash : pathname;
-        }
-        /**
-         * @param {?} state
-         * @param {?} title
-         * @param {?} url
-         * @param {?} queryParams
-         * @return {?}
-         */
-
-    }, {
-        key: 'pushState',
-        value: function pushState(state, title, url, queryParams) {
-            var /** @type {?} */externalUrl = this.prepareExternalUrl(url + Location.normalizeQueryParams(queryParams));
-            this._platformLocation.pushState(state, title, externalUrl);
-        }
-        /**
-         * @param {?} state
-         * @param {?} title
-         * @param {?} url
-         * @param {?} queryParams
-         * @return {?}
-         */
-
-    }, {
-        key: 'replaceState',
-        value: function replaceState(state, title, url, queryParams) {
-            var /** @type {?} */externalUrl = this.prepareExternalUrl(url + Location.normalizeQueryParams(queryParams));
-            this._platformLocation.replaceState(state, title, externalUrl);
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'forward',
-        value: function forward() {
-            this._platformLocation.forward();
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'back',
-        value: function back() {
-            this._platformLocation.back();
-        }
-    }]);
-
-    return PathLocationStrategy;
-}(LocationStrategy);
-
-PathLocationStrategy.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] }];
-/** @nocollapse */
-PathLocationStrategy.ctorParameters = function () {
-    return [{ type: PlatformLocation }, { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [APP_BASE_HREF] }] }];
-};
-
-/**
- * \@experimental
- * @abstract
- */
-
-var NgLocalization = function () {
-    function NgLocalization() {
-        _classCallCheck(this, NgLocalization);
-    }
-
-    _createClass(NgLocalization, [{
-        key: 'getPluralCategory',
-
-        /**
-         * @abstract
-         * @param {?} value
-         * @return {?}
-         */
-        value: function getPluralCategory(value) {}
-    }]);
-
-    return NgLocalization;
-}();
-/**
- * Returns the plural category for a given value.
- * - "=value" when the case exists,
- * - the plural category otherwise
- *
- * \@internal
- * @param {?} value
- * @param {?} cases
- * @param {?} ngLocalization
- * @return {?}
- */
-
-
-function getPluralCategory(value, cases, ngLocalization) {
-    var /** @type {?} */key = '=' + value;
-    if (cases.indexOf(key) > -1) {
-        return key;
-    }
-    key = ngLocalization.getPluralCategory(value);
-    if (cases.indexOf(key) > -1) {
-        return key;
-    }
-    if (cases.indexOf('other') > -1) {
-        return 'other';
-    }
-    throw new Error('No plural message found for value "' + value + '"');
-}
-/**
- * Returns the plural case based on the locale
- *
- * \@experimental
- */
-
-var NgLocaleLocalization = function (_NgLocalization) {
-    _inherits(NgLocaleLocalization, _NgLocalization);
-
-    /**
-     * @param {?} locale
-     */
-    function NgLocaleLocalization(locale) {
-        _classCallCheck(this, NgLocaleLocalization);
-
-        var _this4 = _possibleConstructorReturn(this, (NgLocaleLocalization.__proto__ || Object.getPrototypeOf(NgLocaleLocalization)).call(this));
-
-        _this4.locale = locale;
-        return _this4;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-
-
-    _createClass(NgLocaleLocalization, [{
-        key: 'getPluralCategory',
-        value: function getPluralCategory(value) {
-            var /** @type {?} */plural = getPluralCase(this.locale, value);
-            switch (plural) {
-                case Plural.Zero:
-                    return 'zero';
-                case Plural.One:
-                    return 'one';
-                case Plural.Two:
-                    return 'two';
-                case Plural.Few:
-                    return 'few';
-                case Plural.Many:
-                    return 'many';
-                default:
-                    return 'other';
-            }
-        }
-    }]);
-
-    return NgLocaleLocalization;
-}(NgLocalization);
-
-NgLocaleLocalization.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] }];
-/** @nocollapse */
-NgLocaleLocalization.ctorParameters = function () {
-    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["LOCALE_ID"]] }] }];
-};
-var Plural = {};
-Plural.Zero = 0;
-Plural.One = 1;
-Plural.Two = 2;
-Plural.Few = 3;
-Plural.Many = 4;
-Plural.Other = 5;
-Plural[Plural.Zero] = "Zero";
-Plural[Plural.One] = "One";
-Plural[Plural.Two] = "Two";
-Plural[Plural.Few] = "Few";
-Plural[Plural.Many] = "Many";
-Plural[Plural.Other] = "Other";
-/**
- * Returns the plural case based on the locale
- *
- * \@experimental
- * @param {?} locale
- * @param {?} nLike
- * @return {?}
- */
-function getPluralCase(locale, nLike) {
-    // TODO(vicb): lazy compute
-    if (typeof nLike === 'string') {
-        nLike = parseInt( /** @type {?} */nLike, 10);
-    }
-    var /** @type {?} */n = nLike;
-    var /** @type {?} */nDecimal = n.toString().replace(/^[^.]*\.?/, '');
-    var /** @type {?} */i = Math.floor(Math.abs(n));
-    var /** @type {?} */v = nDecimal.length;
-    var /** @type {?} */f = parseInt(nDecimal, 10);
-    var /** @type {?} */t = parseInt(n.toString().replace(/^[^.]*\.?|0+$/g, ''), 10) || 0;
-    var /** @type {?} */lang = locale.split('-')[0].toLowerCase();
-    switch (lang) {
-        case 'af':
-        case 'asa':
-        case 'az':
-        case 'bem':
-        case 'bez':
-        case 'bg':
-        case 'brx':
-        case 'ce':
-        case 'cgg':
-        case 'chr':
-        case 'ckb':
-        case 'ee':
-        case 'el':
-        case 'eo':
-        case 'es':
-        case 'eu':
-        case 'fo':
-        case 'fur':
-        case 'gsw':
-        case 'ha':
-        case 'haw':
-        case 'hu':
-        case 'jgo':
-        case 'jmc':
-        case 'ka':
-        case 'kk':
-        case 'kkj':
-        case 'kl':
-        case 'ks':
-        case 'ksb':
-        case 'ky':
-        case 'lb':
-        case 'lg':
-        case 'mas':
-        case 'mgo':
-        case 'ml':
-        case 'mn':
-        case 'nb':
-        case 'nd':
-        case 'ne':
-        case 'nn':
-        case 'nnh':
-        case 'nyn':
-        case 'om':
-        case 'or':
-        case 'os':
-        case 'ps':
-        case 'rm':
-        case 'rof':
-        case 'rwk':
-        case 'saq':
-        case 'seh':
-        case 'sn':
-        case 'so':
-        case 'sq':
-        case 'ta':
-        case 'te':
-        case 'teo':
-        case 'tk':
-        case 'tr':
-        case 'ug':
-        case 'uz':
-        case 'vo':
-        case 'vun':
-        case 'wae':
-        case 'xog':
-            if (n === 1) return Plural.One;
-            return Plural.Other;
-        case 'agq':
-        case 'bas':
-        case 'cu':
-        case 'dav':
-        case 'dje':
-        case 'dua':
-        case 'dyo':
-        case 'ebu':
-        case 'ewo':
-        case 'guz':
-        case 'kam':
-        case 'khq':
-        case 'ki':
-        case 'kln':
-        case 'kok':
-        case 'ksf':
-        case 'lrc':
-        case 'lu':
-        case 'luo':
-        case 'luy':
-        case 'mer':
-        case 'mfe':
-        case 'mgh':
-        case 'mua':
-        case 'mzn':
-        case 'nmg':
-        case 'nus':
-        case 'qu':
-        case 'rn':
-        case 'rw':
-        case 'sbp':
-        case 'twq':
-        case 'vai':
-        case 'yav':
-        case 'yue':
-        case 'zgh':
-        case 'ak':
-        case 'ln':
-        case 'mg':
-        case 'pa':
-        case 'ti':
-            if (n === Math.floor(n) && n >= 0 && n <= 1) return Plural.One;
-            return Plural.Other;
-        case 'am':
-        case 'as':
-        case 'bn':
-        case 'fa':
-        case 'gu':
-        case 'hi':
-        case 'kn':
-        case 'mr':
-        case 'zu':
-            if (i === 0 || n === 1) return Plural.One;
-            return Plural.Other;
-        case 'ar':
-            if (n === 0) return Plural.Zero;
-            if (n === 1) return Plural.One;
-            if (n === 2) return Plural.Two;
-            if (n % 100 === Math.floor(n % 100) && n % 100 >= 3 && n % 100 <= 10) return Plural.Few;
-            if (n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 99) return Plural.Many;
-            return Plural.Other;
-        case 'ast':
-        case 'ca':
-        case 'de':
-        case 'en':
-        case 'et':
-        case 'fi':
-        case 'fy':
-        case 'gl':
-        case 'it':
-        case 'nl':
-        case 'sv':
-        case 'sw':
-        case 'ur':
-        case 'yi':
-            if (i === 1 && v === 0) return Plural.One;
-            return Plural.Other;
-        case 'be':
-            if (n % 10 === 1 && !(n % 100 === 11)) return Plural.One;
-            if (n % 10 === Math.floor(n % 10) && n % 10 >= 2 && n % 10 <= 4 && !(n % 100 >= 12 && n % 100 <= 14)) return Plural.Few;
-            if (n % 10 === 0 || n % 10 === Math.floor(n % 10) && n % 10 >= 5 && n % 10 <= 9 || n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 14) return Plural.Many;
-            return Plural.Other;
-        case 'br':
-            if (n % 10 === 1 && !(n % 100 === 11 || n % 100 === 71 || n % 100 === 91)) return Plural.One;
-            if (n % 10 === 2 && !(n % 100 === 12 || n % 100 === 72 || n % 100 === 92)) return Plural.Two;
-            if (n % 10 === Math.floor(n % 10) && (n % 10 >= 3 && n % 10 <= 4 || n % 10 === 9) && !(n % 100 >= 10 && n % 100 <= 19 || n % 100 >= 70 && n % 100 <= 79 || n % 100 >= 90 && n % 100 <= 99)) return Plural.Few;
-            if (!(n === 0) && n % 1e6 === 0) return Plural.Many;
-            return Plural.Other;
-        case 'bs':
-        case 'hr':
-        case 'sr':
-            if (v === 0 && i % 10 === 1 && !(i % 100 === 11) || f % 10 === 1 && !(f % 100 === 11)) return Plural.One;
-            if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 && !(i % 100 >= 12 && i % 100 <= 14) || f % 10 === Math.floor(f % 10) && f % 10 >= 2 && f % 10 <= 4 && !(f % 100 >= 12 && f % 100 <= 14)) return Plural.Few;
-            return Plural.Other;
-        case 'cs':
-        case 'sk':
-            if (i === 1 && v === 0) return Plural.One;
-            if (i === Math.floor(i) && i >= 2 && i <= 4 && v === 0) return Plural.Few;
-            if (!(v === 0)) return Plural.Many;
-            return Plural.Other;
-        case 'cy':
-            if (n === 0) return Plural.Zero;
-            if (n === 1) return Plural.One;
-            if (n === 2) return Plural.Two;
-            if (n === 3) return Plural.Few;
-            if (n === 6) return Plural.Many;
-            return Plural.Other;
-        case 'da':
-            if (n === 1 || !(t === 0) && (i === 0 || i === 1)) return Plural.One;
-            return Plural.Other;
-        case 'dsb':
-        case 'hsb':
-            if (v === 0 && i % 100 === 1 || f % 100 === 1) return Plural.One;
-            if (v === 0 && i % 100 === 2 || f % 100 === 2) return Plural.Two;
-            if (v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 3 && i % 100 <= 4 || f % 100 === Math.floor(f % 100) && f % 100 >= 3 && f % 100 <= 4) return Plural.Few;
-            return Plural.Other;
-        case 'ff':
-        case 'fr':
-        case 'hy':
-        case 'kab':
-            if (i === 0 || i === 1) return Plural.One;
-            return Plural.Other;
-        case 'fil':
-            if (v === 0 && (i === 1 || i === 2 || i === 3) || v === 0 && !(i % 10 === 4 || i % 10 === 6 || i % 10 === 9) || !(v === 0) && !(f % 10 === 4 || f % 10 === 6 || f % 10 === 9)) return Plural.One;
-            return Plural.Other;
-        case 'ga':
-            if (n === 1) return Plural.One;
-            if (n === 2) return Plural.Two;
-            if (n === Math.floor(n) && n >= 3 && n <= 6) return Plural.Few;
-            if (n === Math.floor(n) && n >= 7 && n <= 10) return Plural.Many;
-            return Plural.Other;
-        case 'gd':
-            if (n === 1 || n === 11) return Plural.One;
-            if (n === 2 || n === 12) return Plural.Two;
-            if (n === Math.floor(n) && (n >= 3 && n <= 10 || n >= 13 && n <= 19)) return Plural.Few;
-            return Plural.Other;
-        case 'gv':
-            if (v === 0 && i % 10 === 1) return Plural.One;
-            if (v === 0 && i % 10 === 2) return Plural.Two;
-            if (v === 0 && (i % 100 === 0 || i % 100 === 20 || i % 100 === 40 || i % 100 === 60 || i % 100 === 80)) return Plural.Few;
-            if (!(v === 0)) return Plural.Many;
-            return Plural.Other;
-        case 'he':
-            if (i === 1 && v === 0) return Plural.One;
-            if (i === 2 && v === 0) return Plural.Two;
-            if (v === 0 && !(n >= 0 && n <= 10) && n % 10 === 0) return Plural.Many;
-            return Plural.Other;
-        case 'is':
-            if (t === 0 && i % 10 === 1 && !(i % 100 === 11) || !(t === 0)) return Plural.One;
-            return Plural.Other;
-        case 'ksh':
-            if (n === 0) return Plural.Zero;
-            if (n === 1) return Plural.One;
-            return Plural.Other;
-        case 'kw':
-        case 'naq':
-        case 'se':
-        case 'smn':
-            if (n === 1) return Plural.One;
-            if (n === 2) return Plural.Two;
-            return Plural.Other;
-        case 'lag':
-            if (n === 0) return Plural.Zero;
-            if ((i === 0 || i === 1) && !(n === 0)) return Plural.One;
-            return Plural.Other;
-        case 'lt':
-            if (n % 10 === 1 && !(n % 100 >= 11 && n % 100 <= 19)) return Plural.One;
-            if (n % 10 === Math.floor(n % 10) && n % 10 >= 2 && n % 10 <= 9 && !(n % 100 >= 11 && n % 100 <= 19)) return Plural.Few;
-            if (!(f === 0)) return Plural.Many;
-            return Plural.Other;
-        case 'lv':
-        case 'prg':
-            if (n % 10 === 0 || n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 19 || v === 2 && f % 100 === Math.floor(f % 100) && f % 100 >= 11 && f % 100 <= 19) return Plural.Zero;
-            if (n % 10 === 1 && !(n % 100 === 11) || v === 2 && f % 10 === 1 && !(f % 100 === 11) || !(v === 2) && f % 10 === 1) return Plural.One;
-            return Plural.Other;
-        case 'mk':
-            if (v === 0 && i % 10 === 1 || f % 10 === 1) return Plural.One;
-            return Plural.Other;
-        case 'mt':
-            if (n === 1) return Plural.One;
-            if (n === 0 || n % 100 === Math.floor(n % 100) && n % 100 >= 2 && n % 100 <= 10) return Plural.Few;
-            if (n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 19) return Plural.Many;
-            return Plural.Other;
-        case 'pl':
-            if (i === 1 && v === 0) return Plural.One;
-            if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 && !(i % 100 >= 12 && i % 100 <= 14)) return Plural.Few;
-            if (v === 0 && !(i === 1) && i % 10 === Math.floor(i % 10) && i % 10 >= 0 && i % 10 <= 1 || v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 5 && i % 10 <= 9 || v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 12 && i % 100 <= 14) return Plural.Many;
-            return Plural.Other;
-        case 'pt':
-            if (n === Math.floor(n) && n >= 0 && n <= 2 && !(n === 2)) return Plural.One;
-            return Plural.Other;
-        case 'ro':
-            if (i === 1 && v === 0) return Plural.One;
-            if (!(v === 0) || n === 0 || !(n === 1) && n % 100 === Math.floor(n % 100) && n % 100 >= 1 && n % 100 <= 19) return Plural.Few;
-            return Plural.Other;
-        case 'ru':
-        case 'uk':
-            if (v === 0 && i % 10 === 1 && !(i % 100 === 11)) return Plural.One;
-            if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 && !(i % 100 >= 12 && i % 100 <= 14)) return Plural.Few;
-            if (v === 0 && i % 10 === 0 || v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 5 && i % 10 <= 9 || v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 11 && i % 100 <= 14) return Plural.Many;
-            return Plural.Other;
-        case 'shi':
-            if (i === 0 || n === 1) return Plural.One;
-            if (n === Math.floor(n) && n >= 2 && n <= 10) return Plural.Few;
-            return Plural.Other;
-        case 'si':
-            if (n === 0 || n === 1 || i === 0 && f === 1) return Plural.One;
-            return Plural.Other;
-        case 'sl':
-            if (v === 0 && i % 100 === 1) return Plural.One;
-            if (v === 0 && i % 100 === 2) return Plural.Two;
-            if (v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 3 && i % 100 <= 4 || !(v === 0)) return Plural.Few;
-            return Plural.Other;
-        case 'tzm':
-            if (n === Math.floor(n) && n >= 0 && n <= 1 || n === Math.floor(n) && n >= 11 && n <= 99) return Plural.One;
-            return Plural.Other;
-        default:
-            return Plural.Other;
-    }
-}
-
-/**
- * @param {?} obj
- * @return {?}
- */
-function isListLikeIterable(obj) {
-    if (!isJsObject(obj)) return false;
-    return Array.isArray(obj) || !(obj instanceof Map) && getSymbolIterator() in obj; // JS Iterable have a Symbol.iterator prop
-}
-
-/**
- * \@ngModule CommonModule
- *
- * \@whatItDoes Adds and removes CSS classes on an HTML element.
- *
- * \@howToUse
- * ```
- *     <some-element [ngClass]="'first second'">...</some-element>
- *
- *     <some-element [ngClass]="['first', 'second']">...</some-element>
- *
- *     <some-element [ngClass]="{'first': true, 'second': true, 'third': false}">...</some-element>
- *
- *     <some-element [ngClass]="stringExp|arrayExp|objExp">...</some-element>
- *
- *     <some-element [ngClass]="{'class1 class2 class3' : true}">...</some-element>
- * ```
- *
- * \@description
- *
- * The CSS classes are updated as follows, depending on the type of the expression evaluation:
- * - `string` - the CSS classes listed in the string (space delimited) are added,
- * - `Array` - the CSS classes declared as Array elements are added,
- * - `Object` - keys are CSS classes that get added when the expression given in the value
- *              evaluates to a truthy value, otherwise they are removed.
- *
- * \@stable
- */
-
-var NgClass = function () {
-    /**
-     * @param {?} _iterableDiffers
-     * @param {?} _keyValueDiffers
-     * @param {?} _ngEl
-     * @param {?} _renderer
-     */
-    function NgClass(_iterableDiffers, _keyValueDiffers, _ngEl, _renderer) {
-        _classCallCheck(this, NgClass);
-
-        this._iterableDiffers = _iterableDiffers;
-        this._keyValueDiffers = _keyValueDiffers;
-        this._ngEl = _ngEl;
-        this._renderer = _renderer;
-        this._initialClasses = [];
-    }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-
-
-    _createClass(NgClass, [{
-        key: 'ngDoCheck',
-
-        /**
-         * @return {?}
-         */
-        value: function ngDoCheck() {
-            if (this._iterableDiffer) {
-                var /** @type {?} */iterableChanges = this._iterableDiffer.diff( /** @type {?} */this._rawClass);
-                if (iterableChanges) {
-                    this._applyIterableChanges(iterableChanges);
-                }
-            } else if (this._keyValueDiffer) {
-                var /** @type {?} */keyValueChanges = this._keyValueDiffer.diff( /** @type {?} */this._rawClass);
-                if (keyValueChanges) {
-                    this._applyKeyValueChanges(keyValueChanges);
-                }
-            }
-        }
-        /**
-         * @param {?} rawClassVal
-         * @return {?}
-         */
-
-    }, {
-        key: '_cleanupClasses',
-        value: function _cleanupClasses(rawClassVal) {
-            this._applyClasses(rawClassVal, true);
-            this._applyInitialClasses(false);
-        }
-        /**
-         * @param {?} changes
-         * @return {?}
-         */
-
-    }, {
-        key: '_applyKeyValueChanges',
-        value: function _applyKeyValueChanges(changes) {
-            var _this5 = this;
-
-            changes.forEachAddedItem(function (record) {
-                return _this5._toggleClass(record.key, record.currentValue);
-            });
-            changes.forEachChangedItem(function (record) {
-                return _this5._toggleClass(record.key, record.currentValue);
-            });
-            changes.forEachRemovedItem(function (record) {
-                if (record.previousValue) {
-                    _this5._toggleClass(record.key, false);
-                }
-            });
-        }
-        /**
-         * @param {?} changes
-         * @return {?}
-         */
-
-    }, {
-        key: '_applyIterableChanges',
-        value: function _applyIterableChanges(changes) {
-            var _this6 = this;
-
-            changes.forEachAddedItem(function (record) {
-                if (typeof record.item === 'string') {
-                    _this6._toggleClass(record.item, true);
-                } else {
-                    throw new Error('NgClass can only toggle CSS classes expressed as strings, got ' + stringify(record.item));
-                }
-            });
-            changes.forEachRemovedItem(function (record) {
-                return _this6._toggleClass(record.item, false);
-            });
-        }
-        /**
-         * @param {?} isCleanup
-         * @return {?}
-         */
-
-    }, {
-        key: '_applyInitialClasses',
-        value: function _applyInitialClasses(isCleanup) {
-            var _this7 = this;
-
-            this._initialClasses.forEach(function (klass) {
-                return _this7._toggleClass(klass, !isCleanup);
-            });
-        }
-        /**
-         * @param {?} rawClassVal
-         * @param {?} isCleanup
-         * @return {?}
-         */
-
-    }, {
-        key: '_applyClasses',
-        value: function _applyClasses(rawClassVal, isCleanup) {
-            var _this8 = this;
-
-            if (rawClassVal) {
-                if (Array.isArray(rawClassVal) || rawClassVal instanceof Set) {
-                    rawClassVal.forEach(function (klass) {
-                        return _this8._toggleClass(klass, !isCleanup);
-                    });
-                } else {
-                    Object.keys(rawClassVal).forEach(function (klass) {
-                        if (rawClassVal[klass] != null) _this8._toggleClass(klass, !isCleanup);
-                    });
-                }
-            }
-        }
-        /**
-         * @param {?} klass
-         * @param {?} enabled
-         * @return {?}
-         */
-
-    }, {
-        key: '_toggleClass',
-        value: function _toggleClass(klass, enabled) {
-            var _this9 = this;
-
-            klass = klass.trim();
-            if (klass) {
-                klass.split(/\s+/g).forEach(function (klass) {
-                    _this9._renderer.setElementClass(_this9._ngEl.nativeElement, klass, !!enabled);
-                });
-            }
-        }
-    }, {
-        key: 'klass',
-        set: function set(v) {
-            this._applyInitialClasses(true);
-            this._initialClasses = typeof v === 'string' ? v.split(/\s+/) : [];
-            this._applyInitialClasses(false);
-            this._applyClasses(this._rawClass, false);
-        }
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-
-    }, {
-        key: 'ngClass',
-        set: function set(v) {
-            this._cleanupClasses(this._rawClass);
-            this._iterableDiffer = null;
-            this._keyValueDiffer = null;
-            this._rawClass = typeof v === 'string' ? v.split(/\s+/) : v;
-            if (this._rawClass) {
-                if (isListLikeIterable(this._rawClass)) {
-                    this._iterableDiffer = this._iterableDiffers.find(this._rawClass).create();
-                } else {
-                    this._keyValueDiffer = this._keyValueDiffers.find(this._rawClass).create();
-                }
-            }
-        }
-    }]);
-
-    return NgClass;
-}();
-
-NgClass.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngClass]' }] }];
-/** @nocollapse */
-NgClass.ctorParameters = function () {
-    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["IterableDiffers"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["KeyValueDiffers"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] }];
-};
-NgClass.propDecorators = {
-    'klass': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"], args: ['class'] }],
-    'ngClass': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
-};
-
-/**
- * Instantiates a single {\@link Component} type and inserts its Host View into current View.
- * `NgComponentOutlet` provides a declarative approach for dynamic component creation.
- *
- * `NgComponentOutlet` requires a component type, if a falsy value is set the view will clear and
- * any existing component will get destroyed.
- *
- * ### Fine tune control
- *
- * You can control the component creation process by using the following optional attributes:
- *
- * * `ngComponentOutletInjector`: Optional custom {\@link Injector} that will be used as parent for
- * the Component. Defaults to the injector of the current view container.
- *
- * * `ngComponentOutletProviders`: Optional injectable objects ({\@link Provider}) that are visible
- * to the component.
- *
- * * `ngComponentOutletContent`: Optional list of projectable nodes to insert into the content
- * section of the component, if exists.
- *
- * * `ngComponentOutletNgModuleFactory`: Optional module factory to allow dynamically loading other
- * module, then load a component from that module.
- *
- * ### Syntax
- *
- * Simple
- * ```
- * <ng-container *ngComponentOutlet="componentTypeExpression"></ng-container>
- * ```
- *
- * Customized injector/content
- * ```
- * <ng-container *ngComponentOutlet="componentTypeExpression;
- *                                   injector: injectorExpression;
- *                                   content: contentNodesExpression;">
- * </ng-container>
- * ```
- *
- * Customized ngModuleFactory
- * ```
- * <ng-container *ngComponentOutlet="componentTypeExpression;
- *                                   ngModuleFactory: moduleFactory;">
- * </ng-container>
- * ```
- * # Example
- *
- * {\@example common/ngComponentOutlet/ts/module.ts region='SimpleExample'}
- *
- * A more complete example with additional options:
- *
- * {\@example common/ngComponentOutlet/ts/module.ts region='CompleteExample'}
- * A more complete example with ngModuleFactory:
- *
- * {\@example common/ngComponentOutlet/ts/module.ts region='NgModuleFactoryExample'}
- *
- * \@experimental
- */
-
-var NgComponentOutlet = function () {
-    /**
-     * @param {?} _viewContainerRef
-     */
-    function NgComponentOutlet(_viewContainerRef) {
-        _classCallCheck(this, NgComponentOutlet);
-
-        this._viewContainerRef = _viewContainerRef;
-        this._componentRef = null;
-        this._moduleRef = null;
-    }
-    /**
-     * @param {?} changes
-     * @return {?}
-     */
-
-
-    _createClass(NgComponentOutlet, [{
-        key: 'ngOnChanges',
-        value: function ngOnChanges(changes) {
-            if (this._componentRef) {
-                this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._componentRef.hostView));
-            }
-            this._viewContainerRef.clear();
-            this._componentRef = null;
-            if (this.ngComponentOutlet) {
-                var /** @type {?} */injector = this.ngComponentOutletInjector || this._viewContainerRef.parentInjector;
-                if (changes.ngComponentOutletNgModuleFactory) {
-                    if (this._moduleRef) this._moduleRef.destroy();
-                    if (this.ngComponentOutletNgModuleFactory) {
-                        this._moduleRef = this.ngComponentOutletNgModuleFactory.create(injector);
-                    } else {
-                        this._moduleRef = null;
-                    }
-                }
-                if (this._moduleRef) {
-                    injector = this._moduleRef.injector;
-                }
-                var /** @type {?} */componentFactory = injector.get(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"]).resolveComponentFactory(this.ngComponentOutlet);
-                this._componentRef = this._viewContainerRef.createComponent(componentFactory, this._viewContainerRef.length, injector, this.ngComponentOutletContent);
-            }
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'ngOnDestroy',
-        value: function ngOnDestroy() {
-            if (this._moduleRef) this._moduleRef.destroy();
-        }
-    }]);
-
-    return NgComponentOutlet;
-}();
-
-NgComponentOutlet.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngComponentOutlet]' }] }];
-/** @nocollapse */
-NgComponentOutlet.ctorParameters = function () {
-    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }];
-};
-NgComponentOutlet.propDecorators = {
-    'ngComponentOutlet': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
-    'ngComponentOutletInjector': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
-    'ngComponentOutletContent': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
-    'ngComponentOutletNgModuleFactory': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
-};
-
-var NgForOfRow = function () {
-    /**
-     * @param {?} $implicit
-     * @param {?} index
-     * @param {?} count
-     */
-    function NgForOfRow($implicit, index, count) {
-        _classCallCheck(this, NgForOfRow);
-
-        this.$implicit = $implicit;
-        this.index = index;
-        this.count = count;
-    }
-    /**
-     * @return {?}
-     */
-
-
-    _createClass(NgForOfRow, [{
-        key: 'first',
-        get: function get() {
-            return this.index === 0;
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'last',
-        get: function get() {
-            return this.index === this.count - 1;
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'even',
-        get: function get() {
-            return this.index % 2 === 0;
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'odd',
-        get: function get() {
-            return !this.even;
-        }
-    }]);
-
-    return NgForOfRow;
-}();
-/**
- * The `NgForOf` directive instantiates a template once per item from an iterable. The context
- * for each instantiated template inherits from the outer context with the given loop variable
- * set to the current item from the iterable.
- *
- * ### Local Variables
- *
- * `NgForOf` provides several exported values that can be aliased to local variables:
- *
- * * `index` will be set to the current loop iteration for each template context.
- * * `first` will be set to a boolean value indicating whether the item is the first one in the
- *   iteration.
- * * `last` will be set to a boolean value indicating whether the item is the last one in the
- *   iteration.
- * * `even` will be set to a boolean value indicating whether this item has an even index.
- * * `odd` will be set to a boolean value indicating whether this item has an odd index.
- *
- * ### Change Propagation
- *
- * When the contents of the iterator changes, `NgForOf` makes the corresponding changes to the DOM:
- *
- * * When an item is added, a new instance of the template is added to the DOM.
- * * When an item is removed, its template instance is removed from the DOM.
- * * When items are reordered, their respective templates are reordered in the DOM.
- * * Otherwise, the DOM element for that item will remain the same.
- *
- * Angular uses object identity to track insertions and deletions within the iterator and reproduce
- * those changes in the DOM. This has important implications for animations and any stateful
- * controls (such as `<input>` elements which accept user input) that are present. Inserted rows can
- * be animated in, deleted rows can be animated out, and unchanged rows retain any unsaved state
- * such as user input.
- *
- * It is possible for the identities of elements in the iterator to change while the data does not.
- * This can happen, for example, if the iterator produced from an RPC to the server, and that
- * RPC is re-run. Even if the data hasn't changed, the second response will produce objects with
- * different identities, and Angular will tear down the entire DOM and rebuild it (as if all old
- * elements were deleted and all new elements inserted). This is an expensive operation and should
- * be avoided if possible.
- *
- * To customize the default tracking algorithm, `NgForOf` supports `trackBy` option.
- * `trackBy` takes a function which has two arguments: `index` and `item`.
- * If `trackBy` is given, Angular tracks changes by the return value of the function.
- *
- * ### Syntax
- *
- * - `<li *ngFor="let item of items; let i = index; trackBy: trackByFn">...</li>`
- * - `<li template="ngFor let item of items; let i = index; trackBy: trackByFn">...</li>`
- *
- * With `<ng-template>` element:
- *
- * ```
- * <ng-template ngFor let-item [ngForOf]="items" let-i="index" [ngForTrackBy]="trackByFn">
- *   <li>...</li>
- * </ng-template>
- * ```
- *
- * ### Example
- *
- * See a [live demo](http://plnkr.co/edit/KVuXxDp0qinGDyo307QW?p=preview) for a more detailed
- * example.
- *
- * \@stable
- */
-
-
-var NgForOf = function () {
-    /**
-     * @param {?} _viewContainer
-     * @param {?} _template
-     * @param {?} _differs
-     */
-    function NgForOf(_viewContainer, _template, _differs) {
-        _classCallCheck(this, NgForOf);
-
-        this._viewContainer = _viewContainer;
-        this._template = _template;
-        this._differs = _differs;
-        this._differ = null;
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-
-
-    _createClass(NgForOf, [{
-        key: 'ngOnChanges',
-
-        /**
-         * @param {?} changes
-         * @return {?}
-         */
-        value: function ngOnChanges(changes) {
-            if ('ngForOf' in changes) {
-                // React on ngForOf changes only once all inputs have been initialized
-                var /** @type {?} */value = changes['ngForOf'].currentValue;
-                if (!this._differ && value) {
-                    try {
-                        this._differ = this._differs.find(value).create(this.ngForTrackBy);
-                    } catch (e) {
-                        throw new Error('Cannot find a differ supporting object \'' + value + '\' of type \'' + getTypeNameForDebugging(value) + '\'. NgFor only supports binding to Iterables such as Arrays.');
-                    }
-                }
-            }
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'ngDoCheck',
-        value: function ngDoCheck() {
-            if (this._differ) {
-                var /** @type {?} */changes = this._differ.diff(this.ngForOf);
-                if (changes) this._applyChanges(changes);
-            }
-        }
-        /**
-         * @param {?} changes
-         * @return {?}
-         */
-
-    }, {
-        key: '_applyChanges',
-        value: function _applyChanges(changes) {
-            var _this10 = this;
-
-            var /** @type {?} */insertTuples = [];
-            changes.forEachOperation(function (item, adjustedPreviousIndex, currentIndex) {
-                if (item.previousIndex == null) {
-                    var /** @type {?} */view = _this10._viewContainer.createEmbeddedView(_this10._template, new NgForOfRow(null, null, null), currentIndex);
-                    var /** @type {?} */tuple = new RecordViewTuple(item, view);
-                    insertTuples.push(tuple);
-                } else if (currentIndex == null) {
-                    _this10._viewContainer.remove(adjustedPreviousIndex);
-                } else {
-                    var /** @type {?} */_view = _this10._viewContainer.get(adjustedPreviousIndex);
-                    _this10._viewContainer.move(_view, currentIndex);
-                    var /** @type {?} */_tuple = new RecordViewTuple(item, /** @type {?} */_view);
-                    insertTuples.push(_tuple);
-                }
-            });
-            for (var /** @type {?} */i = 0; i < insertTuples.length; i++) {
-                this._perViewChange(insertTuples[i].view, insertTuples[i].record);
-            }
-            for (var /** @type {?} */_i = 0, /** @type {?} */ilen = this._viewContainer.length; _i < ilen; _i++) {
-                var /** @type {?} */viewRef = this._viewContainer.get(_i);
-                viewRef.context.index = _i;
-                viewRef.context.count = ilen;
-            }
-            changes.forEachIdentityChange(function (record) {
-                var /** @type {?} */viewRef = _this10._viewContainer.get(record.currentIndex);
-                viewRef.context.$implicit = record.item;
-            });
-        }
-        /**
-         * @param {?} view
-         * @param {?} record
-         * @return {?}
-         */
-
-    }, {
-        key: '_perViewChange',
-        value: function _perViewChange(view, record) {
-            view.context.$implicit = record.item;
-        }
-    }, {
-        key: 'ngForTrackBy',
-        set: function set(fn) {
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["isDevMode"])() && fn != null && typeof fn !== 'function') {
-                // TODO(vicb): use a log service once there is a public one available
-                if (console && console.warn) {
-                    console.warn('trackBy must be a function, but received ' + JSON.stringify(fn) + '. ' + 'See https://angular.io/docs/ts/latest/api/common/index/NgFor-directive.html#!#change-propagation for more information.');
-                }
-            }
-            this._trackByFn = fn;
-        }
-        /**
-         * @return {?}
-         */
-        ,
-        get: function get() {
-            return this._trackByFn;
-        }
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-
-    }, {
-        key: 'ngForTemplate',
-        set: function set(value) {
-            // TODO(TS2.1): make TemplateRef<Partial<NgForRowOf<T>>> once we move to TS v2.1
-            // The current type is too restrictive; a template that just uses index, for example,
-            // should be acceptable.
-            if (value) {
-                this._template = value;
-            }
-        }
-    }]);
-
-    return NgForOf;
-}();
-
-NgForOf.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngFor][ngForOf]' }] }];
-/** @nocollapse */
-NgForOf.ctorParameters = function () {
-    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["IterableDiffers"] }];
-};
-NgForOf.propDecorators = {
-    'ngForOf': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
-    'ngForTrackBy': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
-    'ngForTemplate': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
-};
-
-var RecordViewTuple =
-/**
- * @param {?} record
- * @param {?} view
- */
-function RecordViewTuple(record, view) {
-    _classCallCheck(this, RecordViewTuple);
-
-    this.record = record;
-    this.view = view;
-};
-/**
- * @deprecated from v4.0.0 - Use NgForOf instead.
- */
-
-
-var /** @type {?} */NgFor = NgForOf;
-
-/**
- * Conditionally includes a template based on the value of an `expression`.
- *
- * `ngIf` evaluates the `expression` and then renders the `then` or `else` template in its place
- * when expression is truthy or falsy respectively. Typically the:
- *  - `then` template is the inline template of `ngIf` unless bound to a different value.
- *  - `else` template is blank unless it is bound.
- *
- * # Most common usage
- *
- * The most common usage of the `ngIf` directive is to conditionally show the inline template as
- * seen in this example:
- * {\@example common/ngIf/ts/module.ts region='NgIfSimple'}
- *
- * # Showing an alternative template using `else`
- *
- * If it is necessary to display a template when the `expression` is falsy use the `else` template
- * binding as shown. Note that the `else` binding points to a `<ng-template>` labeled `#elseBlock`.
- * The template can be defined anywhere in the component view but is typically placed right after
- * `ngIf` for readability.
- *
- * {\@example common/ngIf/ts/module.ts region='NgIfElse'}
- *
- * # Using non-inlined `then` template
- *
- * Usually the `then` template is the inlined template of the `ngIf`, but it can be changed using
- * a binding (just like `else`). Because `then` and `else` are bindings, the template references can
- * change at runtime as shown in this example.
- *
- * {\@example common/ngIf/ts/module.ts region='NgIfThenElse'}
- *
- * # Storing conditional result in a variable
- *
- * A common pattern is that we need to show a set of properties from the same object. If the
- * object is undefined, then we have to use the safe-traversal-operator `?.` to guard against
- * dereferencing a `null` value. This is especially the case when waiting on async data such as
- * when using the `async` pipe as shown in folowing example:
- *
- * ```
- * Hello {{ (userStream|async)?.last }}, {{ (userStream|async)?.first }}!
- * ```
- *
- * There are several inefficiencies in the above example:
- *  - We create multiple subscriptions on `userStream`. One for each `async` pipe, or two in the
- *    example above.
- *  - We cannot display an alternative screen while waiting for the data to arrive asynchronously.
- *  - We have to use the safe-traversal-operator `?.` to access properties, which is cumbersome.
- *  - We have to place the `async` pipe in parenthesis.
- *
- * A better way to do this is to use `ngIf` and store the result of the condition in a local
- * variable as shown in the the example below:
- *
- * {\@example common/ngIf/ts/module.ts region='NgIfLet'}
- *
- * Notice that:
- *  - We use only one `async` pipe and hence only one subscription gets created.
- *  - `ngIf` stores the result of the `userStream|async` in the local variable `user`.
- *  - The local `user` can then be bound repeatedly in a more efficient way.
- *  - No need to use the safe-traversal-operator `?.` to access properties as `ngIf` will only
- *    display the data if `userStream` returns a value.
- *  - We can display an alternative template while waiting for the data.
- *
- * ### Syntax
- *
- * Simple form:
- * - `<div *ngIf="condition">...</div>`
- * - `<div template="ngIf condition">...</div>`
- * - `<ng-template [ngIf]="condition"><div>...</div></ng-template>`
- *
- * Form with an else block:
- * ```
- * <div *ngIf="condition; else elseBlock">...</div>
- * <ng-template #elseBlock>...</ng-template>
- * ```
- *
- * Form with a `then` and `else` block:
- * ```
- * <div *ngIf="condition; then thenBlock else elseBlock"></div>
- * <ng-template #thenBlock>...</ng-template>
- * <ng-template #elseBlock>...</ng-template>
- * ```
- *
- * Form with storing the value locally:
- * ```
- * <div *ngIf="condition; else elseBlock; let value">{{value}}</div>
- * <ng-template #elseBlock>...</ng-template>
- * ```
- *
- * \@stable
- */
-
-var NgIf = function () {
-    /**
-     * @param {?} _viewContainer
-     * @param {?} templateRef
-     */
-    function NgIf(_viewContainer, templateRef) {
-        _classCallCheck(this, NgIf);
-
-        this._viewContainer = _viewContainer;
-        this._context = new NgIfContext();
-        this._thenTemplateRef = null;
-        this._elseTemplateRef = null;
-        this._thenViewRef = null;
-        this._elseViewRef = null;
-        this._thenTemplateRef = templateRef;
-    }
-    /**
-     * @param {?} condition
-     * @return {?}
-     */
-
-
-    _createClass(NgIf, [{
-        key: '_updateView',
-
-        /**
-         * @return {?}
-         */
-        value: function _updateView() {
-            if (this._context.$implicit) {
-                if (!this._thenViewRef) {
-                    this._viewContainer.clear();
-                    this._elseViewRef = null;
-                    if (this._thenTemplateRef) {
-                        this._thenViewRef = this._viewContainer.createEmbeddedView(this._thenTemplateRef, this._context);
-                    }
-                }
-            } else {
-                if (!this._elseViewRef) {
-                    this._viewContainer.clear();
-                    this._thenViewRef = null;
-                    if (this._elseTemplateRef) {
-                        this._elseViewRef = this._viewContainer.createEmbeddedView(this._elseTemplateRef, this._context);
-                    }
-                }
-            }
-        }
-    }, {
-        key: 'ngIf',
-        set: function set(condition) {
-            this._context.$implicit = condition;
-            this._updateView();
-        }
-        /**
-         * @param {?} templateRef
-         * @return {?}
-         */
-
-    }, {
-        key: 'ngIfThen',
-        set: function set(templateRef) {
-            this._thenTemplateRef = templateRef;
-            this._thenViewRef = null; // clear previous view if any.
-            this._updateView();
-        }
-        /**
-         * @param {?} templateRef
-         * @return {?}
-         */
-
-    }, {
-        key: 'ngIfElse',
-        set: function set(templateRef) {
-            this._elseTemplateRef = templateRef;
-            this._elseViewRef = null; // clear previous view if any.
-            this._updateView();
-        }
-    }]);
-
-    return NgIf;
-}();
-
-NgIf.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngIf]' }] }];
-/** @nocollapse */
-NgIf.ctorParameters = function () {
-    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] }];
-};
-NgIf.propDecorators = {
-    'ngIf': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
-    'ngIfThen': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
-    'ngIfElse': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
-};
-
-var NgIfContext = function NgIfContext() {
-    _classCallCheck(this, NgIfContext);
-
-    this.$implicit = null;
-};
-
-var SwitchView = function () {
-    /**
-     * @param {?} _viewContainerRef
-     * @param {?} _templateRef
-     */
-    function SwitchView(_viewContainerRef, _templateRef) {
-        _classCallCheck(this, SwitchView);
-
-        this._viewContainerRef = _viewContainerRef;
-        this._templateRef = _templateRef;
-        this._created = false;
-    }
-    /**
-     * @return {?}
-     */
-
-
-    _createClass(SwitchView, [{
-        key: 'create',
-        value: function create() {
-            this._created = true;
-            this._viewContainerRef.createEmbeddedView(this._templateRef);
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: 'destroy',
-        value: function destroy() {
-            this._created = false;
-            this._viewContainerRef.clear();
-        }
-        /**
-         * @param {?} created
-         * @return {?}
-         */
-
-    }, {
-        key: 'enforceState',
-        value: function enforceState(created) {
-            if (created && !this._created) {
-                this.create();
-            } else if (!created && this._created) {
-                this.destroy();
-            }
-        }
-    }]);
-
-    return SwitchView;
-}();
-/**
- * \@ngModule CommonModule
- *
- * \@whatItDoes Adds / removes DOM sub-trees when the nest match expressions matches the switch
- *             expression.
- *
- * \@howToUse
- * ```
- *     <container-element [ngSwitch]="switch_expression">
- *       <some-element *ngSwitchCase="match_expression_1">...</some-element>
- *       <some-element *ngSwitchCase="match_expression_2">...</some-element>
- *       <some-other-element *ngSwitchCase="match_expression_3">...</some-other-element>
- *       <ng-container *ngSwitchCase="match_expression_3">
- *         <!-- use a ng-container to group multiple root nodes -->
- *         <inner-element></inner-element>
- *         <inner-other-element></inner-other-element>
- *       </ng-container>
- *       <some-element *ngSwitchDefault>...</some-element>
- *     </container-element>
- * ```
- * \@description
- *
- * `NgSwitch` stamps out nested views when their match expression value matches the value of the
- * switch expression.
- *
- * In other words:
- * - you define a container element (where you place the directive with a switch expression on the
- * `[ngSwitch]="..."` attribute)
- * - you define inner views inside the `NgSwitch` and place a `*ngSwitchCase` attribute on the view
- * root elements.
- *
- * Elements within `NgSwitch` but outside of a `NgSwitchCase` or `NgSwitchDefault` directives will
- * be preserved at the location.
- *
- * The `ngSwitchCase` directive informs the parent `NgSwitch` of which view to display when the
- * expression is evaluated.
- * When no matching expression is found on a `ngSwitchCase` view, the `ngSwitchDefault` view is
- * stamped out.
- *
- * \@stable
- */
-
-
-var NgSwitch = function () {
-    function NgSwitch() {
-        _classCallCheck(this, NgSwitch);
-
-        this._defaultUsed = false;
-        this._caseCount = 0;
-        this._lastCaseCheckIndex = 0;
-        this._lastCasesMatched = false;
-    }
-    /**
-     * @param {?} newValue
-     * @return {?}
-     */
-
-
-    _createClass(NgSwitch, [{
-        key: '_addCase',
-
-        /**
-         * \@internal
-         * @return {?}
-         */
-        value: function _addCase() {
-            return this._caseCount++;
-        }
-        /**
-         * \@internal
-         * @param {?} view
-         * @return {?}
-         */
-
-    }, {
-        key: '_addDefault',
-        value: function _addDefault(view) {
-            if (!this._defaultViews) {
-                this._defaultViews = [];
-            }
-            this._defaultViews.push(view);
-        }
-        /**
-         * \@internal
-         * @param {?} value
-         * @return {?}
-         */
-
-    }, {
-        key: '_matchCase',
-        value: function _matchCase(value) {
-            var /** @type {?} */matched = value == this._ngSwitch;
-            this._lastCasesMatched = this._lastCasesMatched || matched;
-            this._lastCaseCheckIndex++;
-            if (this._lastCaseCheckIndex === this._caseCount) {
-                this._updateDefaultCases(!this._lastCasesMatched);
-                this._lastCaseCheckIndex = 0;
-                this._lastCasesMatched = false;
-            }
-            return matched;
-        }
-        /**
-         * @param {?} useDefault
-         * @return {?}
-         */
-
-    }, {
-        key: '_updateDefaultCases',
-        value: function _updateDefaultCases(useDefault) {
-            if (this._defaultViews && useDefault !== this._defaultUsed) {
-                this._defaultUsed = useDefault;
-                for (var /** @type {?} */i = 0; i < this._defaultViews.length; i++) {
-                    var /** @type {?} */defaultView = this._defaultViews[i];
-                    defaultView.enforceState(useDefault);
-                }
-            }
-        }
-    }, {
-        key: 'ngSwitch',
-        set: function set(newValue) {
-            this._ngSwitch = newValue;
-            if (this._caseCount === 0) {
-                this._updateDefaultCases(true);
-            }
-        }
-    }]);
-
-    return NgSwitch;
-}();
-
-NgSwitch.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngSwitch]' }] }];
-/** @nocollapse */
-NgSwitch.ctorParameters = function () {
-    return [];
-};
-NgSwitch.propDecorators = {
-    'ngSwitch': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
-};
-/**
- * \@ngModule CommonModule
- *
- * \@whatItDoes Creates a view that will be added/removed from the parent {\@link NgSwitch} when the
- *             given expression evaluate to respectively the same/different value as the switch
- *             expression.
- *
- * \@howToUse
- * ```
- * <container-element [ngSwitch]="switch_expression">
- *   <some-element *ngSwitchCase="match_expression_1">...</some-element>
- * </container-element>
- * ```
- * \@description
- *
- * Insert the sub-tree when the expression evaluates to the same value as the enclosing switch
- * expression.
- *
- * If multiple match expressions match the switch expression value, all of them are displayed.
- *
- * See {\@link NgSwitch} for more details and example.
- *
- * \@stable
- */
-
-var NgSwitchCase = function () {
-    /**
-     * @param {?} viewContainer
-     * @param {?} templateRef
-     * @param {?} ngSwitch
-     */
-    function NgSwitchCase(viewContainer, templateRef, ngSwitch) {
-        _classCallCheck(this, NgSwitchCase);
-
-        this.ngSwitch = ngSwitch;
-        ngSwitch._addCase();
-        this._view = new SwitchView(viewContainer, templateRef);
-    }
-    /**
-     * @return {?}
-     */
-
-
-    _createClass(NgSwitchCase, [{
-        key: 'ngDoCheck',
-        value: function ngDoCheck() {
-            this._view.enforceState(this.ngSwitch._matchCase(this.ngSwitchCase));
-        }
-    }]);
-
-    return NgSwitchCase;
-}();
-
-NgSwitchCase.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngSwitchCase]' }] }];
-/** @nocollapse */
-NgSwitchCase.ctorParameters = function () {
-    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] }, { type: NgSwitch, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Host"] }] }];
-};
-NgSwitchCase.propDecorators = {
-    'ngSwitchCase': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
-};
-/**
- * \@ngModule CommonModule
- * \@whatItDoes Creates a view that is added to the parent {\@link NgSwitch} when no case expressions
- * match the
- *             switch expression.
- *
- * \@howToUse
- * ```
- * <container-element [ngSwitch]="switch_expression">
- *   <some-element *ngSwitchCase="match_expression_1">...</some-element>
- *   <some-other-element *ngSwitchDefault>...</some-other-element>
- * </container-element>
- * ```
- *
- * \@description
- *
- * Insert the sub-tree when no case expressions evaluate to the same value as the enclosing switch
- * expression.
- *
- * See {\@link NgSwitch} for more details and example.
- *
- * \@stable
- */
-
-var NgSwitchDefault =
-/**
- * @param {?} viewContainer
- * @param {?} templateRef
- * @param {?} ngSwitch
- */
-function NgSwitchDefault(viewContainer, templateRef, ngSwitch) {
-    _classCallCheck(this, NgSwitchDefault);
-
-    ngSwitch._addDefault(new SwitchView(viewContainer, templateRef));
-};
-
-NgSwitchDefault.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngSwitchDefault]' }] }];
-/** @nocollapse */
-NgSwitchDefault.ctorParameters = function () {
-    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] }, { type: NgSwitch, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Host"] }] }];
-};
-
-/**
- * \@ngModule CommonModule
- *
- * \@whatItDoes Adds / removes DOM sub-trees based on a numeric value. Tailored for pluralization.
- *
- * \@howToUse
- * ```
- * <some-element [ngPlural]="value">
- *   <ng-template ngPluralCase="=0">there is nothing</ng-template>
- *   <ng-template ngPluralCase="=1">there is one</ng-template>
- *   <ng-template ngPluralCase="few">there are a few</ng-template>
- * </some-element>
- * ```
- *
- * \@description
- *
- * Displays DOM sub-trees that match the switch expression value, or failing that, DOM sub-trees
- * that match the switch expression's pluralization category.
- *
- * To use this directive you must provide a container element that sets the `[ngPlural]` attribute
- * to a switch expression. Inner elements with a `[ngPluralCase]` will display based on their
- * expression:
- * - if `[ngPluralCase]` is set to a value starting with `=`, it will only display if the value
- *   matches the switch expression exactly,
- * - otherwise, the view will be treated as a "category match", and will only display if exact
- *   value matches aren't found and the value maps to its category for the defined locale.
- *
- * See http://cldr.unicode.org/index/cldr-spec/plural-rules
- *
- * \@experimental
- */
-
-var NgPlural = function () {
-    /**
-     * @param {?} _localization
-     */
-    function NgPlural(_localization) {
-        _classCallCheck(this, NgPlural);
-
-        this._localization = _localization;
-        this._caseViews = {};
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-
-
-    _createClass(NgPlural, [{
-        key: 'addCase',
-
-        /**
-         * @param {?} value
-         * @param {?} switchView
-         * @return {?}
-         */
-        value: function addCase(value, switchView) {
-            this._caseViews[value] = switchView;
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: '_updateView',
-        value: function _updateView() {
-            this._clearViews();
-            var /** @type {?} */cases = Object.keys(this._caseViews);
-            var /** @type {?} */key = getPluralCategory(this._switchValue, cases, this._localization);
-            this._activateView(this._caseViews[key]);
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: '_clearViews',
-        value: function _clearViews() {
-            if (this._activeView) this._activeView.destroy();
-        }
-        /**
-         * @param {?} view
-         * @return {?}
-         */
-
-    }, {
-        key: '_activateView',
-        value: function _activateView(view) {
-            if (view) {
-                this._activeView = view;
-                this._activeView.create();
-            }
-        }
-    }, {
-        key: 'ngPlural',
-        set: function set(value) {
-            this._switchValue = value;
-            this._updateView();
-        }
-    }]);
-
-    return NgPlural;
-}();
-
-NgPlural.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngPlural]' }] }];
-/** @nocollapse */
-NgPlural.ctorParameters = function () {
-    return [{ type: NgLocalization }];
-};
-NgPlural.propDecorators = {
-    'ngPlural': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
-};
-/**
- * \@ngModule CommonModule
- *
- * \@whatItDoes Creates a view that will be added/removed from the parent {\@link NgPlural} when the
- *             given expression matches the plural expression according to CLDR rules.
- *
- * \@howToUse
- * ```
- * <some-element [ngPlural]="value">
- *   <ng-template ngPluralCase="=0">...</ng-template>
- *   <ng-template ngPluralCase="other">...</ng-template>
- * </some-element>
- * ```
- *
- * See {\@link NgPlural} for more details and example.
- *
- * \@experimental
- */
-
-var NgPluralCase =
-/**
- * @param {?} value
- * @param {?} template
- * @param {?} viewContainer
- * @param {?} ngPlural
- */
-function NgPluralCase(value, template, viewContainer, ngPlural) {
-    _classCallCheck(this, NgPluralCase);
-
-    this.value = value;
-    var isANumber = !isNaN(Number(value));
-    ngPlural.addCase(isANumber ? '=' + value : value, new SwitchView(viewContainer, template));
-};
-
-NgPluralCase.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngPluralCase]' }] }];
-/** @nocollapse */
-NgPluralCase.ctorParameters = function () {
-    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Attribute"], args: ['ngPluralCase'] }] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }, { type: NgPlural, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Host"] }] }];
-};
-
-/**
- * \@ngModule CommonModule
- *
- * \@whatItDoes Update an HTML element styles.
- *
- * \@howToUse
- * ```
- * <some-element [ngStyle]="{'font-style': styleExp}">...</some-element>
- *
- * <some-element [ngStyle]="{'max-width.px': widthExp}">...</some-element>
- *
- * <some-element [ngStyle]="objExp">...</some-element>
- * ```
- *
- * \@description
- *
- * The styles are updated according to the value of the expression evaluation:
- * - keys are style names with an optional `.<unit>` suffix (ie 'top.px', 'font-style.em'),
- * - values are the values assigned to those properties (expressed in the given unit).
- *
- * \@stable
- */
-
-var NgStyle = function () {
-    /**
-     * @param {?} _differs
-     * @param {?} _ngEl
-     * @param {?} _renderer
-     */
-    function NgStyle(_differs, _ngEl, _renderer) {
-        _classCallCheck(this, NgStyle);
-
-        this._differs = _differs;
-        this._ngEl = _ngEl;
-        this._renderer = _renderer;
-    }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-
-
-    _createClass(NgStyle, [{
-        key: 'ngDoCheck',
-
-        /**
-         * @return {?}
-         */
-        value: function ngDoCheck() {
-            if (this._differ) {
-                var /** @type {?} */changes = this._differ.diff(this._ngStyle);
-                if (changes) {
-                    this._applyChanges(changes);
-                }
-            }
-        }
-        /**
-         * @param {?} changes
-         * @return {?}
-         */
-
-    }, {
-        key: '_applyChanges',
-        value: function _applyChanges(changes) {
-            var _this11 = this;
-
-            changes.forEachRemovedItem(function (record) {
-                return _this11._setStyle(record.key, null);
-            });
-            changes.forEachAddedItem(function (record) {
-                return _this11._setStyle(record.key, record.currentValue);
-            });
-            changes.forEachChangedItem(function (record) {
-                return _this11._setStyle(record.key, record.currentValue);
-            });
-        }
-        /**
-         * @param {?} nameAndUnit
-         * @param {?} value
-         * @return {?}
-         */
-
-    }, {
-        key: '_setStyle',
-        value: function _setStyle(nameAndUnit, value) {
-            var _nameAndUnit$split = nameAndUnit.split('.'),
-                _nameAndUnit$split2 = _slicedToArray(_nameAndUnit$split, 2),
-                name = _nameAndUnit$split2[0],
-                unit = _nameAndUnit$split2[1];
-
-            value = value != null && unit ? '' + value + unit : value;
-            this._renderer.setElementStyle(this._ngEl.nativeElement, name, /** @type {?} */value);
-        }
-    }, {
-        key: 'ngStyle',
-        set: function set(v) {
-            this._ngStyle = v;
-            if (!this._differ && v) {
-                this._differ = this._differs.find(v).create();
-            }
-        }
-    }]);
-
-    return NgStyle;
-}();
-
-NgStyle.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngStyle]' }] }];
-/** @nocollapse */
-NgStyle.ctorParameters = function () {
-    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["KeyValueDiffers"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] }];
-};
-NgStyle.propDecorators = {
-    'ngStyle': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
-};
-
-/**
- * \@ngModule CommonModule
- *
- * \@whatItDoes Inserts an embedded view from a prepared `TemplateRef`
- *
- * \@howToUse
- * ```
- * <ng-container *ngTemplateOutlet="templateRefExp; context: contextExp"></ng-container>
- * ```
- *
- * \@description
- *
- * You can attach a context object to the `EmbeddedViewRef` by setting `[ngTemplateOutletContext]`.
- * `[ngTemplateOutletContext]` should be an object, the object's keys will be available for binding
- * by the local template `let` declarations.
- *
- * Note: using the key `$implicit` in the context object will set it's value as default.
- *
- * # Example
- *
- * {\@example common/ngTemplateOutlet/ts/module.ts region='NgTemplateOutlet'}
- *
- * \@experimental
- */
-
-var NgTemplateOutlet = function () {
-    /**
-     * @param {?} _viewContainerRef
-     */
-    function NgTemplateOutlet(_viewContainerRef) {
-        _classCallCheck(this, NgTemplateOutlet);
-
-        this._viewContainerRef = _viewContainerRef;
-    }
-    /**
-     * @deprecated v4.0.0 - Renamed to ngTemplateOutletContext.
-     * @param {?} context
-     * @return {?}
-     */
-
-
-    _createClass(NgTemplateOutlet, [{
-        key: 'ngOnChanges',
-
-        /**
-         * @param {?} changes
-         * @return {?}
-         */
-        value: function ngOnChanges(changes) {
-            if (this._viewRef) {
-                this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._viewRef));
-            }
-            if (this.ngTemplateOutlet) {
-                this._viewRef = this._viewContainerRef.createEmbeddedView(this.ngTemplateOutlet, this.ngTemplateOutletContext);
-            }
-        }
-    }, {
-        key: 'ngOutletContext',
-        set: function set(context) {
-            this.ngTemplateOutletContext = context;
-        }
-    }]);
-
-    return NgTemplateOutlet;
-}();
-
-NgTemplateOutlet.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngTemplateOutlet]' }] }];
-/** @nocollapse */
-NgTemplateOutlet.ctorParameters = function () {
-    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }];
-};
-NgTemplateOutlet.propDecorators = {
-    'ngTemplateOutletContext': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
-    'ngTemplateOutlet': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
-    'ngOutletContext': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
-};
-
-/**
- * A collection of Angular directives that are likely to be used in each and every Angular
- * application.
- */
-var /** @type {?} */COMMON_DIRECTIVES = [NgClass, NgComponentOutlet, NgForOf, NgIf, NgTemplateOutlet, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault, NgPlural, NgPluralCase];
-
-/**
- * @param {?} type
- * @param {?} value
- * @return {?}
- */
-function invalidPipeArgumentError(type, value) {
-    return Error('InvalidPipeArgument: \'' + value + '\' for pipe \'' + stringify(type) + '\'');
-}
-
-var ObservableStrategy = function () {
-    function ObservableStrategy() {
-        _classCallCheck(this, ObservableStrategy);
-    }
-
-    _createClass(ObservableStrategy, [{
-        key: 'createSubscription',
-
-        /**
-         * @param {?} async
-         * @param {?} updateLatestValue
-         * @return {?}
-         */
-        value: function createSubscription(async, updateLatestValue) {
-            return async.subscribe({ next: updateLatestValue, error: function error(e) {
-                    throw e;
-                } });
-        }
-        /**
-         * @param {?} subscription
-         * @return {?}
-         */
-
-    }, {
-        key: 'dispose',
-        value: function dispose(subscription) {
-            subscription.unsubscribe();
-        }
-        /**
-         * @param {?} subscription
-         * @return {?}
-         */
-
-    }, {
-        key: 'onDestroy',
-        value: function onDestroy(subscription) {
-            subscription.unsubscribe();
-        }
-    }]);
-
-    return ObservableStrategy;
-}();
-
-var PromiseStrategy = function () {
-    function PromiseStrategy() {
-        _classCallCheck(this, PromiseStrategy);
-    }
-
-    _createClass(PromiseStrategy, [{
-        key: 'createSubscription',
-
-        /**
-         * @param {?} async
-         * @param {?} updateLatestValue
-         * @return {?}
-         */
-        value: function createSubscription(async, updateLatestValue) {
-            return async.then(updateLatestValue, function (e) {
-                throw e;
-            });
-        }
-        /**
-         * @param {?} subscription
-         * @return {?}
-         */
-
-    }, {
-        key: 'dispose',
-        value: function dispose(subscription) {}
-        /**
-         * @param {?} subscription
-         * @return {?}
-         */
-
-    }, {
-        key: 'onDestroy',
-        value: function onDestroy(subscription) {}
-    }]);
-
-    return PromiseStrategy;
-}();
-
-var /** @type {?} */_promiseStrategy = new PromiseStrategy();
-var /** @type {?} */_observableStrategy = new ObservableStrategy();
-/**
- * \@ngModule CommonModule
- * \@whatItDoes Unwraps a value from an asynchronous primitive.
- * \@howToUse `observable_or_promise_expression | async`
- * \@description
- * The `async` pipe subscribes to an `Observable` or `Promise` and returns the latest value it has
- * emitted. When a new value is emitted, the `async` pipe marks the component to be checked for
- * changes. When the component gets destroyed, the `async` pipe unsubscribes automatically to avoid
- * potential memory leaks.
- *
- *
- * ## Examples
- *
- * This example binds a `Promise` to the view. Clicking the `Resolve` button resolves the
- * promise.
- *
- * {\@example common/pipes/ts/async_pipe.ts region='AsyncPipePromise'}
- *
- * It's also possible to use `async` with Observables. The example below binds the `time` Observable
- * to the view. The Observable continuously updates the view with the current time.
- *
- * {\@example common/pipes/ts/async_pipe.ts region='AsyncPipeObservable'}
- *
- * \@stable
- */
-
-var AsyncPipe = function () {
-    /**
-     * @param {?} _ref
-     */
-    function AsyncPipe(_ref) {
-        _classCallCheck(this, AsyncPipe);
-
-        this._ref = _ref;
-        this._latestValue = null;
-        this._latestReturnedValue = null;
-        this._subscription = null;
-        this._obj = null;
-        this._strategy = null;
-    }
-    /**
-     * @return {?}
-     */
-
-
-    _createClass(AsyncPipe, [{
-        key: 'ngOnDestroy',
-        value: function ngOnDestroy() {
-            if (this._subscription) {
-                this._dispose();
-            }
-        }
-        /**
-         * @param {?} obj
-         * @return {?}
-         */
-
-    }, {
-        key: 'transform',
-        value: function transform(obj) {
-            if (!this._obj) {
-                if (obj) {
-                    this._subscribe(obj);
-                }
-                this._latestReturnedValue = this._latestValue;
-                return this._latestValue;
-            }
-            if (obj !== this._obj) {
-                this._dispose();
-                return this.transform( /** @type {?} */obj);
-            }
-            if (this._latestValue === this._latestReturnedValue) {
-                return this._latestReturnedValue;
-            }
-            this._latestReturnedValue = this._latestValue;
-            return __WEBPACK_IMPORTED_MODULE_0__angular_core__["WrappedValue"].wrap(this._latestValue);
-        }
-        /**
-         * @param {?} obj
-         * @return {?}
-         */
-
-    }, {
-        key: '_subscribe',
-        value: function _subscribe(obj) {
-            var _this12 = this;
-
-            this._obj = obj;
-            this._strategy = this._selectStrategy(obj);
-            this._subscription = this._strategy.createSubscription(obj, function (value) {
-                return _this12._updateLatestValue(obj, value);
-            });
-        }
-        /**
-         * @param {?} obj
-         * @return {?}
-         */
-
-    }, {
-        key: '_selectStrategy',
-        value: function _selectStrategy(obj) {
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵisPromise"])(obj)) {
-                return _promiseStrategy;
-            }
-            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵisObservable"])(obj)) {
-                return _observableStrategy;
-            }
-            throw invalidPipeArgumentError(AsyncPipe, obj);
-        }
-        /**
-         * @return {?}
-         */
-
-    }, {
-        key: '_dispose',
-        value: function _dispose() {
-            this._strategy.dispose(this._subscription);
-            this._latestValue = null;
-            this._latestReturnedValue = null;
-            this._subscription = null;
-            this._obj = null;
-        }
-        /**
-         * @param {?} async
-         * @param {?} value
-         * @return {?}
-         */
-
-    }, {
-        key: '_updateLatestValue',
-        value: function _updateLatestValue(async, value) {
-            if (async === this._obj) {
-                this._latestValue = value;
-                this._ref.markForCheck();
-            }
-        }
-    }]);
-
-    return AsyncPipe;
-}();
-
-AsyncPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'async', pure: false }] }];
-/** @nocollapse */
-AsyncPipe.ctorParameters = function () {
-    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"] }];
-};
-
-/**
- * Transforms text to lowercase.
- *
- * {\@example  common/pipes/ts/lowerupper_pipe.ts region='LowerUpperPipe' }
- *
- * \@stable
- */
-
-var LowerCasePipe = function () {
-    function LowerCasePipe() {
-        _classCallCheck(this, LowerCasePipe);
-    }
-
-    _createClass(LowerCasePipe, [{
-        key: 'transform',
-
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        value: function transform(value) {
-            if (!value) return value;
-            if (typeof value !== 'string') {
-                throw invalidPipeArgumentError(LowerCasePipe, value);
-            }
-            return value.toLowerCase();
-        }
-    }]);
-
-    return LowerCasePipe;
-}();
-
-LowerCasePipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'lowercase' }] }];
-/** @nocollapse */
-LowerCasePipe.ctorParameters = function () {
-    return [];
-};
-/**
- * Helper method to transform a single word to titlecase.
- *
- * \@stable
- * @param {?} word
- * @return {?}
- */
-function titleCaseWord(word) {
-    if (!word) return word;
-    return word[0].toUpperCase() + word.substr(1).toLowerCase();
-}
-/**
- * Transforms text to titlecase.
- *
- * \@stable
- */
-
-var TitleCasePipe = function () {
-    function TitleCasePipe() {
-        _classCallCheck(this, TitleCasePipe);
-    }
-
-    _createClass(TitleCasePipe, [{
-        key: 'transform',
-
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        value: function transform(value) {
-            if (!value) return value;
-            if (typeof value !== 'string') {
-                throw invalidPipeArgumentError(TitleCasePipe, value);
-            }
-            return value.split(/\b/g).map(function (word) {
-                return titleCaseWord(word);
-            }).join('');
-        }
-    }]);
-
-    return TitleCasePipe;
-}();
-
-TitleCasePipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'titlecase' }] }];
-/** @nocollapse */
-TitleCasePipe.ctorParameters = function () {
-    return [];
-};
-/**
- * Transforms text to uppercase.
- *
- * \@stable
- */
-
-var UpperCasePipe = function () {
-    function UpperCasePipe() {
-        _classCallCheck(this, UpperCasePipe);
-    }
-
-    _createClass(UpperCasePipe, [{
-        key: 'transform',
-
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        value: function transform(value) {
-            if (!value) return value;
-            if (typeof value !== 'string') {
-                throw invalidPipeArgumentError(UpperCasePipe, value);
-            }
-            return value.toUpperCase();
-        }
-    }]);
-
-    return UpperCasePipe;
-}();
-
-UpperCasePipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'uppercase' }] }];
-/** @nocollapse */
-UpperCasePipe.ctorParameters = function () {
-    return [];
-};
-
-var NumberFormatStyle = {};
-NumberFormatStyle.Decimal = 0;
-NumberFormatStyle.Percent = 1;
-NumberFormatStyle.Currency = 2;
-NumberFormatStyle[NumberFormatStyle.Decimal] = "Decimal";
-NumberFormatStyle[NumberFormatStyle.Percent] = "Percent";
-NumberFormatStyle[NumberFormatStyle.Currency] = "Currency";
-
-var NumberFormatter = function () {
-    function NumberFormatter() {
-        _classCallCheck(this, NumberFormatter);
-    }
-
-    _createClass(NumberFormatter, null, [{
-        key: 'format',
-
-        /**
-         * @param {?} num
-         * @param {?} locale
-         * @param {?} style
-         * @param {?=} __3
-         * @return {?}
-         */
-        value: function format(num, locale, style) {
-            var _ref2 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {},
-                minimumIntegerDigits = _ref2.minimumIntegerDigits,
-                minimumFractionDigits = _ref2.minimumFractionDigits,
-                maximumFractionDigits = _ref2.maximumFractionDigits,
-                currency = _ref2.currency,
-                _ref2$currencyAsSymbo = _ref2.currencyAsSymbol,
-                currencyAsSymbol = _ref2$currencyAsSymbo === undefined ? false : _ref2$currencyAsSymbo;
-
-            var /** @type {?} */options = {
-                minimumIntegerDigits: minimumIntegerDigits,
-                minimumFractionDigits: minimumFractionDigits,
-                maximumFractionDigits: maximumFractionDigits,
-                style: NumberFormatStyle[style].toLowerCase()
-            };
-            if (style == NumberFormatStyle.Currency) {
-                options.currency = currency;
-                options.currencyDisplay = currencyAsSymbol ? 'symbol' : 'code';
-            }
-            return new Intl.NumberFormat(locale, options).format(num);
-        }
-    }]);
-
-    return NumberFormatter;
-}();
-
-var /** @type {?} */DATE_FORMATS_SPLIT = /((?:[^yMLdHhmsazZEwGjJ']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|L+|d+|H+|h+|J+|j+|m+|s+|a|z|Z|G+|w+))(.*)/;
-var /** @type {?} */PATTERN_ALIASES = {
-    // Keys are quoted so they do not get renamed during closure compilation.
-    'yMMMdjms': datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 3), digitCondition('day', 1), digitCondition('hour', 1), digitCondition('minute', 1), digitCondition('second', 1)])),
-    'yMdjm': datePartGetterFactory(combine([digitCondition('year', 1), digitCondition('month', 1), digitCondition('day', 1), digitCondition('hour', 1), digitCondition('minute', 1)])),
-    'yMMMMEEEEd': datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 4), nameCondition('weekday', 4), digitCondition('day', 1)])),
-    'yMMMMd': datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 4), digitCondition('day', 1)])),
-    'yMMMd': datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 3), digitCondition('day', 1)])),
-    'yMd': datePartGetterFactory(combine([digitCondition('year', 1), digitCondition('month', 1), digitCondition('day', 1)])),
-    'jms': datePartGetterFactory(combine([digitCondition('hour', 1), digitCondition('second', 1), digitCondition('minute', 1)])),
-    'jm': datePartGetterFactory(combine([digitCondition('hour', 1), digitCondition('minute', 1)]))
-};
-var /** @type {?} */DATE_FORMATS = {
-    // Keys are quoted so they do not get renamed.
-    'yyyy': datePartGetterFactory(digitCondition('year', 4)),
-    'yy': datePartGetterFactory(digitCondition('year', 2)),
-    'y': datePartGetterFactory(digitCondition('year', 1)),
-    'MMMM': datePartGetterFactory(nameCondition('month', 4)),
-    'MMM': datePartGetterFactory(nameCondition('month', 3)),
-    'MM': datePartGetterFactory(digitCondition('month', 2)),
-    'M': datePartGetterFactory(digitCondition('month', 1)),
-    'LLLL': datePartGetterFactory(nameCondition('month', 4)),
-    'L': datePartGetterFactory(nameCondition('month', 1)),
-    'dd': datePartGetterFactory(digitCondition('day', 2)),
-    'd': datePartGetterFactory(digitCondition('day', 1)),
-    'HH': digitModifier(hourExtractor(datePartGetterFactory(hour12Modify(digitCondition('hour', 2), false)))),
-    'H': hourExtractor(datePartGetterFactory(hour12Modify(digitCondition('hour', 1), false))),
-    'hh': digitModifier(hourExtractor(datePartGetterFactory(hour12Modify(digitCondition('hour', 2), true)))),
-    'h': hourExtractor(datePartGetterFactory(hour12Modify(digitCondition('hour', 1), true))),
-    'jj': datePartGetterFactory(digitCondition('hour', 2)),
-    'j': datePartGetterFactory(digitCondition('hour', 1)),
-    'mm': digitModifier(datePartGetterFactory(digitCondition('minute', 2))),
-    'm': datePartGetterFactory(digitCondition('minute', 1)),
-    'ss': digitModifier(datePartGetterFactory(digitCondition('second', 2))),
-    's': datePartGetterFactory(digitCondition('second', 1)),
-    // while ISO 8601 requires fractions to be prefixed with `.` or `,`
-    // we can be just safely rely on using `sss` since we currently don't support single or two digit
-    // fractions
-    'sss': datePartGetterFactory(digitCondition('second', 3)),
-    'EEEE': datePartGetterFactory(nameCondition('weekday', 4)),
-    'EEE': datePartGetterFactory(nameCondition('weekday', 3)),
-    'EE': datePartGetterFactory(nameCondition('weekday', 2)),
-    'E': datePartGetterFactory(nameCondition('weekday', 1)),
-    'a': hourClockExtractor(datePartGetterFactory(hour12Modify(digitCondition('hour', 1), true))),
-    'Z': timeZoneGetter('short'),
-    'z': timeZoneGetter('long'),
-    'ww': datePartGetterFactory({}),
-    // first Thursday of the year. not support ?
-    'w': datePartGetterFactory({}),
-    // of the year not support ?
-    'G': datePartGetterFactory(nameCondition('era', 1)),
-    'GG': datePartGetterFactory(nameCondition('era', 2)),
-    'GGG': datePartGetterFactory(nameCondition('era', 3)),
-    'GGGG': datePartGetterFactory(nameCondition('era', 4))
-};
-/**
- * @param {?} inner
- * @return {?}
- */
-function digitModifier(inner) {
-    return function (date, locale) {
-        var /** @type {?} */result = inner(date, locale);
-        return result.length == 1 ? '0' + result : result;
-    };
-}
-/**
- * @param {?} inner
- * @return {?}
- */
-function hourClockExtractor(inner) {
-    return function (date, locale) {
-        return inner(date, locale).split(' ')[1];
-    };
-}
-/**
- * @param {?} inner
- * @return {?}
- */
-function hourExtractor(inner) {
-    return function (date, locale) {
-        return inner(date, locale).split(' ')[0];
-    };
-}
-/**
- * @param {?} date
- * @param {?} locale
- * @param {?} options
- * @return {?}
- */
-function intlDateFormat(date, locale, options) {
-    return new Intl.DateTimeFormat(locale, options).format(date).replace(/[\u200e\u200f]/g, '');
-}
-/**
- * @param {?} timezone
- * @return {?}
- */
-function timeZoneGetter(timezone) {
-    // To workaround `Intl` API restriction for single timezone let format with 24 hours
-    var /** @type {?} */options = { hour: '2-digit', hour12: false, timeZoneName: timezone };
-    return function (date, locale) {
-        var /** @type {?} */result = intlDateFormat(date, locale, options);
-        // Then extract first 3 letters that related to hours
-        return result ? result.substring(3) : '';
-    };
-}
-/**
- * @param {?} options
- * @param {?} value
- * @return {?}
- */
-function hour12Modify(options, value) {
-    options.hour12 = value;
-    return options;
-}
-/**
- * @param {?} prop
- * @param {?} len
- * @return {?}
- */
-function digitCondition(prop, len) {
-    var /** @type {?} */result = {};
-    result[prop] = len === 2 ? '2-digit' : 'numeric';
-    return result;
-}
-/**
- * @param {?} prop
- * @param {?} len
- * @return {?}
- */
-function nameCondition(prop, len) {
-    var /** @type {?} */result = {};
-    if (len < 4) {
-        result[prop] = len > 1 ? 'short' : 'narrow';
-    } else {
-        result[prop] = 'long';
-    }
-    return result;
-}
-/**
- * @param {?} options
- * @return {?}
- */
-function combine(options) {
-    return Object.assign.apply(Object, [{}].concat(_toConsumableArray(options)));
-}
-/**
- * @param {?} ret
- * @return {?}
- */
-function datePartGetterFactory(ret) {
-    return function (date, locale) {
-        return intlDateFormat(date, locale, ret);
-    };
-}
-var /** @type {?} */DATE_FORMATTER_CACHE = new Map();
-/**
- * @param {?} format
- * @param {?} date
- * @param {?} locale
- * @return {?}
- */
-function dateFormatter(format, date, locale) {
-    var /** @type {?} */fn = PATTERN_ALIASES[format];
-    if (fn) return fn(date, locale);
-    var /** @type {?} */cacheKey = format;
-    var /** @type {?} */parts = DATE_FORMATTER_CACHE.get(cacheKey);
-    if (!parts) {
-        parts = [];
-        var /** @type {?} */match = void 0;
-        DATE_FORMATS_SPLIT.exec(format);
-        while (format) {
-            match = DATE_FORMATS_SPLIT.exec(format);
-            if (match) {
-                parts = parts.concat(match.slice(1));
-                format = parts.pop();
-            } else {
-                parts.push(format);
-                format = null;
-            }
-        }
-        DATE_FORMATTER_CACHE.set(cacheKey, parts);
-    }
-    return parts.reduce(function (text, part) {
-        var /** @type {?} */fn = DATE_FORMATS[part];
-        return text + (fn ? fn(date, locale) : partToTime(part));
-    }, '');
-}
-/**
- * @param {?} part
- * @return {?}
- */
-function partToTime(part) {
-    return part === '\'\'' ? '\'' : part.replace(/(^'|'$)/g, '').replace(/''/g, '\'');
-}
-
-var DateFormatter = function () {
-    function DateFormatter() {
-        _classCallCheck(this, DateFormatter);
-    }
-
-    _createClass(DateFormatter, null, [{
-        key: 'format',
-
-        /**
-         * @param {?} date
-         * @param {?} locale
-         * @param {?} pattern
-         * @return {?}
-         */
-        value: function format(date, locale, pattern) {
-            return dateFormatter(pattern, date, locale);
-        }
-    }]);
-
-    return DateFormatter;
-}();
-
-var /** @type {?} */ISO8601_DATE_REGEX = /^(\d{4})-?(\d\d)-?(\d\d)(?:T(\d\d)(?::?(\d\d)(?::?(\d\d)(?:\.(\d+))?)?)?(Z|([+-])(\d\d):?(\d\d))?)?$/;
-/**
- * \@ngModule CommonModule
- * \@whatItDoes Formats a date according to locale rules.
- * \@howToUse `date_expression | date[:format]`
- * \@description
- *
- * Where:
- * - `expression` is a date object or a number (milliseconds since UTC epoch) or an ISO string
- * (https://www.w3.org/TR/NOTE-datetime).
- * - `format` indicates which date/time components to include. The format can be predefined as
- *   shown below or custom as shown in the table.
- *   - `'medium'`: equivalent to `'yMMMdjms'` (e.g. `Sep 3, 2010, 12:05:08 PM` for `en-US`)
- *   - `'short'`: equivalent to `'yMdjm'` (e.g. `9/3/2010, 12:05 PM` for `en-US`)
- *   - `'fullDate'`: equivalent to `'yMMMMEEEEd'` (e.g. `Friday, September 3, 2010` for `en-US`)
- *   - `'longDate'`: equivalent to `'yMMMMd'` (e.g. `September 3, 2010` for `en-US`)
- *   - `'mediumDate'`: equivalent to `'yMMMd'` (e.g. `Sep 3, 2010` for `en-US`)
- *   - `'shortDate'`: equivalent to `'yMd'` (e.g. `9/3/2010` for `en-US`)
- *   - `'mediumTime'`: equivalent to `'jms'` (e.g. `12:05:08 PM` for `en-US`)
- *   - `'shortTime'`: equivalent to `'jm'` (e.g. `12:05 PM` for `en-US`)
- *
- *
- *  | Component | Symbol | Narrow | Short Form   | Long Form         | Numeric   | 2-digit   |
- *  |-----------|:------:|--------|--------------|-------------------|-----------|-----------|
- *  | era       |   G    | G (A)  | GGG (AD)     | GGGG (Anno Domini)| -         | -         |
- *  | year      |   y    | -      | -            | -                 | y (2015)  | yy (15)   |
- *  | month     |   M    | L (S)  | MMM (Sep)    | MMMM (September)  | M (9)     | MM (09)   |
- *  | day       |   d    | -      | -            | -                 | d (3)     | dd (03)   |
- *  | weekday   |   E    | E (S)  | EEE (Sun)    | EEEE (Sunday)     | -         | -         |
- *  | hour      |   j    | -      | -            | -                 | j (13)    | jj (13)   |
- *  | hour12    |   h    | -      | -            | -                 | h (1 PM)  | hh (01 PM)|
- *  | hour24    |   H    | -      | -            | -                 | H (13)    | HH (13)   |
- *  | minute    |   m    | -      | -            | -                 | m (5)     | mm (05)   |
- *  | second    |   s    | -      | -            | -                 | s (9)     | ss (09)   |
- *  | timezone  |   z    | -      | -            | z (Pacific Standard Time)| -  | -         |
- *  | timezone  |   Z    | -      | Z (GMT-8:00) | -                 | -         | -         |
- *  | timezone  |   a    | -      | a (PM)       | -                 | -         | -         |
- *
- * In javascript, only the components specified will be respected (not the ordering,
- * punctuations, ...) and details of the formatting will be dependent on the locale.
- *
- * Timezone of the formatted text will be the local system timezone of the end-user's machine.
- *
- * When the expression is a ISO string without time (e.g. 2016-09-19) the time zone offset is not
- * applied and the formatted text will have the same day, month and year of the expression.
- *
- * WARNINGS:
- * - this pipe is marked as pure hence it will not be re-evaluated when the input is mutated.
- *   Instead users should treat the date as an immutable object and change the reference when the
- *   pipe needs to re-run (this is to avoid reformatting the date on every change detection run
- *   which would be an expensive operation).
- * - this pipe uses the Internationalization API. Therefore it is only reliable in Chrome and Opera
- *   browsers.
- *
- * ### Examples
- *
- * Assuming `dateObj` is (year: 2015, month: 6, day: 15, hour: 21, minute: 43, second: 11)
- * in the _local_ time and locale is 'en-US':
- *
- * ```
- *     {{ dateObj | date }}               // output is 'Jun 15, 2015'
- *     {{ dateObj | date:'medium' }}      // output is 'Jun 15, 2015, 9:43:11 PM'
- *     {{ dateObj | date:'shortTime' }}   // output is '9:43 PM'
- *     {{ dateObj | date:'mmss' }}        // output is '43:11'
- * ```
- *
- * {\@example common/pipes/ts/date_pipe.ts region='DatePipe'}
- *
- * \@stable
- */
-
-var DatePipe = function () {
-    /**
-     * @param {?} _locale
-     */
-    function DatePipe(_locale) {
-        _classCallCheck(this, DatePipe);
-
-        this._locale = _locale;
-    }
-    /**
-     * @param {?} value
-     * @param {?=} pattern
-     * @return {?}
-     */
-
-
-    _createClass(DatePipe, [{
-        key: 'transform',
-        value: function transform(value) {
-            var pattern = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'mediumDate';
-
-            var /** @type {?} */date = void 0;
-            if (isBlank$1(value) || value !== value) return null;
-            if (typeof value === 'string') {
-                value = value.trim();
-            }
-            if (isDate(value)) {
-                date = value;
-            } else if (NumberWrapper.isNumeric(value)) {
-                date = new Date(parseFloat(value));
-            } else if (typeof value === 'string' && /^(\d{4}-\d{1,2}-\d{1,2})$/.test(value)) {
-                /**
-                * For ISO Strings without time the day, month and year must be extracted from the ISO String
-                * before Date creation to avoid time offset and errors in the new Date.
-                * If we only replace '-' with ',' in the ISO String ("2015,01,01"), and try to create a new
-                * date, some browsers (e.g. IE 9) will throw an invalid Date error
-                * If we leave the '-' ("2015-01-01") and try to create a new Date("2015-01-01") the timeoffset
-                * is applied
-                * Note: ISO months are 0 for January, 1 for February, ...
-                */
-                var _value$split$map = value.split('-').map(function (val) {
-                    return parseInt(val, 10);
-                }),
-                    _value$split$map2 = _slicedToArray(_value$split$map, 3),
-                    y = _value$split$map2[0],
-                    m = _value$split$map2[1],
-                    d = _value$split$map2[2];
-
-                date = new Date(y, m - 1, d);
-            } else {
-                date = new Date(value);
-            }
-            if (!isDate(date)) {
-                var /** @type {?} */match = void 0;
-                if (typeof value === 'string' && (match = value.match(ISO8601_DATE_REGEX))) {
-                    date = isoStringToDate(match);
-                } else {
-                    throw invalidPipeArgumentError(DatePipe, value);
-                }
-            }
-            return DateFormatter.format(date, this._locale, DatePipe._ALIASES[pattern] || pattern);
-        }
-    }]);
-
-    return DatePipe;
-}();
-/** @internal */
-
-
-DatePipe._ALIASES = {
-    'medium': 'yMMMdjms',
-    'short': 'yMdjm',
-    'fullDate': 'yMMMMEEEEd',
-    'longDate': 'yMMMMd',
-    'mediumDate': 'yMMMd',
-    'shortDate': 'yMd',
-    'mediumTime': 'jms',
-    'shortTime': 'jm'
-};
-DatePipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'date', pure: true }] }];
-/** @nocollapse */
-DatePipe.ctorParameters = function () {
-    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["LOCALE_ID"]] }] }];
-};
-/**
- * @param {?} obj
- * @return {?}
- */
-function isBlank$1(obj) {
-    return obj == null || obj === '';
-}
-/**
- * @param {?} obj
- * @return {?}
- */
-function isDate(obj) {
-    return obj instanceof Date && !isNaN(obj.valueOf());
-}
-/**
- * @param {?} match
- * @return {?}
- */
-function isoStringToDate(match) {
-    var /** @type {?} */date = new Date(0);
-    var /** @type {?} */tzHour = 0;
-    var /** @type {?} */tzMin = 0;
-    var /** @type {?} */dateSetter = match[8] ? date.setUTCFullYear : date.setFullYear;
-    var /** @type {?} */timeSetter = match[8] ? date.setUTCHours : date.setHours;
-    if (match[9]) {
-        tzHour = toInt(match[9] + match[10]);
-        tzMin = toInt(match[9] + match[11]);
-    }
-    dateSetter.call(date, toInt(match[1]), toInt(match[2]) - 1, toInt(match[3]));
-    var /** @type {?} */h = toInt(match[4] || '0') - tzHour;
-    var /** @type {?} */m = toInt(match[5] || '0') - tzMin;
-    var /** @type {?} */s = toInt(match[6] || '0');
-    var /** @type {?} */ms = Math.round(parseFloat('0.' + (match[7] || 0)) * 1000);
-    timeSetter.call(date, h, m, s, ms);
-    return date;
-}
-/**
- * @param {?} str
- * @return {?}
- */
-function toInt(str) {
-    return parseInt(str, 10);
-}
-
-var /** @type {?} */_INTERPOLATION_REGEXP = /#/g;
-/**
- * \@ngModule CommonModule
- * \@whatItDoes Maps a value to a string that pluralizes the value according to locale rules.
- * \@howToUse `expression | i18nPlural:mapping`
- * \@description
- *
- *  Where:
- *  - `expression` is a number.
- *  - `mapping` is an object that mimics the ICU format, see
- *    http://userguide.icu-project.org/formatparse/messages
- *
- *  ## Example
- *
- * {\@example common/pipes/ts/i18n_pipe.ts region='I18nPluralPipeComponent'}
- *
- * \@experimental
- */
-
-var I18nPluralPipe = function () {
-    /**
-     * @param {?} _localization
-     */
-    function I18nPluralPipe(_localization) {
-        _classCallCheck(this, I18nPluralPipe);
-
-        this._localization = _localization;
-    }
-    /**
-     * @param {?} value
-     * @param {?} pluralMap
-     * @return {?}
-     */
-
-
-    _createClass(I18nPluralPipe, [{
-        key: 'transform',
-        value: function transform(value, pluralMap) {
-            if (value == null) return '';
-            if ((typeof pluralMap === 'undefined' ? 'undefined' : _typeof(pluralMap)) !== 'object' || pluralMap === null) {
-                throw invalidPipeArgumentError(I18nPluralPipe, pluralMap);
-            }
-            var /** @type {?} */key = getPluralCategory(value, Object.keys(pluralMap), this._localization);
-            return pluralMap[key].replace(_INTERPOLATION_REGEXP, value.toString());
-        }
-    }]);
-
-    return I18nPluralPipe;
-}();
-
-I18nPluralPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'i18nPlural', pure: true }] }];
-/** @nocollapse */
-I18nPluralPipe.ctorParameters = function () {
-    return [{ type: NgLocalization }];
-};
-
-/**
- * \@ngModule CommonModule
- * \@whatItDoes Generic selector that displays the string that matches the current value.
- * \@howToUse `expression | i18nSelect:mapping`
- * \@description
- *
- *  Where `mapping` is an object that indicates the text that should be displayed
- *  for different values of the provided `expression`.
- *  If none of the keys of the mapping match the value of the `expression`, then the content
- *  of the `other` key is returned when present, otherwise an empty string is returned.
- *
- *  ## Example
- *
- * {\@example common/pipes/ts/i18n_pipe.ts region='I18nSelectPipeComponent'}
- *
- *  \@experimental
- */
-
-var I18nSelectPipe = function () {
-    function I18nSelectPipe() {
-        _classCallCheck(this, I18nSelectPipe);
-    }
-
-    _createClass(I18nSelectPipe, [{
-        key: 'transform',
-
-        /**
-         * @param {?} value
-         * @param {?} mapping
-         * @return {?}
-         */
-        value: function transform(value, mapping) {
-            if (value == null) return '';
-            if ((typeof mapping === 'undefined' ? 'undefined' : _typeof(mapping)) !== 'object' || typeof value !== 'string') {
-                throw invalidPipeArgumentError(I18nSelectPipe, mapping);
-            }
-            if (mapping.hasOwnProperty(value)) {
-                return mapping[value];
-            }
-            if (mapping.hasOwnProperty('other')) {
-                return mapping['other'];
-            }
-            return '';
-        }
-    }]);
-
-    return I18nSelectPipe;
-}();
-
-I18nSelectPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'i18nSelect', pure: true }] }];
-/** @nocollapse */
-I18nSelectPipe.ctorParameters = function () {
-    return [];
-};
-
-/**
- * \@ngModule CommonModule
- * \@whatItDoes Converts value into JSON string.
- * \@howToUse `expression | json`
- * \@description
- *
- * Converts value into string using `JSON.stringify`. Useful for debugging.
- *
- * ### Example
- * {\@example common/pipes/ts/json_pipe.ts region='JsonPipe'}
- *
- * \@stable
- */
-
-var JsonPipe = function () {
-    function JsonPipe() {
-        _classCallCheck(this, JsonPipe);
-    }
-
-    _createClass(JsonPipe, [{
-        key: 'transform',
-
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        value: function transform(value) {
-            return JSON.stringify(value, null, 2);
-        }
-    }]);
-
-    return JsonPipe;
-}();
-
-JsonPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'json', pure: false }] }];
-/** @nocollapse */
-JsonPipe.ctorParameters = function () {
-    return [];
-};
-
-var /** @type {?} */_NUMBER_FORMAT_REGEXP = /^(\d+)?\.((\d+)(-(\d+))?)?$/;
-/**
- * @param {?} pipe
- * @param {?} locale
- * @param {?} value
- * @param {?} style
- * @param {?} digits
- * @param {?=} currency
- * @param {?=} currencyAsSymbol
- * @return {?}
- */
-function formatNumber(pipe, locale, value, style, digits) {
-    var currency = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : null;
-    var currencyAsSymbol = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-
-    if (value == null) return null;
-    // Convert strings to numbers
-    value = typeof value === 'string' && NumberWrapper.isNumeric(value) ? +value : value;
-    if (typeof value !== 'number') {
-        throw invalidPipeArgumentError(pipe, value);
-    }
-    var /** @type {?} */minInt = void 0;
-    var /** @type {?} */minFraction = void 0;
-    var /** @type {?} */maxFraction = void 0;
-    if (style !== NumberFormatStyle.Currency) {
-        // rely on Intl default for currency
-        minInt = 1;
-        minFraction = 0;
-        maxFraction = 3;
-    }
-    if (digits) {
-        var /** @type {?} */parts = digits.match(_NUMBER_FORMAT_REGEXP);
-        if (parts === null) {
-            throw new Error(digits + ' is not a valid digit info for number pipes');
-        }
-        if (parts[1] != null) {
-            minInt = NumberWrapper.parseIntAutoRadix(parts[1]);
-        }
-        if (parts[3] != null) {
-            minFraction = NumberWrapper.parseIntAutoRadix(parts[3]);
-        }
-        if (parts[5] != null) {
-            maxFraction = NumberWrapper.parseIntAutoRadix(parts[5]);
-        }
-    }
-    return NumberFormatter.format( /** @type {?} */value, locale, style, {
-        minimumIntegerDigits: minInt,
-        minimumFractionDigits: minFraction,
-        maximumFractionDigits: maxFraction,
-        currency: currency,
-        currencyAsSymbol: currencyAsSymbol
-    });
-}
-/**
- * \@ngModule CommonModule
- * \@whatItDoes Formats a number according to locale rules.
- * \@howToUse `number_expression | number[:digitInfo]`
- *
- * Formats a number as text. Group sizing and separator and other locale-specific
- * configurations are based on the active locale.
- *
- * where `expression` is a number:
- *  - `digitInfo` is a `string` which has a following format: <br>
- *     <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>
- *   - `minIntegerDigits` is the minimum number of integer digits to use. Defaults to `1`.
- *   - `minFractionDigits` is the minimum number of digits after fraction. Defaults to `0`.
- *   - `maxFractionDigits` is the maximum number of digits after fraction. Defaults to `3`.
- *
- * For more information on the acceptable range for each of these numbers and other
- * details see your native internationalization library.
- *
- * WARNING: this pipe uses the Internationalization API which is not yet available in all browsers
- * and may require a polyfill. See {\@linkDocs guide/browser-support} for details.
- *
- * ### Example
- *
- * {\@example common/pipes/ts/number_pipe.ts region='NumberPipe'}
- *
- * \@stable
- */
-
-var DecimalPipe = function () {
-    /**
-     * @param {?} _locale
-     */
-    function DecimalPipe(_locale) {
-        _classCallCheck(this, DecimalPipe);
-
-        this._locale = _locale;
-    }
-    /**
-     * @param {?} value
-     * @param {?=} digits
-     * @return {?}
-     */
-
-
-    _createClass(DecimalPipe, [{
-        key: 'transform',
-        value: function transform(value) {
-            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-            return formatNumber(DecimalPipe, this._locale, value, NumberFormatStyle.Decimal, digits);
-        }
-    }]);
-
-    return DecimalPipe;
-}();
-
-DecimalPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'number' }] }];
-/** @nocollapse */
-DecimalPipe.ctorParameters = function () {
-    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["LOCALE_ID"]] }] }];
-};
-/**
- * \@ngModule CommonModule
- * \@whatItDoes Formats a number as a percentage according to locale rules.
- * \@howToUse `number_expression | percent[:digitInfo]`
- *
- * \@description
- *
- * Formats a number as percentage.
- *
- * - `digitInfo` See {\@link DecimalPipe} for detailed description.
- *
- * WARNING: this pipe uses the Internationalization API which is not yet available in all browsers
- * and may require a polyfill. See {\@linkDocs guide/browser-support} for details.
- *
- * ### Example
- *
- * {\@example common/pipes/ts/number_pipe.ts region='PercentPipe'}
- *
- * \@stable
- */
-
-var PercentPipe = function () {
-    /**
-     * @param {?} _locale
-     */
-    function PercentPipe(_locale) {
-        _classCallCheck(this, PercentPipe);
-
-        this._locale = _locale;
-    }
-    /**
-     * @param {?} value
-     * @param {?=} digits
-     * @return {?}
-     */
-
-
-    _createClass(PercentPipe, [{
-        key: 'transform',
-        value: function transform(value) {
-            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-            return formatNumber(PercentPipe, this._locale, value, NumberFormatStyle.Percent, digits);
-        }
-    }]);
-
-    return PercentPipe;
-}();
-
-PercentPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'percent' }] }];
-/** @nocollapse */
-PercentPipe.ctorParameters = function () {
-    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["LOCALE_ID"]] }] }];
-};
-/**
- * \@ngModule CommonModule
- * \@whatItDoes Formats a number as currency using locale rules.
- * \@howToUse `number_expression | currency[:currencyCode[:symbolDisplay[:digitInfo]]]`
- * \@description
- *
- * Use `currency` to format a number as currency.
- *
- * - `currencyCode` is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, such
- *    as `USD` for the US dollar and `EUR` for the euro.
- * - `symbolDisplay` is a boolean indicating whether to use the currency symbol or code.
- *   - `true`: use symbol (e.g. `$`).
- *   - `false`(default): use code (e.g. `USD`).
- * - `digitInfo` See {\@link DecimalPipe} for detailed description.
- *
- * WARNING: this pipe uses the Internationalization API which is not yet available in all browsers
- * and may require a polyfill. See {\@linkDocs guide/browser-support} for details.
- *
- * ### Example
- *
- * {\@example common/pipes/ts/number_pipe.ts region='CurrencyPipe'}
- *
- * \@stable
- */
-
-var CurrencyPipe = function () {
-    /**
-     * @param {?} _locale
-     */
-    function CurrencyPipe(_locale) {
-        _classCallCheck(this, CurrencyPipe);
-
-        this._locale = _locale;
-    }
-    /**
-     * @param {?} value
-     * @param {?=} currencyCode
-     * @param {?=} symbolDisplay
-     * @param {?=} digits
-     * @return {?}
-     */
-
-
-    _createClass(CurrencyPipe, [{
-        key: 'transform',
-        value: function transform(value) {
-            var currencyCode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'USD';
-            var symbolDisplay = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-            var digits = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-
-            return formatNumber(CurrencyPipe, this._locale, value, NumberFormatStyle.Currency, digits, currencyCode, symbolDisplay);
-        }
-    }]);
-
-    return CurrencyPipe;
-}();
-
-CurrencyPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'currency' }] }];
-/** @nocollapse */
-CurrencyPipe.ctorParameters = function () {
-    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["LOCALE_ID"]] }] }];
-};
-
-/**
- * \@ngModule CommonModule
- * \@whatItDoes Creates a new List or String containing a subset (slice) of the elements.
- * \@howToUse `array_or_string_expression | slice:start[:end]`
- * \@description
- *
- * Where the input expression is a `List` or `String`, and:
- * - `start`: The starting index of the subset to return.
- *   - **a positive integer**: return the item at `start` index and all items after
- *     in the list or string expression.
- *   - **a negative integer**: return the item at `start` index from the end and all items after
- *     in the list or string expression.
- *   - **if positive and greater than the size of the expression**: return an empty list or string.
- *   - **if negative and greater than the size of the expression**: return entire list or string.
- * - `end`: The ending index of the subset to return.
- *   - **omitted**: return all items until the end.
- *   - **if positive**: return all items before `end` index of the list or string.
- *   - **if negative**: return all items before `end` index from the end of the list or string.
- *
- * All behavior is based on the expected behavior of the JavaScript API `Array.prototype.slice()`
- * and `String.prototype.slice()`.
- *
- * When operating on a [List], the returned list is always a copy even when all
- * the elements are being returned.
- *
- * When operating on a blank value, the pipe returns the blank value.
- *
- * ## List Example
- *
- * This `ngFor` example:
- *
- * {\@example common/pipes/ts/slice_pipe.ts region='SlicePipe_list'}
- *
- * produces the following:
- *
- *     <li>b</li>
- *     <li>c</li>
- *
- * ## String Examples
- *
- * {\@example common/pipes/ts/slice_pipe.ts region='SlicePipe_string'}
- *
- * \@stable
- */
-
-var SlicePipe = function () {
-    function SlicePipe() {
-        _classCallCheck(this, SlicePipe);
-    }
-
-    _createClass(SlicePipe, [{
-        key: 'transform',
-
-        /**
-         * @param {?} value
-         * @param {?} start
-         * @param {?=} end
-         * @return {?}
-         */
-        value: function transform(value, start, end) {
-            if (value == null) return value;
-            if (!this.supports(value)) {
-                throw invalidPipeArgumentError(SlicePipe, value);
-            }
-            return value.slice(start, end);
-        }
-        /**
-         * @param {?} obj
-         * @return {?}
-         */
-
-    }, {
-        key: 'supports',
-        value: function supports(obj) {
-            return typeof obj === 'string' || Array.isArray(obj);
-        }
-    }]);
-
-    return SlicePipe;
-}();
-
-SlicePipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'slice', pure: false }] }];
-/** @nocollapse */
-SlicePipe.ctorParameters = function () {
-    return [];
-};
-
-/**
- * A collection of Angular pipes that are likely to be used in each and every application.
- */
-var /** @type {?} */COMMON_PIPES = [AsyncPipe, UpperCasePipe, LowerCasePipe, JsonPipe, SlicePipe, DecimalPipe, PercentPipe, TitleCasePipe, CurrencyPipe, DatePipe, I18nPluralPipe, I18nSelectPipe];
-
-/**
- * The module that includes all the basic Angular directives like {\@link NgIf}, {\@link NgForOf}, ...
- *
- * \@stable
- */
-
-var CommonModule = function CommonModule() {
-    _classCallCheck(this, CommonModule);
-};
-
-CommonModule.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"], args: [{
-        declarations: [COMMON_DIRECTIVES, COMMON_PIPES],
-        exports: [COMMON_DIRECTIVES, COMMON_PIPES],
-        providers: [{ provide: NgLocalization, useClass: NgLocaleLocalization }]
-    }] }];
-/** @nocollapse */
-CommonModule.ctorParameters = function () {
-    return [];
-};
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */var /** @type {?} */PLATFORM_BROWSER_ID = 'browser';
-var /** @type {?} */PLATFORM_SERVER_ID = 'server';
-var /** @type {?} */PLATFORM_WORKER_APP_ID = 'browserWorkerApp';
-var /** @type {?} */PLATFORM_WORKER_UI_ID = 'browserWorkerUi';
-/**
- * Returns whether a platform id represents a browser platform.
- * \@experimental
- * @param {?} platformId
- * @return {?}
- */
-function isPlatformBrowser(platformId) {
-    return platformId === PLATFORM_BROWSER_ID;
-}
-/**
- * Returns whether a platform id represents a server platform.
- * \@experimental
- * @param {?} platformId
- * @return {?}
- */
-function isPlatformServer(platformId) {
-    return platformId === PLATFORM_SERVER_ID;
-}
-/**
- * Returns whether a platform id represents a web worker app platform.
- * \@experimental
- * @param {?} platformId
- * @return {?}
- */
-function isPlatformWorkerApp(platformId) {
-    return platformId === PLATFORM_WORKER_APP_ID;
-}
-/**
- * Returns whether a platform id represents a web worker UI platform.
- * \@experimental
- * @param {?} platformId
- * @return {?}
- */
-function isPlatformWorkerUi(platformId) {
-    return platformId === PLATFORM_WORKER_UI_ID;
-}
-
-/**
- * @stable
- */
-var /** @type {?} */VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["Version"]('4.0.0-rc.2');
-
-
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserModule", function() { return BrowserModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "platformBrowser", function() { return platformBrowser; });
@@ -26378,17 +21879,4567 @@ var /** @type {?} */VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["V
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 9 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var animations_1 = __webpack_require__(28);
-var toast_options_1 = __webpack_require__(10);
-var platform_browser_1 = __webpack_require__(8);
-__webpack_require__(34);
+var ToastOptions = (function () {
+    function ToastOptions() {
+        this.positionClass = 'toast-top-right';
+        this.maxShown = 5;
+        this.newestOnTop = false;
+        this.animate = 'fade';
+        // override-able properties
+        this.toastLife = 5000;
+        this.enableHTML = false;
+        this.dismiss = 'auto'; //'auto' | 'click' | 'controlled'
+        this.messageClass = 'toast-message';
+        this.titleClass = 'toast-title';
+        this.showCloseButton = false;
+    }
+    return ToastOptions;
+}());
+ToastOptions.decorators = [
+    { type: core_1.Injectable },
+];
+/** @nocollapse */
+ToastOptions.ctorParameters = function () { return []; };
+exports.ToastOptions = ToastOptions;
+//# sourceMappingURL=toast-options.js.map
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var isArray_1 = __webpack_require__(50);
+var isObject_1 = __webpack_require__(22);
+var isFunction_1 = __webpack_require__(21);
+var tryCatch_1 = __webpack_require__(55);
+var errorObject_1 = __webpack_require__(20);
+var UnsubscriptionError_1 = __webpack_require__(49);
+/**
+ * Represents a disposable resource, such as the execution of an Observable. A
+ * Subscription has one important method, `unsubscribe`, that takes no argument
+ * and just disposes the resource held by the subscription.
+ *
+ * Additionally, subscriptions may be grouped together through the `add()`
+ * method, which will attach a child Subscription to the current Subscription.
+ * When a Subscription is unsubscribed, all its children (and its grandchildren)
+ * will be unsubscribed as well.
+ *
+ * @class Subscription
+ */
+var Subscription = (function () {
+    /**
+     * @param {function(): void} [unsubscribe] A function describing how to
+     * perform the disposal of resources when the `unsubscribe` method is called.
+     */
+    function Subscription(unsubscribe) {
+        /**
+         * A flag to indicate whether this Subscription has already been unsubscribed.
+         * @type {boolean}
+         */
+        this.closed = false;
+        this._parent = null;
+        this._parents = null;
+        this._subscriptions = null;
+        if (unsubscribe) {
+            this._unsubscribe = unsubscribe;
+        }
+    }
+    /**
+     * Disposes the resources held by the subscription. May, for instance, cancel
+     * an ongoing Observable execution or cancel any other type of work that
+     * started when the Subscription was created.
+     * @return {void}
+     */
+    Subscription.prototype.unsubscribe = function () {
+        var hasErrors = false;
+        var errors;
+        if (this.closed) {
+            return;
+        }
+        var _a = this, _parent = _a._parent, _parents = _a._parents, _unsubscribe = _a._unsubscribe, _subscriptions = _a._subscriptions;
+        this.closed = true;
+        this._parent = null;
+        this._parents = null;
+        // null out _subscriptions first so any child subscriptions that attempt
+        // to remove themselves from this subscription will noop
+        this._subscriptions = null;
+        var index = -1;
+        var len = _parents ? _parents.length : 0;
+        // if this._parent is null, then so is this._parents, and we
+        // don't have to remove ourselves from any parent subscriptions.
+        while (_parent) {
+            _parent.remove(this);
+            // if this._parents is null or index >= len,
+            // then _parent is set to null, and the loop exits
+            _parent = ++index < len && _parents[index] || null;
+        }
+        if (isFunction_1.isFunction(_unsubscribe)) {
+            var trial = tryCatch_1.tryCatch(_unsubscribe).call(this);
+            if (trial === errorObject_1.errorObject) {
+                hasErrors = true;
+                errors = errors || (errorObject_1.errorObject.e instanceof UnsubscriptionError_1.UnsubscriptionError ?
+                    flattenUnsubscriptionErrors(errorObject_1.errorObject.e.errors) : [errorObject_1.errorObject.e]);
+            }
+        }
+        if (isArray_1.isArray(_subscriptions)) {
+            index = -1;
+            len = _subscriptions.length;
+            while (++index < len) {
+                var sub = _subscriptions[index];
+                if (isObject_1.isObject(sub)) {
+                    var trial = tryCatch_1.tryCatch(sub.unsubscribe).call(sub);
+                    if (trial === errorObject_1.errorObject) {
+                        hasErrors = true;
+                        errors = errors || [];
+                        var err = errorObject_1.errorObject.e;
+                        if (err instanceof UnsubscriptionError_1.UnsubscriptionError) {
+                            errors = errors.concat(flattenUnsubscriptionErrors(err.errors));
+                        }
+                        else {
+                            errors.push(err);
+                        }
+                    }
+                }
+            }
+        }
+        if (hasErrors) {
+            throw new UnsubscriptionError_1.UnsubscriptionError(errors);
+        }
+    };
+    /**
+     * Adds a tear down to be called during the unsubscribe() of this
+     * Subscription.
+     *
+     * If the tear down being added is a subscription that is already
+     * unsubscribed, is the same reference `add` is being called on, or is
+     * `Subscription.EMPTY`, it will not be added.
+     *
+     * If this subscription is already in an `closed` state, the passed
+     * tear down logic will be executed immediately.
+     *
+     * @param {TeardownLogic} teardown The additional logic to execute on
+     * teardown.
+     * @return {Subscription} Returns the Subscription used or created to be
+     * added to the inner subscriptions list. This Subscription can be used with
+     * `remove()` to remove the passed teardown logic from the inner subscriptions
+     * list.
+     */
+    Subscription.prototype.add = function (teardown) {
+        if (!teardown || (teardown === Subscription.EMPTY)) {
+            return Subscription.EMPTY;
+        }
+        if (teardown === this) {
+            return this;
+        }
+        var subscription = teardown;
+        switch (typeof teardown) {
+            case 'function':
+                subscription = new Subscription(teardown);
+            case 'object':
+                if (subscription.closed || typeof subscription.unsubscribe !== 'function') {
+                    return subscription;
+                }
+                else if (this.closed) {
+                    subscription.unsubscribe();
+                    return subscription;
+                }
+                else if (typeof subscription._addParent !== 'function' /* quack quack */) {
+                    var tmp = subscription;
+                    subscription = new Subscription();
+                    subscription._subscriptions = [tmp];
+                }
+                break;
+            default:
+                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
+        }
+        var subscriptions = this._subscriptions || (this._subscriptions = []);
+        subscriptions.push(subscription);
+        subscription._addParent(this);
+        return subscription;
+    };
+    /**
+     * Removes a Subscription from the internal list of subscriptions that will
+     * unsubscribe during the unsubscribe process of this Subscription.
+     * @param {Subscription} subscription The subscription to remove.
+     * @return {void}
+     */
+    Subscription.prototype.remove = function (subscription) {
+        var subscriptions = this._subscriptions;
+        if (subscriptions) {
+            var subscriptionIndex = subscriptions.indexOf(subscription);
+            if (subscriptionIndex !== -1) {
+                subscriptions.splice(subscriptionIndex, 1);
+            }
+        }
+    };
+    Subscription.prototype._addParent = function (parent) {
+        var _a = this, _parent = _a._parent, _parents = _a._parents;
+        if (!_parent || _parent === parent) {
+            // If we don't have a parent, or the new parent is the same as the
+            // current parent, then set this._parent to the new parent.
+            this._parent = parent;
+        }
+        else if (!_parents) {
+            // If there's already one parent, but not multiple, allocate an Array to
+            // store the rest of the parent Subscriptions.
+            this._parents = [parent];
+        }
+        else if (_parents.indexOf(parent) === -1) {
+            // Only add the new parent to the _parents list if it's not already there.
+            _parents.push(parent);
+        }
+    };
+    Subscription.EMPTY = (function (empty) {
+        empty.closed = true;
+        return empty;
+    }(new Subscription()));
+    return Subscription;
+}());
+exports.Subscription = Subscription;
+function flattenUnsubscriptionErrors(errors) {
+    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
+}
+//# sourceMappingURL=Subscription.js.map
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgLocaleLocalization", function() { return NgLocaleLocalization; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgLocalization", function() { return NgLocalization; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommonModule", function() { return CommonModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgClass", function() { return NgClass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgFor", function() { return NgFor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgForOf", function() { return NgForOf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgIf", function() { return NgIf; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgPlural", function() { return NgPlural; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgPluralCase", function() { return NgPluralCase; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgStyle", function() { return NgStyle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgSwitch", function() { return NgSwitch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgSwitchCase", function() { return NgSwitchCase; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgSwitchDefault", function() { return NgSwitchDefault; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgTemplateOutlet", function() { return NgTemplateOutlet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NgComponentOutlet", function() { return NgComponentOutlet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AsyncPipe", function() { return AsyncPipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DatePipe", function() { return DatePipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "I18nPluralPipe", function() { return I18nPluralPipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "I18nSelectPipe", function() { return I18nSelectPipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JsonPipe", function() { return JsonPipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LowerCasePipe", function() { return LowerCasePipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrencyPipe", function() { return CurrencyPipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DecimalPipe", function() { return DecimalPipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PercentPipe", function() { return PercentPipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SlicePipe", function() { return SlicePipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpperCasePipe", function() { return UpperCasePipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TitleCasePipe", function() { return TitleCasePipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵPLATFORM_BROWSER_ID", function() { return PLATFORM_BROWSER_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵPLATFORM_SERVER_ID", function() { return PLATFORM_SERVER_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵPLATFORM_WORKER_APP_ID", function() { return PLATFORM_WORKER_APP_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵPLATFORM_WORKER_UI_ID", function() { return PLATFORM_WORKER_UI_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlatformBrowser", function() { return isPlatformBrowser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlatformServer", function() { return isPlatformServer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlatformWorkerApp", function() { return isPlatformWorkerApp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlatformWorkerUi", function() { return isPlatformWorkerUi; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VERSION", function() { return VERSION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlatformLocation", function() { return PlatformLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocationStrategy", function() { return LocationStrategy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "APP_BASE_HREF", function() { return APP_BASE_HREF; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HashLocationStrategy", function() { return HashLocationStrategy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PathLocationStrategy", function() { return PathLocationStrategy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Location", function() { return Location; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵc", function() { return COMMON_DIRECTIVES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return NgForOfRow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function() { return NgIfContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵd", function() { return COMMON_PIPES; });
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @license Angular v4.0.0-rc.2
+ * (c) 2010-2017 Google, Inc. https://angular.io/
+ * License: MIT
+ */
+
+
+/**
+ * This class should not be used directly by an application developer. Instead, use
+ * {\@link Location}.
+ *
+ * `PlatformLocation` encapsulates all calls to DOM apis, which allows the Router to be platform
+ * agnostic.
+ * This means that we can have different implementation of `PlatformLocation` for the different
+ * platforms
+ * that angular supports. For example, the default `PlatformLocation` is {\@link
+ * BrowserPlatformLocation},
+ * however when you run your app in a WebWorker you use {\@link WebWorkerPlatformLocation}.
+ *
+ * The `PlatformLocation` class is used directly by all implementations of {\@link LocationStrategy}
+ * when
+ * they need to interact with the DOM apis like pushState, popState, etc...
+ *
+ * {\@link LocationStrategy} in turn is used by the {\@link Location} service which is used directly
+ * by
+ * the {\@link Router} in order to navigate between routes. Since all interactions between {\@link
+ * Router} /
+ * {\@link Location} / {\@link LocationStrategy} and DOM apis flow through the `PlatformLocation`
+ * class
+ * they are all platform independent.
+ *
+ * \@stable
+ * @abstract
+ */
+
+var PlatformLocation = function () {
+    function PlatformLocation() {
+        _classCallCheck(this, PlatformLocation);
+    }
+
+    _createClass(PlatformLocation, [{
+        key: 'getBaseHrefFromDOM',
+
+        /**
+         * @abstract
+         * @return {?}
+         */
+        value: function getBaseHrefFromDOM() {}
+        /**
+         * @abstract
+         * @param {?} fn
+         * @return {?}
+         */
+
+    }, {
+        key: 'onPopState',
+        value: function onPopState(fn) {}
+        /**
+         * @abstract
+         * @param {?} fn
+         * @return {?}
+         */
+
+    }, {
+        key: 'onHashChange',
+        value: function onHashChange(fn) {}
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'replaceState',
+
+        /**
+         * @abstract
+         * @param {?} state
+         * @param {?} title
+         * @param {?} url
+         * @return {?}
+         */
+        value: function replaceState(state, title, url) {}
+        /**
+         * @abstract
+         * @param {?} state
+         * @param {?} title
+         * @param {?} url
+         * @return {?}
+         */
+
+    }, {
+        key: 'pushState',
+        value: function pushState(state, title, url) {}
+        /**
+         * @abstract
+         * @return {?}
+         */
+
+    }, {
+        key: 'forward',
+        value: function forward() {}
+        /**
+         * @abstract
+         * @return {?}
+         */
+
+    }, {
+        key: 'back',
+        value: function back() {}
+    }, {
+        key: 'pathname',
+        get: function get() {
+            return null;
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'search',
+        get: function get() {
+            return null;
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'hash',
+        get: function get() {
+            return null;
+        }
+    }]);
+
+    return PlatformLocation;
+}();
+
+/**
+ * `LocationStrategy` is responsible for representing and reading route state
+ * from the browser's URL. Angular provides two strategies:
+ * {\@link HashLocationStrategy} and {\@link PathLocationStrategy}.
+ *
+ * This is used under the hood of the {\@link Location} service.
+ *
+ * Applications should use the {\@link Router} or {\@link Location} services to
+ * interact with application route state.
+ *
+ * For instance, {\@link HashLocationStrategy} produces URLs like
+ * `http://example.com#/foo`, and {\@link PathLocationStrategy} produces
+ * `http://example.com/foo` as an equivalent URL.
+ *
+ * See these two classes for more.
+ *
+ * \@stable
+ * @abstract
+ */
+
+
+var LocationStrategy = function () {
+    function LocationStrategy() {
+        _classCallCheck(this, LocationStrategy);
+    }
+
+    _createClass(LocationStrategy, [{
+        key: 'path',
+
+        /**
+         * @abstract
+         * @param {?=} includeHash
+         * @return {?}
+         */
+        value: function path(includeHash) {}
+        /**
+         * @abstract
+         * @param {?} internal
+         * @return {?}
+         */
+
+    }, {
+        key: 'prepareExternalUrl',
+        value: function prepareExternalUrl(internal) {}
+        /**
+         * @abstract
+         * @param {?} state
+         * @param {?} title
+         * @param {?} url
+         * @param {?} queryParams
+         * @return {?}
+         */
+
+    }, {
+        key: 'pushState',
+        value: function pushState(state, title, url, queryParams) {}
+        /**
+         * @abstract
+         * @param {?} state
+         * @param {?} title
+         * @param {?} url
+         * @param {?} queryParams
+         * @return {?}
+         */
+
+    }, {
+        key: 'replaceState',
+        value: function replaceState(state, title, url, queryParams) {}
+        /**
+         * @abstract
+         * @return {?}
+         */
+
+    }, {
+        key: 'forward',
+        value: function forward() {}
+        /**
+         * @abstract
+         * @return {?}
+         */
+
+    }, {
+        key: 'back',
+        value: function back() {}
+        /**
+         * @abstract
+         * @param {?} fn
+         * @return {?}
+         */
+
+    }, {
+        key: 'onPopState',
+        value: function onPopState(fn) {}
+        /**
+         * @abstract
+         * @return {?}
+         */
+
+    }, {
+        key: 'getBaseHref',
+        value: function getBaseHref() {}
+    }]);
+
+    return LocationStrategy;
+}();
+/**
+ * The `APP_BASE_HREF` token represents the base href to be used with the
+ * {@link PathLocationStrategy}.
+ *
+ * If you're using {@link PathLocationStrategy}, you must provide a provider to a string
+ * representing the URL prefix that should be preserved when generating and recognizing
+ * URLs.
+ *
+ * ### Example
+ *
+ * ```typescript
+ * import {Component, NgModule} from '@angular/core';
+ * import {APP_BASE_HREF} from '@angular/common';
+ *
+ * @NgModule({
+ *   providers: [{provide: APP_BASE_HREF, useValue: '/my/app'}]
+ * })
+ * class AppModule {}
+ * ```
+ *
+ * @stable
+ */
+
+
+var /** @type {?} */APP_BASE_HREF = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["InjectionToken"]('appBaseHref');
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var /** @type {?} */globalScope = void 0;
+if (typeof window === 'undefined') {
+    if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {
+        // TODO: Replace any with WorkerGlobalScope from lib.webworker.d.ts #3492
+        globalScope = self;
+    } else {
+        globalScope = global;
+    }
+} else {
+    globalScope = window;
+}
+// Need to declare a new variable for global here since TypeScript
+// exports the original value of the symbol.
+var /** @type {?} */_global = globalScope;
+/**
+ * @param {?} type
+ * @return {?}
+ */
+function getTypeNameForDebugging(type) {
+    return type['name'] || (typeof type === 'undefined' ? 'undefined' : _typeof(type));
+}
+// TODO: remove calls to assert in production environment
+// Note: Can't just export this and import in in other files
+// as `assert` is a reserved keyword in Dart
+_global.assert = function assert(condition) {
+    // TODO: to be fixed properly via #2830, noop for now
+};
+/**
+ * @param {?} obj
+ * @return {?}
+ */
+function isPresent(obj) {
+    return obj != null;
+}
+/**
+ * @param {?} obj
+ * @return {?}
+ */
+function isBlank(obj) {
+    return obj == null;
+}
+/**
+ * @param {?} token
+ * @return {?}
+ */
+function stringify(token) {
+    if (typeof token === 'string') {
+        return token;
+    }
+    if (token == null) {
+        return '' + token;
+    }
+    if (token.overriddenName) {
+        return '' + token.overriddenName;
+    }
+    if (token.name) {
+        return '' + token.name;
+    }
+    var /** @type {?} */res = token.toString();
+    var /** @type {?} */newLineIndex = res.indexOf('\n');
+    return newLineIndex === -1 ? res : res.substring(0, newLineIndex);
+}
+
+var NumberWrapper = function () {
+    function NumberWrapper() {
+        _classCallCheck(this, NumberWrapper);
+    }
+
+    _createClass(NumberWrapper, null, [{
+        key: 'parseIntAutoRadix',
+
+        /**
+         * @param {?} text
+         * @return {?}
+         */
+        value: function parseIntAutoRadix(text) {
+            var /** @type {?} */result = parseInt(text);
+            if (isNaN(result)) {
+                throw new Error('Invalid integer literal when parsing ' + text);
+            }
+            return result;
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: 'isNumeric',
+        value: function isNumeric(value) {
+            return !isNaN(value - parseFloat(value));
+        }
+    }]);
+
+    return NumberWrapper;
+}();
+/**
+ * @param {?} o
+ * @return {?}
+ */
+
+
+function isJsObject(o) {
+    return o !== null && (typeof o === 'function' || (typeof o === 'undefined' ? 'undefined' : _typeof(o)) === 'object');
+}
+var /** @type {?} */_symbolIterator = null;
+/**
+ * @return {?}
+ */
+function getSymbolIterator() {
+    if (!_symbolIterator) {
+        if (globalScope.Symbol && Symbol.iterator) {
+            _symbolIterator = Symbol.iterator;
+        } else {
+            // es6-shim specific logic
+            var /** @type {?} */keys = Object.getOwnPropertyNames(Map.prototype);
+            for (var /** @type {?} */i = 0; i < keys.length; ++i) {
+                var /** @type {?} */key = keys[i];
+                if (key !== 'entries' && key !== 'size' && Map.prototype[key] === Map.prototype['entries']) {
+                    _symbolIterator = key;
+                }
+            }
+        }
+    }
+    return _symbolIterator;
+}
+
+/**
+ * \@whatItDoes `Location` is a service that applications can use to interact with a browser's URL.
+ * \@description
+ * Depending on which {\@link LocationStrategy} is used, `Location` will either persist
+ * to the URL's path or the URL's hash segment.
+ *
+ * Note: it's better to use {\@link Router#navigate} service to trigger route changes. Use
+ * `Location` only if you need to interact with or create normalized URLs outside of
+ * routing.
+ *
+ * `Location` is responsible for normalizing the URL against the application's base href.
+ * A normalized URL is absolute from the URL host, includes the application's base href, and has no
+ * trailing slash:
+ * - `/my/app/user/123` is normalized
+ * - `my/app/user/123` **is not** normalized
+ * - `/my/app/user/123/` **is not** normalized
+ *
+ * ### Example
+ * {\@example common/location/ts/path_location_component.ts region='LocationComponent'}
+ * \@stable
+ */
+
+var Location = function () {
+    /**
+     * @param {?} platformStrategy
+     */
+    function Location(platformStrategy) {
+        var _this = this;
+
+        _classCallCheck(this, Location);
+
+        /** @internal */
+        this._subject = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this._platformStrategy = platformStrategy;
+        var browserBaseHref = this._platformStrategy.getBaseHref();
+        this._baseHref = Location.stripTrailingSlash(_stripIndexHtml(browserBaseHref));
+        this._platformStrategy.onPopState(function (ev) {
+            _this._subject.emit({
+                'url': _this.path(true),
+                'pop': true,
+                'type': ev.type
+            });
+        });
+    }
+    /**
+     * @param {?=} includeHash
+     * @return {?}
+     */
+
+
+    _createClass(Location, [{
+        key: 'path',
+        value: function path() {
+            var includeHash = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+            return this.normalize(this._platformStrategy.path(includeHash));
+        }
+        /**
+         * Normalizes the given path and compares to the current normalized path.
+         * @param {?} path
+         * @param {?=} query
+         * @return {?}
+         */
+
+    }, {
+        key: 'isCurrentPathEqualTo',
+        value: function isCurrentPathEqualTo(path) {
+            var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+            return this.path() == this.normalize(path + Location.normalizeQueryParams(query));
+        }
+        /**
+         * Given a string representing a URL, returns the normalized URL path without leading or
+         * trailing slashes.
+         * @param {?} url
+         * @return {?}
+         */
+
+    }, {
+        key: 'normalize',
+        value: function normalize(url) {
+            return Location.stripTrailingSlash(_stripBaseHref(this._baseHref, _stripIndexHtml(url)));
+        }
+        /**
+         * Given a string representing a URL, returns the platform-specific external URL path.
+         * If the given URL doesn't begin with a leading slash (`'/'`), this method adds one
+         * before normalizing. This method will also add a hash if `HashLocationStrategy` is
+         * used, or the `APP_BASE_HREF` if the `PathLocationStrategy` is in use.
+         * @param {?} url
+         * @return {?}
+         */
+
+    }, {
+        key: 'prepareExternalUrl',
+        value: function prepareExternalUrl(url) {
+            if (url && url[0] !== '/') {
+                url = '/' + url;
+            }
+            return this._platformStrategy.prepareExternalUrl(url);
+        }
+        /**
+         * Changes the browsers URL to the normalized version of the given URL, and pushes a
+         * new item onto the platform's history.
+         * @param {?} path
+         * @param {?=} query
+         * @return {?}
+         */
+
+    }, {
+        key: 'go',
+        value: function go(path) {
+            var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+            this._platformStrategy.pushState(null, '', path, query);
+        }
+        /**
+         * Changes the browsers URL to the normalized version of the given URL, and replaces
+         * the top item on the platform's history stack.
+         * @param {?} path
+         * @param {?=} query
+         * @return {?}
+         */
+
+    }, {
+        key: 'replaceState',
+        value: function replaceState(path) {
+            var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+            this._platformStrategy.replaceState(null, '', path, query);
+        }
+        /**
+         * Navigates forward in the platform's history.
+         * @return {?}
+         */
+
+    }, {
+        key: 'forward',
+        value: function forward() {
+            this._platformStrategy.forward();
+        }
+        /**
+         * Navigates back in the platform's history.
+         * @return {?}
+         */
+
+    }, {
+        key: 'back',
+        value: function back() {
+            this._platformStrategy.back();
+        }
+        /**
+         * Subscribe to the platform's `popState` events.
+         * @param {?} onNext
+         * @param {?=} onThrow
+         * @param {?=} onReturn
+         * @return {?}
+         */
+
+    }, {
+        key: 'subscribe',
+        value: function subscribe(onNext) {
+            var onThrow = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+            var onReturn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+            return this._subject.subscribe({ next: onNext, error: onThrow, complete: onReturn });
+        }
+        /**
+         * Given a string of url parameters, prepend with '?' if needed, otherwise return parameters as
+         * is.
+         * @param {?} params
+         * @return {?}
+         */
+
+    }], [{
+        key: 'normalizeQueryParams',
+        value: function normalizeQueryParams(params) {
+            return params && params[0] !== '?' ? '?' + params : params;
+        }
+        /**
+         * Given 2 parts of a url, join them with a slash if needed.
+         * @param {?} start
+         * @param {?} end
+         * @return {?}
+         */
+
+    }, {
+        key: 'joinWithSlash',
+        value: function joinWithSlash(start, end) {
+            if (start.length == 0) {
+                return end;
+            }
+            if (end.length == 0) {
+                return start;
+            }
+            var /** @type {?} */slashes = 0;
+            if (start.endsWith('/')) {
+                slashes++;
+            }
+            if (end.startsWith('/')) {
+                slashes++;
+            }
+            if (slashes == 2) {
+                return start + end.substring(1);
+            }
+            if (slashes == 1) {
+                return start + end;
+            }
+            return start + '/' + end;
+        }
+        /**
+         * If url has a trailing slash, remove it, otherwise return url as is.
+         * @param {?} url
+         * @return {?}
+         */
+
+    }, {
+        key: 'stripTrailingSlash',
+        value: function stripTrailingSlash(url) {
+            return url.replace(/\/$/, '');
+        }
+    }]);
+
+    return Location;
+}();
+
+Location.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] }];
+/** @nocollapse */
+Location.ctorParameters = function () {
+    return [{ type: LocationStrategy }];
+};
+/**
+ * @param {?} baseHref
+ * @param {?} url
+ * @return {?}
+ */
+function _stripBaseHref(baseHref, url) {
+    return baseHref && url.startsWith(baseHref) ? url.substring(baseHref.length) : url;
+}
+/**
+ * @param {?} url
+ * @return {?}
+ */
+function _stripIndexHtml(url) {
+    return url.replace(/\/index.html$/, '');
+}
+
+/**
+ * \@whatItDoes Use URL hash for storing application location data.
+ * \@description
+ * `HashLocationStrategy` is a {\@link LocationStrategy} used to configure the
+ * {\@link Location} service to represent its state in the
+ * [hash fragment](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax)
+ * of the browser's URL.
+ *
+ * For instance, if you call `location.go('/foo')`, the browser's URL will become
+ * `example.com#/foo`.
+ *
+ * ### Example
+ *
+ * {\@example common/location/ts/hash_location_component.ts region='LocationComponent'}
+ *
+ * \@stable
+ */
+
+var HashLocationStrategy = function (_LocationStrategy) {
+    _inherits(HashLocationStrategy, _LocationStrategy);
+
+    /**
+     * @param {?} _platformLocation
+     * @param {?=} _baseHref
+     */
+    function HashLocationStrategy(_platformLocation, _baseHref) {
+        _classCallCheck(this, HashLocationStrategy);
+
+        var _this2 = _possibleConstructorReturn(this, (HashLocationStrategy.__proto__ || Object.getPrototypeOf(HashLocationStrategy)).call(this));
+
+        _this2._platformLocation = _platformLocation;
+        _this2._baseHref = '';
+        if (isPresent(_baseHref)) {
+            _this2._baseHref = _baseHref;
+        }
+        return _this2;
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+
+
+    _createClass(HashLocationStrategy, [{
+        key: 'onPopState',
+        value: function onPopState(fn) {
+            this._platformLocation.onPopState(fn);
+            this._platformLocation.onHashChange(fn);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'getBaseHref',
+        value: function getBaseHref() {
+            return this._baseHref;
+        }
+        /**
+         * @param {?=} includeHash
+         * @return {?}
+         */
+
+    }, {
+        key: 'path',
+        value: function path() {
+            var includeHash = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+            // the hash value is always prefixed with a `#`
+            // and if it is empty then it will stay empty
+            var /** @type {?} */path = this._platformLocation.hash;
+            if (!isPresent(path)) path = '#';
+            return path.length > 0 ? path.substring(1) : path;
+        }
+        /**
+         * @param {?} internal
+         * @return {?}
+         */
+
+    }, {
+        key: 'prepareExternalUrl',
+        value: function prepareExternalUrl(internal) {
+            var /** @type {?} */url = Location.joinWithSlash(this._baseHref, internal);
+            return url.length > 0 ? '#' + url : url;
+        }
+        /**
+         * @param {?} state
+         * @param {?} title
+         * @param {?} path
+         * @param {?} queryParams
+         * @return {?}
+         */
+
+    }, {
+        key: 'pushState',
+        value: function pushState(state, title, path, queryParams) {
+            var /** @type {?} */url = this.prepareExternalUrl(path + Location.normalizeQueryParams(queryParams));
+            if (url.length == 0) {
+                url = this._platformLocation.pathname;
+            }
+            this._platformLocation.pushState(state, title, url);
+        }
+        /**
+         * @param {?} state
+         * @param {?} title
+         * @param {?} path
+         * @param {?} queryParams
+         * @return {?}
+         */
+
+    }, {
+        key: 'replaceState',
+        value: function replaceState(state, title, path, queryParams) {
+            var /** @type {?} */url = this.prepareExternalUrl(path + Location.normalizeQueryParams(queryParams));
+            if (url.length == 0) {
+                url = this._platformLocation.pathname;
+            }
+            this._platformLocation.replaceState(state, title, url);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'forward',
+        value: function forward() {
+            this._platformLocation.forward();
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'back',
+        value: function back() {
+            this._platformLocation.back();
+        }
+    }]);
+
+    return HashLocationStrategy;
+}(LocationStrategy);
+
+HashLocationStrategy.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] }];
+/** @nocollapse */
+HashLocationStrategy.ctorParameters = function () {
+    return [{ type: PlatformLocation }, { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [APP_BASE_HREF] }] }];
+};
+
+/**
+ * \@whatItDoes Use URL for storing application location data.
+ * \@description
+ * `PathLocationStrategy` is a {\@link LocationStrategy} used to configure the
+ * {\@link Location} service to represent its state in the
+ * [path](https://en.wikipedia.org/wiki/Uniform_Resource_Locator#Syntax) of the
+ * browser's URL.
+ *
+ * If you're using `PathLocationStrategy`, you must provide a {\@link APP_BASE_HREF}
+ * or add a base element to the document. This URL prefix that will be preserved
+ * when generating and recognizing URLs.
+ *
+ * For instance, if you provide an `APP_BASE_HREF` of `'/my/app'` and call
+ * `location.go('/foo')`, the browser's URL will become
+ * `example.com/my/app/foo`.
+ *
+ * Similarly, if you add `<base href='/my/app'/>` to the document and call
+ * `location.go('/foo')`, the browser's URL will become
+ * `example.com/my/app/foo`.
+ *
+ * ### Example
+ *
+ * {\@example common/location/ts/path_location_component.ts region='LocationComponent'}
+ *
+ * \@stable
+ */
+
+var PathLocationStrategy = function (_LocationStrategy2) {
+    _inherits(PathLocationStrategy, _LocationStrategy2);
+
+    /**
+     * @param {?} _platformLocation
+     * @param {?=} href
+     */
+    function PathLocationStrategy(_platformLocation, href) {
+        _classCallCheck(this, PathLocationStrategy);
+
+        var _this3 = _possibleConstructorReturn(this, (PathLocationStrategy.__proto__ || Object.getPrototypeOf(PathLocationStrategy)).call(this));
+
+        _this3._platformLocation = _platformLocation;
+        if (isBlank(href)) {
+            href = _this3._platformLocation.getBaseHrefFromDOM();
+        }
+        if (isBlank(href)) {
+            throw new Error('No base href set. Please provide a value for the APP_BASE_HREF token or add a base element to the document.');
+        }
+        _this3._baseHref = href;
+        return _this3;
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+
+
+    _createClass(PathLocationStrategy, [{
+        key: 'onPopState',
+        value: function onPopState(fn) {
+            this._platformLocation.onPopState(fn);
+            this._platformLocation.onHashChange(fn);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'getBaseHref',
+        value: function getBaseHref() {
+            return this._baseHref;
+        }
+        /**
+         * @param {?} internal
+         * @return {?}
+         */
+
+    }, {
+        key: 'prepareExternalUrl',
+        value: function prepareExternalUrl(internal) {
+            return Location.joinWithSlash(this._baseHref, internal);
+        }
+        /**
+         * @param {?=} includeHash
+         * @return {?}
+         */
+
+    }, {
+        key: 'path',
+        value: function path() {
+            var includeHash = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+            var /** @type {?} */pathname = this._platformLocation.pathname + Location.normalizeQueryParams(this._platformLocation.search);
+            var /** @type {?} */hash = this._platformLocation.hash;
+            return hash && includeHash ? '' + pathname + hash : pathname;
+        }
+        /**
+         * @param {?} state
+         * @param {?} title
+         * @param {?} url
+         * @param {?} queryParams
+         * @return {?}
+         */
+
+    }, {
+        key: 'pushState',
+        value: function pushState(state, title, url, queryParams) {
+            var /** @type {?} */externalUrl = this.prepareExternalUrl(url + Location.normalizeQueryParams(queryParams));
+            this._platformLocation.pushState(state, title, externalUrl);
+        }
+        /**
+         * @param {?} state
+         * @param {?} title
+         * @param {?} url
+         * @param {?} queryParams
+         * @return {?}
+         */
+
+    }, {
+        key: 'replaceState',
+        value: function replaceState(state, title, url, queryParams) {
+            var /** @type {?} */externalUrl = this.prepareExternalUrl(url + Location.normalizeQueryParams(queryParams));
+            this._platformLocation.replaceState(state, title, externalUrl);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'forward',
+        value: function forward() {
+            this._platformLocation.forward();
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'back',
+        value: function back() {
+            this._platformLocation.back();
+        }
+    }]);
+
+    return PathLocationStrategy;
+}(LocationStrategy);
+
+PathLocationStrategy.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] }];
+/** @nocollapse */
+PathLocationStrategy.ctorParameters = function () {
+    return [{ type: PlatformLocation }, { type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Optional"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [APP_BASE_HREF] }] }];
+};
+
+/**
+ * \@experimental
+ * @abstract
+ */
+
+var NgLocalization = function () {
+    function NgLocalization() {
+        _classCallCheck(this, NgLocalization);
+    }
+
+    _createClass(NgLocalization, [{
+        key: 'getPluralCategory',
+
+        /**
+         * @abstract
+         * @param {?} value
+         * @return {?}
+         */
+        value: function getPluralCategory(value) {}
+    }]);
+
+    return NgLocalization;
+}();
+/**
+ * Returns the plural category for a given value.
+ * - "=value" when the case exists,
+ * - the plural category otherwise
+ *
+ * \@internal
+ * @param {?} value
+ * @param {?} cases
+ * @param {?} ngLocalization
+ * @return {?}
+ */
+
+
+function getPluralCategory(value, cases, ngLocalization) {
+    var /** @type {?} */key = '=' + value;
+    if (cases.indexOf(key) > -1) {
+        return key;
+    }
+    key = ngLocalization.getPluralCategory(value);
+    if (cases.indexOf(key) > -1) {
+        return key;
+    }
+    if (cases.indexOf('other') > -1) {
+        return 'other';
+    }
+    throw new Error('No plural message found for value "' + value + '"');
+}
+/**
+ * Returns the plural case based on the locale
+ *
+ * \@experimental
+ */
+
+var NgLocaleLocalization = function (_NgLocalization) {
+    _inherits(NgLocaleLocalization, _NgLocalization);
+
+    /**
+     * @param {?} locale
+     */
+    function NgLocaleLocalization(locale) {
+        _classCallCheck(this, NgLocaleLocalization);
+
+        var _this4 = _possibleConstructorReturn(this, (NgLocaleLocalization.__proto__ || Object.getPrototypeOf(NgLocaleLocalization)).call(this));
+
+        _this4.locale = locale;
+        return _this4;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+
+
+    _createClass(NgLocaleLocalization, [{
+        key: 'getPluralCategory',
+        value: function getPluralCategory(value) {
+            var /** @type {?} */plural = getPluralCase(this.locale, value);
+            switch (plural) {
+                case Plural.Zero:
+                    return 'zero';
+                case Plural.One:
+                    return 'one';
+                case Plural.Two:
+                    return 'two';
+                case Plural.Few:
+                    return 'few';
+                case Plural.Many:
+                    return 'many';
+                default:
+                    return 'other';
+            }
+        }
+    }]);
+
+    return NgLocaleLocalization;
+}(NgLocalization);
+
+NgLocaleLocalization.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] }];
+/** @nocollapse */
+NgLocaleLocalization.ctorParameters = function () {
+    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["LOCALE_ID"]] }] }];
+};
+var Plural = {};
+Plural.Zero = 0;
+Plural.One = 1;
+Plural.Two = 2;
+Plural.Few = 3;
+Plural.Many = 4;
+Plural.Other = 5;
+Plural[Plural.Zero] = "Zero";
+Plural[Plural.One] = "One";
+Plural[Plural.Two] = "Two";
+Plural[Plural.Few] = "Few";
+Plural[Plural.Many] = "Many";
+Plural[Plural.Other] = "Other";
+/**
+ * Returns the plural case based on the locale
+ *
+ * \@experimental
+ * @param {?} locale
+ * @param {?} nLike
+ * @return {?}
+ */
+function getPluralCase(locale, nLike) {
+    // TODO(vicb): lazy compute
+    if (typeof nLike === 'string') {
+        nLike = parseInt( /** @type {?} */nLike, 10);
+    }
+    var /** @type {?} */n = nLike;
+    var /** @type {?} */nDecimal = n.toString().replace(/^[^.]*\.?/, '');
+    var /** @type {?} */i = Math.floor(Math.abs(n));
+    var /** @type {?} */v = nDecimal.length;
+    var /** @type {?} */f = parseInt(nDecimal, 10);
+    var /** @type {?} */t = parseInt(n.toString().replace(/^[^.]*\.?|0+$/g, ''), 10) || 0;
+    var /** @type {?} */lang = locale.split('-')[0].toLowerCase();
+    switch (lang) {
+        case 'af':
+        case 'asa':
+        case 'az':
+        case 'bem':
+        case 'bez':
+        case 'bg':
+        case 'brx':
+        case 'ce':
+        case 'cgg':
+        case 'chr':
+        case 'ckb':
+        case 'ee':
+        case 'el':
+        case 'eo':
+        case 'es':
+        case 'eu':
+        case 'fo':
+        case 'fur':
+        case 'gsw':
+        case 'ha':
+        case 'haw':
+        case 'hu':
+        case 'jgo':
+        case 'jmc':
+        case 'ka':
+        case 'kk':
+        case 'kkj':
+        case 'kl':
+        case 'ks':
+        case 'ksb':
+        case 'ky':
+        case 'lb':
+        case 'lg':
+        case 'mas':
+        case 'mgo':
+        case 'ml':
+        case 'mn':
+        case 'nb':
+        case 'nd':
+        case 'ne':
+        case 'nn':
+        case 'nnh':
+        case 'nyn':
+        case 'om':
+        case 'or':
+        case 'os':
+        case 'ps':
+        case 'rm':
+        case 'rof':
+        case 'rwk':
+        case 'saq':
+        case 'seh':
+        case 'sn':
+        case 'so':
+        case 'sq':
+        case 'ta':
+        case 'te':
+        case 'teo':
+        case 'tk':
+        case 'tr':
+        case 'ug':
+        case 'uz':
+        case 'vo':
+        case 'vun':
+        case 'wae':
+        case 'xog':
+            if (n === 1) return Plural.One;
+            return Plural.Other;
+        case 'agq':
+        case 'bas':
+        case 'cu':
+        case 'dav':
+        case 'dje':
+        case 'dua':
+        case 'dyo':
+        case 'ebu':
+        case 'ewo':
+        case 'guz':
+        case 'kam':
+        case 'khq':
+        case 'ki':
+        case 'kln':
+        case 'kok':
+        case 'ksf':
+        case 'lrc':
+        case 'lu':
+        case 'luo':
+        case 'luy':
+        case 'mer':
+        case 'mfe':
+        case 'mgh':
+        case 'mua':
+        case 'mzn':
+        case 'nmg':
+        case 'nus':
+        case 'qu':
+        case 'rn':
+        case 'rw':
+        case 'sbp':
+        case 'twq':
+        case 'vai':
+        case 'yav':
+        case 'yue':
+        case 'zgh':
+        case 'ak':
+        case 'ln':
+        case 'mg':
+        case 'pa':
+        case 'ti':
+            if (n === Math.floor(n) && n >= 0 && n <= 1) return Plural.One;
+            return Plural.Other;
+        case 'am':
+        case 'as':
+        case 'bn':
+        case 'fa':
+        case 'gu':
+        case 'hi':
+        case 'kn':
+        case 'mr':
+        case 'zu':
+            if (i === 0 || n === 1) return Plural.One;
+            return Plural.Other;
+        case 'ar':
+            if (n === 0) return Plural.Zero;
+            if (n === 1) return Plural.One;
+            if (n === 2) return Plural.Two;
+            if (n % 100 === Math.floor(n % 100) && n % 100 >= 3 && n % 100 <= 10) return Plural.Few;
+            if (n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 99) return Plural.Many;
+            return Plural.Other;
+        case 'ast':
+        case 'ca':
+        case 'de':
+        case 'en':
+        case 'et':
+        case 'fi':
+        case 'fy':
+        case 'gl':
+        case 'it':
+        case 'nl':
+        case 'sv':
+        case 'sw':
+        case 'ur':
+        case 'yi':
+            if (i === 1 && v === 0) return Plural.One;
+            return Plural.Other;
+        case 'be':
+            if (n % 10 === 1 && !(n % 100 === 11)) return Plural.One;
+            if (n % 10 === Math.floor(n % 10) && n % 10 >= 2 && n % 10 <= 4 && !(n % 100 >= 12 && n % 100 <= 14)) return Plural.Few;
+            if (n % 10 === 0 || n % 10 === Math.floor(n % 10) && n % 10 >= 5 && n % 10 <= 9 || n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 14) return Plural.Many;
+            return Plural.Other;
+        case 'br':
+            if (n % 10 === 1 && !(n % 100 === 11 || n % 100 === 71 || n % 100 === 91)) return Plural.One;
+            if (n % 10 === 2 && !(n % 100 === 12 || n % 100 === 72 || n % 100 === 92)) return Plural.Two;
+            if (n % 10 === Math.floor(n % 10) && (n % 10 >= 3 && n % 10 <= 4 || n % 10 === 9) && !(n % 100 >= 10 && n % 100 <= 19 || n % 100 >= 70 && n % 100 <= 79 || n % 100 >= 90 && n % 100 <= 99)) return Plural.Few;
+            if (!(n === 0) && n % 1e6 === 0) return Plural.Many;
+            return Plural.Other;
+        case 'bs':
+        case 'hr':
+        case 'sr':
+            if (v === 0 && i % 10 === 1 && !(i % 100 === 11) || f % 10 === 1 && !(f % 100 === 11)) return Plural.One;
+            if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 && !(i % 100 >= 12 && i % 100 <= 14) || f % 10 === Math.floor(f % 10) && f % 10 >= 2 && f % 10 <= 4 && !(f % 100 >= 12 && f % 100 <= 14)) return Plural.Few;
+            return Plural.Other;
+        case 'cs':
+        case 'sk':
+            if (i === 1 && v === 0) return Plural.One;
+            if (i === Math.floor(i) && i >= 2 && i <= 4 && v === 0) return Plural.Few;
+            if (!(v === 0)) return Plural.Many;
+            return Plural.Other;
+        case 'cy':
+            if (n === 0) return Plural.Zero;
+            if (n === 1) return Plural.One;
+            if (n === 2) return Plural.Two;
+            if (n === 3) return Plural.Few;
+            if (n === 6) return Plural.Many;
+            return Plural.Other;
+        case 'da':
+            if (n === 1 || !(t === 0) && (i === 0 || i === 1)) return Plural.One;
+            return Plural.Other;
+        case 'dsb':
+        case 'hsb':
+            if (v === 0 && i % 100 === 1 || f % 100 === 1) return Plural.One;
+            if (v === 0 && i % 100 === 2 || f % 100 === 2) return Plural.Two;
+            if (v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 3 && i % 100 <= 4 || f % 100 === Math.floor(f % 100) && f % 100 >= 3 && f % 100 <= 4) return Plural.Few;
+            return Plural.Other;
+        case 'ff':
+        case 'fr':
+        case 'hy':
+        case 'kab':
+            if (i === 0 || i === 1) return Plural.One;
+            return Plural.Other;
+        case 'fil':
+            if (v === 0 && (i === 1 || i === 2 || i === 3) || v === 0 && !(i % 10 === 4 || i % 10 === 6 || i % 10 === 9) || !(v === 0) && !(f % 10 === 4 || f % 10 === 6 || f % 10 === 9)) return Plural.One;
+            return Plural.Other;
+        case 'ga':
+            if (n === 1) return Plural.One;
+            if (n === 2) return Plural.Two;
+            if (n === Math.floor(n) && n >= 3 && n <= 6) return Plural.Few;
+            if (n === Math.floor(n) && n >= 7 && n <= 10) return Plural.Many;
+            return Plural.Other;
+        case 'gd':
+            if (n === 1 || n === 11) return Plural.One;
+            if (n === 2 || n === 12) return Plural.Two;
+            if (n === Math.floor(n) && (n >= 3 && n <= 10 || n >= 13 && n <= 19)) return Plural.Few;
+            return Plural.Other;
+        case 'gv':
+            if (v === 0 && i % 10 === 1) return Plural.One;
+            if (v === 0 && i % 10 === 2) return Plural.Two;
+            if (v === 0 && (i % 100 === 0 || i % 100 === 20 || i % 100 === 40 || i % 100 === 60 || i % 100 === 80)) return Plural.Few;
+            if (!(v === 0)) return Plural.Many;
+            return Plural.Other;
+        case 'he':
+            if (i === 1 && v === 0) return Plural.One;
+            if (i === 2 && v === 0) return Plural.Two;
+            if (v === 0 && !(n >= 0 && n <= 10) && n % 10 === 0) return Plural.Many;
+            return Plural.Other;
+        case 'is':
+            if (t === 0 && i % 10 === 1 && !(i % 100 === 11) || !(t === 0)) return Plural.One;
+            return Plural.Other;
+        case 'ksh':
+            if (n === 0) return Plural.Zero;
+            if (n === 1) return Plural.One;
+            return Plural.Other;
+        case 'kw':
+        case 'naq':
+        case 'se':
+        case 'smn':
+            if (n === 1) return Plural.One;
+            if (n === 2) return Plural.Two;
+            return Plural.Other;
+        case 'lag':
+            if (n === 0) return Plural.Zero;
+            if ((i === 0 || i === 1) && !(n === 0)) return Plural.One;
+            return Plural.Other;
+        case 'lt':
+            if (n % 10 === 1 && !(n % 100 >= 11 && n % 100 <= 19)) return Plural.One;
+            if (n % 10 === Math.floor(n % 10) && n % 10 >= 2 && n % 10 <= 9 && !(n % 100 >= 11 && n % 100 <= 19)) return Plural.Few;
+            if (!(f === 0)) return Plural.Many;
+            return Plural.Other;
+        case 'lv':
+        case 'prg':
+            if (n % 10 === 0 || n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 19 || v === 2 && f % 100 === Math.floor(f % 100) && f % 100 >= 11 && f % 100 <= 19) return Plural.Zero;
+            if (n % 10 === 1 && !(n % 100 === 11) || v === 2 && f % 10 === 1 && !(f % 100 === 11) || !(v === 2) && f % 10 === 1) return Plural.One;
+            return Plural.Other;
+        case 'mk':
+            if (v === 0 && i % 10 === 1 || f % 10 === 1) return Plural.One;
+            return Plural.Other;
+        case 'mt':
+            if (n === 1) return Plural.One;
+            if (n === 0 || n % 100 === Math.floor(n % 100) && n % 100 >= 2 && n % 100 <= 10) return Plural.Few;
+            if (n % 100 === Math.floor(n % 100) && n % 100 >= 11 && n % 100 <= 19) return Plural.Many;
+            return Plural.Other;
+        case 'pl':
+            if (i === 1 && v === 0) return Plural.One;
+            if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 && !(i % 100 >= 12 && i % 100 <= 14)) return Plural.Few;
+            if (v === 0 && !(i === 1) && i % 10 === Math.floor(i % 10) && i % 10 >= 0 && i % 10 <= 1 || v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 5 && i % 10 <= 9 || v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 12 && i % 100 <= 14) return Plural.Many;
+            return Plural.Other;
+        case 'pt':
+            if (n === Math.floor(n) && n >= 0 && n <= 2 && !(n === 2)) return Plural.One;
+            return Plural.Other;
+        case 'ro':
+            if (i === 1 && v === 0) return Plural.One;
+            if (!(v === 0) || n === 0 || !(n === 1) && n % 100 === Math.floor(n % 100) && n % 100 >= 1 && n % 100 <= 19) return Plural.Few;
+            return Plural.Other;
+        case 'ru':
+        case 'uk':
+            if (v === 0 && i % 10 === 1 && !(i % 100 === 11)) return Plural.One;
+            if (v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 2 && i % 10 <= 4 && !(i % 100 >= 12 && i % 100 <= 14)) return Plural.Few;
+            if (v === 0 && i % 10 === 0 || v === 0 && i % 10 === Math.floor(i % 10) && i % 10 >= 5 && i % 10 <= 9 || v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 11 && i % 100 <= 14) return Plural.Many;
+            return Plural.Other;
+        case 'shi':
+            if (i === 0 || n === 1) return Plural.One;
+            if (n === Math.floor(n) && n >= 2 && n <= 10) return Plural.Few;
+            return Plural.Other;
+        case 'si':
+            if (n === 0 || n === 1 || i === 0 && f === 1) return Plural.One;
+            return Plural.Other;
+        case 'sl':
+            if (v === 0 && i % 100 === 1) return Plural.One;
+            if (v === 0 && i % 100 === 2) return Plural.Two;
+            if (v === 0 && i % 100 === Math.floor(i % 100) && i % 100 >= 3 && i % 100 <= 4 || !(v === 0)) return Plural.Few;
+            return Plural.Other;
+        case 'tzm':
+            if (n === Math.floor(n) && n >= 0 && n <= 1 || n === Math.floor(n) && n >= 11 && n <= 99) return Plural.One;
+            return Plural.Other;
+        default:
+            return Plural.Other;
+    }
+}
+
+/**
+ * @param {?} obj
+ * @return {?}
+ */
+function isListLikeIterable(obj) {
+    if (!isJsObject(obj)) return false;
+    return Array.isArray(obj) || !(obj instanceof Map) && getSymbolIterator() in obj; // JS Iterable have a Symbol.iterator prop
+}
+
+/**
+ * \@ngModule CommonModule
+ *
+ * \@whatItDoes Adds and removes CSS classes on an HTML element.
+ *
+ * \@howToUse
+ * ```
+ *     <some-element [ngClass]="'first second'">...</some-element>
+ *
+ *     <some-element [ngClass]="['first', 'second']">...</some-element>
+ *
+ *     <some-element [ngClass]="{'first': true, 'second': true, 'third': false}">...</some-element>
+ *
+ *     <some-element [ngClass]="stringExp|arrayExp|objExp">...</some-element>
+ *
+ *     <some-element [ngClass]="{'class1 class2 class3' : true}">...</some-element>
+ * ```
+ *
+ * \@description
+ *
+ * The CSS classes are updated as follows, depending on the type of the expression evaluation:
+ * - `string` - the CSS classes listed in the string (space delimited) are added,
+ * - `Array` - the CSS classes declared as Array elements are added,
+ * - `Object` - keys are CSS classes that get added when the expression given in the value
+ *              evaluates to a truthy value, otherwise they are removed.
+ *
+ * \@stable
+ */
+
+var NgClass = function () {
+    /**
+     * @param {?} _iterableDiffers
+     * @param {?} _keyValueDiffers
+     * @param {?} _ngEl
+     * @param {?} _renderer
+     */
+    function NgClass(_iterableDiffers, _keyValueDiffers, _ngEl, _renderer) {
+        _classCallCheck(this, NgClass);
+
+        this._iterableDiffers = _iterableDiffers;
+        this._keyValueDiffers = _keyValueDiffers;
+        this._ngEl = _ngEl;
+        this._renderer = _renderer;
+        this._initialClasses = [];
+    }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+
+
+    _createClass(NgClass, [{
+        key: 'ngDoCheck',
+
+        /**
+         * @return {?}
+         */
+        value: function ngDoCheck() {
+            if (this._iterableDiffer) {
+                var /** @type {?} */iterableChanges = this._iterableDiffer.diff( /** @type {?} */this._rawClass);
+                if (iterableChanges) {
+                    this._applyIterableChanges(iterableChanges);
+                }
+            } else if (this._keyValueDiffer) {
+                var /** @type {?} */keyValueChanges = this._keyValueDiffer.diff( /** @type {?} */this._rawClass);
+                if (keyValueChanges) {
+                    this._applyKeyValueChanges(keyValueChanges);
+                }
+            }
+        }
+        /**
+         * @param {?} rawClassVal
+         * @return {?}
+         */
+
+    }, {
+        key: '_cleanupClasses',
+        value: function _cleanupClasses(rawClassVal) {
+            this._applyClasses(rawClassVal, true);
+            this._applyInitialClasses(false);
+        }
+        /**
+         * @param {?} changes
+         * @return {?}
+         */
+
+    }, {
+        key: '_applyKeyValueChanges',
+        value: function _applyKeyValueChanges(changes) {
+            var _this5 = this;
+
+            changes.forEachAddedItem(function (record) {
+                return _this5._toggleClass(record.key, record.currentValue);
+            });
+            changes.forEachChangedItem(function (record) {
+                return _this5._toggleClass(record.key, record.currentValue);
+            });
+            changes.forEachRemovedItem(function (record) {
+                if (record.previousValue) {
+                    _this5._toggleClass(record.key, false);
+                }
+            });
+        }
+        /**
+         * @param {?} changes
+         * @return {?}
+         */
+
+    }, {
+        key: '_applyIterableChanges',
+        value: function _applyIterableChanges(changes) {
+            var _this6 = this;
+
+            changes.forEachAddedItem(function (record) {
+                if (typeof record.item === 'string') {
+                    _this6._toggleClass(record.item, true);
+                } else {
+                    throw new Error('NgClass can only toggle CSS classes expressed as strings, got ' + stringify(record.item));
+                }
+            });
+            changes.forEachRemovedItem(function (record) {
+                return _this6._toggleClass(record.item, false);
+            });
+        }
+        /**
+         * @param {?} isCleanup
+         * @return {?}
+         */
+
+    }, {
+        key: '_applyInitialClasses',
+        value: function _applyInitialClasses(isCleanup) {
+            var _this7 = this;
+
+            this._initialClasses.forEach(function (klass) {
+                return _this7._toggleClass(klass, !isCleanup);
+            });
+        }
+        /**
+         * @param {?} rawClassVal
+         * @param {?} isCleanup
+         * @return {?}
+         */
+
+    }, {
+        key: '_applyClasses',
+        value: function _applyClasses(rawClassVal, isCleanup) {
+            var _this8 = this;
+
+            if (rawClassVal) {
+                if (Array.isArray(rawClassVal) || rawClassVal instanceof Set) {
+                    rawClassVal.forEach(function (klass) {
+                        return _this8._toggleClass(klass, !isCleanup);
+                    });
+                } else {
+                    Object.keys(rawClassVal).forEach(function (klass) {
+                        if (rawClassVal[klass] != null) _this8._toggleClass(klass, !isCleanup);
+                    });
+                }
+            }
+        }
+        /**
+         * @param {?} klass
+         * @param {?} enabled
+         * @return {?}
+         */
+
+    }, {
+        key: '_toggleClass',
+        value: function _toggleClass(klass, enabled) {
+            var _this9 = this;
+
+            klass = klass.trim();
+            if (klass) {
+                klass.split(/\s+/g).forEach(function (klass) {
+                    _this9._renderer.setElementClass(_this9._ngEl.nativeElement, klass, !!enabled);
+                });
+            }
+        }
+    }, {
+        key: 'klass',
+        set: function set(v) {
+            this._applyInitialClasses(true);
+            this._initialClasses = typeof v === 'string' ? v.split(/\s+/) : [];
+            this._applyInitialClasses(false);
+            this._applyClasses(this._rawClass, false);
+        }
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+
+    }, {
+        key: 'ngClass',
+        set: function set(v) {
+            this._cleanupClasses(this._rawClass);
+            this._iterableDiffer = null;
+            this._keyValueDiffer = null;
+            this._rawClass = typeof v === 'string' ? v.split(/\s+/) : v;
+            if (this._rawClass) {
+                if (isListLikeIterable(this._rawClass)) {
+                    this._iterableDiffer = this._iterableDiffers.find(this._rawClass).create();
+                } else {
+                    this._keyValueDiffer = this._keyValueDiffers.find(this._rawClass).create();
+                }
+            }
+        }
+    }]);
+
+    return NgClass;
+}();
+
+NgClass.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngClass]' }] }];
+/** @nocollapse */
+NgClass.ctorParameters = function () {
+    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["IterableDiffers"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["KeyValueDiffers"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] }];
+};
+NgClass.propDecorators = {
+    'klass': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"], args: ['class'] }],
+    'ngClass': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
+};
+
+/**
+ * Instantiates a single {\@link Component} type and inserts its Host View into current View.
+ * `NgComponentOutlet` provides a declarative approach for dynamic component creation.
+ *
+ * `NgComponentOutlet` requires a component type, if a falsy value is set the view will clear and
+ * any existing component will get destroyed.
+ *
+ * ### Fine tune control
+ *
+ * You can control the component creation process by using the following optional attributes:
+ *
+ * * `ngComponentOutletInjector`: Optional custom {\@link Injector} that will be used as parent for
+ * the Component. Defaults to the injector of the current view container.
+ *
+ * * `ngComponentOutletProviders`: Optional injectable objects ({\@link Provider}) that are visible
+ * to the component.
+ *
+ * * `ngComponentOutletContent`: Optional list of projectable nodes to insert into the content
+ * section of the component, if exists.
+ *
+ * * `ngComponentOutletNgModuleFactory`: Optional module factory to allow dynamically loading other
+ * module, then load a component from that module.
+ *
+ * ### Syntax
+ *
+ * Simple
+ * ```
+ * <ng-container *ngComponentOutlet="componentTypeExpression"></ng-container>
+ * ```
+ *
+ * Customized injector/content
+ * ```
+ * <ng-container *ngComponentOutlet="componentTypeExpression;
+ *                                   injector: injectorExpression;
+ *                                   content: contentNodesExpression;">
+ * </ng-container>
+ * ```
+ *
+ * Customized ngModuleFactory
+ * ```
+ * <ng-container *ngComponentOutlet="componentTypeExpression;
+ *                                   ngModuleFactory: moduleFactory;">
+ * </ng-container>
+ * ```
+ * # Example
+ *
+ * {\@example common/ngComponentOutlet/ts/module.ts region='SimpleExample'}
+ *
+ * A more complete example with additional options:
+ *
+ * {\@example common/ngComponentOutlet/ts/module.ts region='CompleteExample'}
+ * A more complete example with ngModuleFactory:
+ *
+ * {\@example common/ngComponentOutlet/ts/module.ts region='NgModuleFactoryExample'}
+ *
+ * \@experimental
+ */
+
+var NgComponentOutlet = function () {
+    /**
+     * @param {?} _viewContainerRef
+     */
+    function NgComponentOutlet(_viewContainerRef) {
+        _classCallCheck(this, NgComponentOutlet);
+
+        this._viewContainerRef = _viewContainerRef;
+        this._componentRef = null;
+        this._moduleRef = null;
+    }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+
+
+    _createClass(NgComponentOutlet, [{
+        key: 'ngOnChanges',
+        value: function ngOnChanges(changes) {
+            if (this._componentRef) {
+                this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._componentRef.hostView));
+            }
+            this._viewContainerRef.clear();
+            this._componentRef = null;
+            if (this.ngComponentOutlet) {
+                var /** @type {?} */injector = this.ngComponentOutletInjector || this._viewContainerRef.parentInjector;
+                if (changes.ngComponentOutletNgModuleFactory) {
+                    if (this._moduleRef) this._moduleRef.destroy();
+                    if (this.ngComponentOutletNgModuleFactory) {
+                        this._moduleRef = this.ngComponentOutletNgModuleFactory.create(injector);
+                    } else {
+                        this._moduleRef = null;
+                    }
+                }
+                if (this._moduleRef) {
+                    injector = this._moduleRef.injector;
+                }
+                var /** @type {?} */componentFactory = injector.get(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"]).resolveComponentFactory(this.ngComponentOutlet);
+                this._componentRef = this._viewContainerRef.createComponent(componentFactory, this._viewContainerRef.length, injector, this.ngComponentOutletContent);
+            }
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'ngOnDestroy',
+        value: function ngOnDestroy() {
+            if (this._moduleRef) this._moduleRef.destroy();
+        }
+    }]);
+
+    return NgComponentOutlet;
+}();
+
+NgComponentOutlet.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngComponentOutlet]' }] }];
+/** @nocollapse */
+NgComponentOutlet.ctorParameters = function () {
+    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }];
+};
+NgComponentOutlet.propDecorators = {
+    'ngComponentOutlet': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
+    'ngComponentOutletInjector': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
+    'ngComponentOutletContent': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
+    'ngComponentOutletNgModuleFactory': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
+};
+
+var NgForOfRow = function () {
+    /**
+     * @param {?} $implicit
+     * @param {?} index
+     * @param {?} count
+     */
+    function NgForOfRow($implicit, index, count) {
+        _classCallCheck(this, NgForOfRow);
+
+        this.$implicit = $implicit;
+        this.index = index;
+        this.count = count;
+    }
+    /**
+     * @return {?}
+     */
+
+
+    _createClass(NgForOfRow, [{
+        key: 'first',
+        get: function get() {
+            return this.index === 0;
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'last',
+        get: function get() {
+            return this.index === this.count - 1;
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'even',
+        get: function get() {
+            return this.index % 2 === 0;
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'odd',
+        get: function get() {
+            return !this.even;
+        }
+    }]);
+
+    return NgForOfRow;
+}();
+/**
+ * The `NgForOf` directive instantiates a template once per item from an iterable. The context
+ * for each instantiated template inherits from the outer context with the given loop variable
+ * set to the current item from the iterable.
+ *
+ * ### Local Variables
+ *
+ * `NgForOf` provides several exported values that can be aliased to local variables:
+ *
+ * * `index` will be set to the current loop iteration for each template context.
+ * * `first` will be set to a boolean value indicating whether the item is the first one in the
+ *   iteration.
+ * * `last` will be set to a boolean value indicating whether the item is the last one in the
+ *   iteration.
+ * * `even` will be set to a boolean value indicating whether this item has an even index.
+ * * `odd` will be set to a boolean value indicating whether this item has an odd index.
+ *
+ * ### Change Propagation
+ *
+ * When the contents of the iterator changes, `NgForOf` makes the corresponding changes to the DOM:
+ *
+ * * When an item is added, a new instance of the template is added to the DOM.
+ * * When an item is removed, its template instance is removed from the DOM.
+ * * When items are reordered, their respective templates are reordered in the DOM.
+ * * Otherwise, the DOM element for that item will remain the same.
+ *
+ * Angular uses object identity to track insertions and deletions within the iterator and reproduce
+ * those changes in the DOM. This has important implications for animations and any stateful
+ * controls (such as `<input>` elements which accept user input) that are present. Inserted rows can
+ * be animated in, deleted rows can be animated out, and unchanged rows retain any unsaved state
+ * such as user input.
+ *
+ * It is possible for the identities of elements in the iterator to change while the data does not.
+ * This can happen, for example, if the iterator produced from an RPC to the server, and that
+ * RPC is re-run. Even if the data hasn't changed, the second response will produce objects with
+ * different identities, and Angular will tear down the entire DOM and rebuild it (as if all old
+ * elements were deleted and all new elements inserted). This is an expensive operation and should
+ * be avoided if possible.
+ *
+ * To customize the default tracking algorithm, `NgForOf` supports `trackBy` option.
+ * `trackBy` takes a function which has two arguments: `index` and `item`.
+ * If `trackBy` is given, Angular tracks changes by the return value of the function.
+ *
+ * ### Syntax
+ *
+ * - `<li *ngFor="let item of items; let i = index; trackBy: trackByFn">...</li>`
+ * - `<li template="ngFor let item of items; let i = index; trackBy: trackByFn">...</li>`
+ *
+ * With `<ng-template>` element:
+ *
+ * ```
+ * <ng-template ngFor let-item [ngForOf]="items" let-i="index" [ngForTrackBy]="trackByFn">
+ *   <li>...</li>
+ * </ng-template>
+ * ```
+ *
+ * ### Example
+ *
+ * See a [live demo](http://plnkr.co/edit/KVuXxDp0qinGDyo307QW?p=preview) for a more detailed
+ * example.
+ *
+ * \@stable
+ */
+
+
+var NgForOf = function () {
+    /**
+     * @param {?} _viewContainer
+     * @param {?} _template
+     * @param {?} _differs
+     */
+    function NgForOf(_viewContainer, _template, _differs) {
+        _classCallCheck(this, NgForOf);
+
+        this._viewContainer = _viewContainer;
+        this._template = _template;
+        this._differs = _differs;
+        this._differ = null;
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+
+
+    _createClass(NgForOf, [{
+        key: 'ngOnChanges',
+
+        /**
+         * @param {?} changes
+         * @return {?}
+         */
+        value: function ngOnChanges(changes) {
+            if ('ngForOf' in changes) {
+                // React on ngForOf changes only once all inputs have been initialized
+                var /** @type {?} */value = changes['ngForOf'].currentValue;
+                if (!this._differ && value) {
+                    try {
+                        this._differ = this._differs.find(value).create(this.ngForTrackBy);
+                    } catch (e) {
+                        throw new Error('Cannot find a differ supporting object \'' + value + '\' of type \'' + getTypeNameForDebugging(value) + '\'. NgFor only supports binding to Iterables such as Arrays.');
+                    }
+                }
+            }
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'ngDoCheck',
+        value: function ngDoCheck() {
+            if (this._differ) {
+                var /** @type {?} */changes = this._differ.diff(this.ngForOf);
+                if (changes) this._applyChanges(changes);
+            }
+        }
+        /**
+         * @param {?} changes
+         * @return {?}
+         */
+
+    }, {
+        key: '_applyChanges',
+        value: function _applyChanges(changes) {
+            var _this10 = this;
+
+            var /** @type {?} */insertTuples = [];
+            changes.forEachOperation(function (item, adjustedPreviousIndex, currentIndex) {
+                if (item.previousIndex == null) {
+                    var /** @type {?} */view = _this10._viewContainer.createEmbeddedView(_this10._template, new NgForOfRow(null, null, null), currentIndex);
+                    var /** @type {?} */tuple = new RecordViewTuple(item, view);
+                    insertTuples.push(tuple);
+                } else if (currentIndex == null) {
+                    _this10._viewContainer.remove(adjustedPreviousIndex);
+                } else {
+                    var /** @type {?} */_view = _this10._viewContainer.get(adjustedPreviousIndex);
+                    _this10._viewContainer.move(_view, currentIndex);
+                    var /** @type {?} */_tuple = new RecordViewTuple(item, /** @type {?} */_view);
+                    insertTuples.push(_tuple);
+                }
+            });
+            for (var /** @type {?} */i = 0; i < insertTuples.length; i++) {
+                this._perViewChange(insertTuples[i].view, insertTuples[i].record);
+            }
+            for (var /** @type {?} */_i = 0, /** @type {?} */ilen = this._viewContainer.length; _i < ilen; _i++) {
+                var /** @type {?} */viewRef = this._viewContainer.get(_i);
+                viewRef.context.index = _i;
+                viewRef.context.count = ilen;
+            }
+            changes.forEachIdentityChange(function (record) {
+                var /** @type {?} */viewRef = _this10._viewContainer.get(record.currentIndex);
+                viewRef.context.$implicit = record.item;
+            });
+        }
+        /**
+         * @param {?} view
+         * @param {?} record
+         * @return {?}
+         */
+
+    }, {
+        key: '_perViewChange',
+        value: function _perViewChange(view, record) {
+            view.context.$implicit = record.item;
+        }
+    }, {
+        key: 'ngForTrackBy',
+        set: function set(fn) {
+            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["isDevMode"])() && fn != null && typeof fn !== 'function') {
+                // TODO(vicb): use a log service once there is a public one available
+                if (console && console.warn) {
+                    console.warn('trackBy must be a function, but received ' + JSON.stringify(fn) + '. ' + 'See https://angular.io/docs/ts/latest/api/common/index/NgFor-directive.html#!#change-propagation for more information.');
+                }
+            }
+            this._trackByFn = fn;
+        }
+        /**
+         * @return {?}
+         */
+        ,
+        get: function get() {
+            return this._trackByFn;
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: 'ngForTemplate',
+        set: function set(value) {
+            // TODO(TS2.1): make TemplateRef<Partial<NgForRowOf<T>>> once we move to TS v2.1
+            // The current type is too restrictive; a template that just uses index, for example,
+            // should be acceptable.
+            if (value) {
+                this._template = value;
+            }
+        }
+    }]);
+
+    return NgForOf;
+}();
+
+NgForOf.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngFor][ngForOf]' }] }];
+/** @nocollapse */
+NgForOf.ctorParameters = function () {
+    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["IterableDiffers"] }];
+};
+NgForOf.propDecorators = {
+    'ngForOf': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
+    'ngForTrackBy': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
+    'ngForTemplate': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
+};
+
+var RecordViewTuple =
+/**
+ * @param {?} record
+ * @param {?} view
+ */
+function RecordViewTuple(record, view) {
+    _classCallCheck(this, RecordViewTuple);
+
+    this.record = record;
+    this.view = view;
+};
+/**
+ * @deprecated from v4.0.0 - Use NgForOf instead.
+ */
+
+
+var /** @type {?} */NgFor = NgForOf;
+
+/**
+ * Conditionally includes a template based on the value of an `expression`.
+ *
+ * `ngIf` evaluates the `expression` and then renders the `then` or `else` template in its place
+ * when expression is truthy or falsy respectively. Typically the:
+ *  - `then` template is the inline template of `ngIf` unless bound to a different value.
+ *  - `else` template is blank unless it is bound.
+ *
+ * # Most common usage
+ *
+ * The most common usage of the `ngIf` directive is to conditionally show the inline template as
+ * seen in this example:
+ * {\@example common/ngIf/ts/module.ts region='NgIfSimple'}
+ *
+ * # Showing an alternative template using `else`
+ *
+ * If it is necessary to display a template when the `expression` is falsy use the `else` template
+ * binding as shown. Note that the `else` binding points to a `<ng-template>` labeled `#elseBlock`.
+ * The template can be defined anywhere in the component view but is typically placed right after
+ * `ngIf` for readability.
+ *
+ * {\@example common/ngIf/ts/module.ts region='NgIfElse'}
+ *
+ * # Using non-inlined `then` template
+ *
+ * Usually the `then` template is the inlined template of the `ngIf`, but it can be changed using
+ * a binding (just like `else`). Because `then` and `else` are bindings, the template references can
+ * change at runtime as shown in this example.
+ *
+ * {\@example common/ngIf/ts/module.ts region='NgIfThenElse'}
+ *
+ * # Storing conditional result in a variable
+ *
+ * A common pattern is that we need to show a set of properties from the same object. If the
+ * object is undefined, then we have to use the safe-traversal-operator `?.` to guard against
+ * dereferencing a `null` value. This is especially the case when waiting on async data such as
+ * when using the `async` pipe as shown in folowing example:
+ *
+ * ```
+ * Hello {{ (userStream|async)?.last }}, {{ (userStream|async)?.first }}!
+ * ```
+ *
+ * There are several inefficiencies in the above example:
+ *  - We create multiple subscriptions on `userStream`. One for each `async` pipe, or two in the
+ *    example above.
+ *  - We cannot display an alternative screen while waiting for the data to arrive asynchronously.
+ *  - We have to use the safe-traversal-operator `?.` to access properties, which is cumbersome.
+ *  - We have to place the `async` pipe in parenthesis.
+ *
+ * A better way to do this is to use `ngIf` and store the result of the condition in a local
+ * variable as shown in the the example below:
+ *
+ * {\@example common/ngIf/ts/module.ts region='NgIfLet'}
+ *
+ * Notice that:
+ *  - We use only one `async` pipe and hence only one subscription gets created.
+ *  - `ngIf` stores the result of the `userStream|async` in the local variable `user`.
+ *  - The local `user` can then be bound repeatedly in a more efficient way.
+ *  - No need to use the safe-traversal-operator `?.` to access properties as `ngIf` will only
+ *    display the data if `userStream` returns a value.
+ *  - We can display an alternative template while waiting for the data.
+ *
+ * ### Syntax
+ *
+ * Simple form:
+ * - `<div *ngIf="condition">...</div>`
+ * - `<div template="ngIf condition">...</div>`
+ * - `<ng-template [ngIf]="condition"><div>...</div></ng-template>`
+ *
+ * Form with an else block:
+ * ```
+ * <div *ngIf="condition; else elseBlock">...</div>
+ * <ng-template #elseBlock>...</ng-template>
+ * ```
+ *
+ * Form with a `then` and `else` block:
+ * ```
+ * <div *ngIf="condition; then thenBlock else elseBlock"></div>
+ * <ng-template #thenBlock>...</ng-template>
+ * <ng-template #elseBlock>...</ng-template>
+ * ```
+ *
+ * Form with storing the value locally:
+ * ```
+ * <div *ngIf="condition; else elseBlock; let value">{{value}}</div>
+ * <ng-template #elseBlock>...</ng-template>
+ * ```
+ *
+ * \@stable
+ */
+
+var NgIf = function () {
+    /**
+     * @param {?} _viewContainer
+     * @param {?} templateRef
+     */
+    function NgIf(_viewContainer, templateRef) {
+        _classCallCheck(this, NgIf);
+
+        this._viewContainer = _viewContainer;
+        this._context = new NgIfContext();
+        this._thenTemplateRef = null;
+        this._elseTemplateRef = null;
+        this._thenViewRef = null;
+        this._elseViewRef = null;
+        this._thenTemplateRef = templateRef;
+    }
+    /**
+     * @param {?} condition
+     * @return {?}
+     */
+
+
+    _createClass(NgIf, [{
+        key: '_updateView',
+
+        /**
+         * @return {?}
+         */
+        value: function _updateView() {
+            if (this._context.$implicit) {
+                if (!this._thenViewRef) {
+                    this._viewContainer.clear();
+                    this._elseViewRef = null;
+                    if (this._thenTemplateRef) {
+                        this._thenViewRef = this._viewContainer.createEmbeddedView(this._thenTemplateRef, this._context);
+                    }
+                }
+            } else {
+                if (!this._elseViewRef) {
+                    this._viewContainer.clear();
+                    this._thenViewRef = null;
+                    if (this._elseTemplateRef) {
+                        this._elseViewRef = this._viewContainer.createEmbeddedView(this._elseTemplateRef, this._context);
+                    }
+                }
+            }
+        }
+    }, {
+        key: 'ngIf',
+        set: function set(condition) {
+            this._context.$implicit = condition;
+            this._updateView();
+        }
+        /**
+         * @param {?} templateRef
+         * @return {?}
+         */
+
+    }, {
+        key: 'ngIfThen',
+        set: function set(templateRef) {
+            this._thenTemplateRef = templateRef;
+            this._thenViewRef = null; // clear previous view if any.
+            this._updateView();
+        }
+        /**
+         * @param {?} templateRef
+         * @return {?}
+         */
+
+    }, {
+        key: 'ngIfElse',
+        set: function set(templateRef) {
+            this._elseTemplateRef = templateRef;
+            this._elseViewRef = null; // clear previous view if any.
+            this._updateView();
+        }
+    }]);
+
+    return NgIf;
+}();
+
+NgIf.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngIf]' }] }];
+/** @nocollapse */
+NgIf.ctorParameters = function () {
+    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] }];
+};
+NgIf.propDecorators = {
+    'ngIf': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
+    'ngIfThen': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
+    'ngIfElse': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
+};
+
+var NgIfContext = function NgIfContext() {
+    _classCallCheck(this, NgIfContext);
+
+    this.$implicit = null;
+};
+
+var SwitchView = function () {
+    /**
+     * @param {?} _viewContainerRef
+     * @param {?} _templateRef
+     */
+    function SwitchView(_viewContainerRef, _templateRef) {
+        _classCallCheck(this, SwitchView);
+
+        this._viewContainerRef = _viewContainerRef;
+        this._templateRef = _templateRef;
+        this._created = false;
+    }
+    /**
+     * @return {?}
+     */
+
+
+    _createClass(SwitchView, [{
+        key: 'create',
+        value: function create() {
+            this._created = true;
+            this._viewContainerRef.createEmbeddedView(this._templateRef);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'destroy',
+        value: function destroy() {
+            this._created = false;
+            this._viewContainerRef.clear();
+        }
+        /**
+         * @param {?} created
+         * @return {?}
+         */
+
+    }, {
+        key: 'enforceState',
+        value: function enforceState(created) {
+            if (created && !this._created) {
+                this.create();
+            } else if (!created && this._created) {
+                this.destroy();
+            }
+        }
+    }]);
+
+    return SwitchView;
+}();
+/**
+ * \@ngModule CommonModule
+ *
+ * \@whatItDoes Adds / removes DOM sub-trees when the nest match expressions matches the switch
+ *             expression.
+ *
+ * \@howToUse
+ * ```
+ *     <container-element [ngSwitch]="switch_expression">
+ *       <some-element *ngSwitchCase="match_expression_1">...</some-element>
+ *       <some-element *ngSwitchCase="match_expression_2">...</some-element>
+ *       <some-other-element *ngSwitchCase="match_expression_3">...</some-other-element>
+ *       <ng-container *ngSwitchCase="match_expression_3">
+ *         <!-- use a ng-container to group multiple root nodes -->
+ *         <inner-element></inner-element>
+ *         <inner-other-element></inner-other-element>
+ *       </ng-container>
+ *       <some-element *ngSwitchDefault>...</some-element>
+ *     </container-element>
+ * ```
+ * \@description
+ *
+ * `NgSwitch` stamps out nested views when their match expression value matches the value of the
+ * switch expression.
+ *
+ * In other words:
+ * - you define a container element (where you place the directive with a switch expression on the
+ * `[ngSwitch]="..."` attribute)
+ * - you define inner views inside the `NgSwitch` and place a `*ngSwitchCase` attribute on the view
+ * root elements.
+ *
+ * Elements within `NgSwitch` but outside of a `NgSwitchCase` or `NgSwitchDefault` directives will
+ * be preserved at the location.
+ *
+ * The `ngSwitchCase` directive informs the parent `NgSwitch` of which view to display when the
+ * expression is evaluated.
+ * When no matching expression is found on a `ngSwitchCase` view, the `ngSwitchDefault` view is
+ * stamped out.
+ *
+ * \@stable
+ */
+
+
+var NgSwitch = function () {
+    function NgSwitch() {
+        _classCallCheck(this, NgSwitch);
+
+        this._defaultUsed = false;
+        this._caseCount = 0;
+        this._lastCaseCheckIndex = 0;
+        this._lastCasesMatched = false;
+    }
+    /**
+     * @param {?} newValue
+     * @return {?}
+     */
+
+
+    _createClass(NgSwitch, [{
+        key: '_addCase',
+
+        /**
+         * \@internal
+         * @return {?}
+         */
+        value: function _addCase() {
+            return this._caseCount++;
+        }
+        /**
+         * \@internal
+         * @param {?} view
+         * @return {?}
+         */
+
+    }, {
+        key: '_addDefault',
+        value: function _addDefault(view) {
+            if (!this._defaultViews) {
+                this._defaultViews = [];
+            }
+            this._defaultViews.push(view);
+        }
+        /**
+         * \@internal
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: '_matchCase',
+        value: function _matchCase(value) {
+            var /** @type {?} */matched = value == this._ngSwitch;
+            this._lastCasesMatched = this._lastCasesMatched || matched;
+            this._lastCaseCheckIndex++;
+            if (this._lastCaseCheckIndex === this._caseCount) {
+                this._updateDefaultCases(!this._lastCasesMatched);
+                this._lastCaseCheckIndex = 0;
+                this._lastCasesMatched = false;
+            }
+            return matched;
+        }
+        /**
+         * @param {?} useDefault
+         * @return {?}
+         */
+
+    }, {
+        key: '_updateDefaultCases',
+        value: function _updateDefaultCases(useDefault) {
+            if (this._defaultViews && useDefault !== this._defaultUsed) {
+                this._defaultUsed = useDefault;
+                for (var /** @type {?} */i = 0; i < this._defaultViews.length; i++) {
+                    var /** @type {?} */defaultView = this._defaultViews[i];
+                    defaultView.enforceState(useDefault);
+                }
+            }
+        }
+    }, {
+        key: 'ngSwitch',
+        set: function set(newValue) {
+            this._ngSwitch = newValue;
+            if (this._caseCount === 0) {
+                this._updateDefaultCases(true);
+            }
+        }
+    }]);
+
+    return NgSwitch;
+}();
+
+NgSwitch.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngSwitch]' }] }];
+/** @nocollapse */
+NgSwitch.ctorParameters = function () {
+    return [];
+};
+NgSwitch.propDecorators = {
+    'ngSwitch': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
+};
+/**
+ * \@ngModule CommonModule
+ *
+ * \@whatItDoes Creates a view that will be added/removed from the parent {\@link NgSwitch} when the
+ *             given expression evaluate to respectively the same/different value as the switch
+ *             expression.
+ *
+ * \@howToUse
+ * ```
+ * <container-element [ngSwitch]="switch_expression">
+ *   <some-element *ngSwitchCase="match_expression_1">...</some-element>
+ * </container-element>
+ * ```
+ * \@description
+ *
+ * Insert the sub-tree when the expression evaluates to the same value as the enclosing switch
+ * expression.
+ *
+ * If multiple match expressions match the switch expression value, all of them are displayed.
+ *
+ * See {\@link NgSwitch} for more details and example.
+ *
+ * \@stable
+ */
+
+var NgSwitchCase = function () {
+    /**
+     * @param {?} viewContainer
+     * @param {?} templateRef
+     * @param {?} ngSwitch
+     */
+    function NgSwitchCase(viewContainer, templateRef, ngSwitch) {
+        _classCallCheck(this, NgSwitchCase);
+
+        this.ngSwitch = ngSwitch;
+        ngSwitch._addCase();
+        this._view = new SwitchView(viewContainer, templateRef);
+    }
+    /**
+     * @return {?}
+     */
+
+
+    _createClass(NgSwitchCase, [{
+        key: 'ngDoCheck',
+        value: function ngDoCheck() {
+            this._view.enforceState(this.ngSwitch._matchCase(this.ngSwitchCase));
+        }
+    }]);
+
+    return NgSwitchCase;
+}();
+
+NgSwitchCase.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngSwitchCase]' }] }];
+/** @nocollapse */
+NgSwitchCase.ctorParameters = function () {
+    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] }, { type: NgSwitch, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Host"] }] }];
+};
+NgSwitchCase.propDecorators = {
+    'ngSwitchCase': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
+};
+/**
+ * \@ngModule CommonModule
+ * \@whatItDoes Creates a view that is added to the parent {\@link NgSwitch} when no case expressions
+ * match the
+ *             switch expression.
+ *
+ * \@howToUse
+ * ```
+ * <container-element [ngSwitch]="switch_expression">
+ *   <some-element *ngSwitchCase="match_expression_1">...</some-element>
+ *   <some-other-element *ngSwitchDefault>...</some-other-element>
+ * </container-element>
+ * ```
+ *
+ * \@description
+ *
+ * Insert the sub-tree when no case expressions evaluate to the same value as the enclosing switch
+ * expression.
+ *
+ * See {\@link NgSwitch} for more details and example.
+ *
+ * \@stable
+ */
+
+var NgSwitchDefault =
+/**
+ * @param {?} viewContainer
+ * @param {?} templateRef
+ * @param {?} ngSwitch
+ */
+function NgSwitchDefault(viewContainer, templateRef, ngSwitch) {
+    _classCallCheck(this, NgSwitchDefault);
+
+    ngSwitch._addDefault(new SwitchView(viewContainer, templateRef));
+};
+
+NgSwitchDefault.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngSwitchDefault]' }] }];
+/** @nocollapse */
+NgSwitchDefault.ctorParameters = function () {
+    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] }, { type: NgSwitch, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Host"] }] }];
+};
+
+/**
+ * \@ngModule CommonModule
+ *
+ * \@whatItDoes Adds / removes DOM sub-trees based on a numeric value. Tailored for pluralization.
+ *
+ * \@howToUse
+ * ```
+ * <some-element [ngPlural]="value">
+ *   <ng-template ngPluralCase="=0">there is nothing</ng-template>
+ *   <ng-template ngPluralCase="=1">there is one</ng-template>
+ *   <ng-template ngPluralCase="few">there are a few</ng-template>
+ * </some-element>
+ * ```
+ *
+ * \@description
+ *
+ * Displays DOM sub-trees that match the switch expression value, or failing that, DOM sub-trees
+ * that match the switch expression's pluralization category.
+ *
+ * To use this directive you must provide a container element that sets the `[ngPlural]` attribute
+ * to a switch expression. Inner elements with a `[ngPluralCase]` will display based on their
+ * expression:
+ * - if `[ngPluralCase]` is set to a value starting with `=`, it will only display if the value
+ *   matches the switch expression exactly,
+ * - otherwise, the view will be treated as a "category match", and will only display if exact
+ *   value matches aren't found and the value maps to its category for the defined locale.
+ *
+ * See http://cldr.unicode.org/index/cldr-spec/plural-rules
+ *
+ * \@experimental
+ */
+
+var NgPlural = function () {
+    /**
+     * @param {?} _localization
+     */
+    function NgPlural(_localization) {
+        _classCallCheck(this, NgPlural);
+
+        this._localization = _localization;
+        this._caseViews = {};
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+
+
+    _createClass(NgPlural, [{
+        key: 'addCase',
+
+        /**
+         * @param {?} value
+         * @param {?} switchView
+         * @return {?}
+         */
+        value: function addCase(value, switchView) {
+            this._caseViews[value] = switchView;
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: '_updateView',
+        value: function _updateView() {
+            this._clearViews();
+            var /** @type {?} */cases = Object.keys(this._caseViews);
+            var /** @type {?} */key = getPluralCategory(this._switchValue, cases, this._localization);
+            this._activateView(this._caseViews[key]);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: '_clearViews',
+        value: function _clearViews() {
+            if (this._activeView) this._activeView.destroy();
+        }
+        /**
+         * @param {?} view
+         * @return {?}
+         */
+
+    }, {
+        key: '_activateView',
+        value: function _activateView(view) {
+            if (view) {
+                this._activeView = view;
+                this._activeView.create();
+            }
+        }
+    }, {
+        key: 'ngPlural',
+        set: function set(value) {
+            this._switchValue = value;
+            this._updateView();
+        }
+    }]);
+
+    return NgPlural;
+}();
+
+NgPlural.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngPlural]' }] }];
+/** @nocollapse */
+NgPlural.ctorParameters = function () {
+    return [{ type: NgLocalization }];
+};
+NgPlural.propDecorators = {
+    'ngPlural': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
+};
+/**
+ * \@ngModule CommonModule
+ *
+ * \@whatItDoes Creates a view that will be added/removed from the parent {\@link NgPlural} when the
+ *             given expression matches the plural expression according to CLDR rules.
+ *
+ * \@howToUse
+ * ```
+ * <some-element [ngPlural]="value">
+ *   <ng-template ngPluralCase="=0">...</ng-template>
+ *   <ng-template ngPluralCase="other">...</ng-template>
+ * </some-element>
+ * ```
+ *
+ * See {\@link NgPlural} for more details and example.
+ *
+ * \@experimental
+ */
+
+var NgPluralCase =
+/**
+ * @param {?} value
+ * @param {?} template
+ * @param {?} viewContainer
+ * @param {?} ngPlural
+ */
+function NgPluralCase(value, template, viewContainer, ngPlural) {
+    _classCallCheck(this, NgPluralCase);
+
+    this.value = value;
+    var isANumber = !isNaN(Number(value));
+    ngPlural.addCase(isANumber ? '=' + value : value, new SwitchView(viewContainer, template));
+};
+
+NgPluralCase.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngPluralCase]' }] }];
+/** @nocollapse */
+NgPluralCase.ctorParameters = function () {
+    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Attribute"], args: ['ngPluralCase'] }] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["TemplateRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }, { type: NgPlural, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Host"] }] }];
+};
+
+/**
+ * \@ngModule CommonModule
+ *
+ * \@whatItDoes Update an HTML element styles.
+ *
+ * \@howToUse
+ * ```
+ * <some-element [ngStyle]="{'font-style': styleExp}">...</some-element>
+ *
+ * <some-element [ngStyle]="{'max-width.px': widthExp}">...</some-element>
+ *
+ * <some-element [ngStyle]="objExp">...</some-element>
+ * ```
+ *
+ * \@description
+ *
+ * The styles are updated according to the value of the expression evaluation:
+ * - keys are style names with an optional `.<unit>` suffix (ie 'top.px', 'font-style.em'),
+ * - values are the values assigned to those properties (expressed in the given unit).
+ *
+ * \@stable
+ */
+
+var NgStyle = function () {
+    /**
+     * @param {?} _differs
+     * @param {?} _ngEl
+     * @param {?} _renderer
+     */
+    function NgStyle(_differs, _ngEl, _renderer) {
+        _classCallCheck(this, NgStyle);
+
+        this._differs = _differs;
+        this._ngEl = _ngEl;
+        this._renderer = _renderer;
+    }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+
+
+    _createClass(NgStyle, [{
+        key: 'ngDoCheck',
+
+        /**
+         * @return {?}
+         */
+        value: function ngDoCheck() {
+            if (this._differ) {
+                var /** @type {?} */changes = this._differ.diff(this._ngStyle);
+                if (changes) {
+                    this._applyChanges(changes);
+                }
+            }
+        }
+        /**
+         * @param {?} changes
+         * @return {?}
+         */
+
+    }, {
+        key: '_applyChanges',
+        value: function _applyChanges(changes) {
+            var _this11 = this;
+
+            changes.forEachRemovedItem(function (record) {
+                return _this11._setStyle(record.key, null);
+            });
+            changes.forEachAddedItem(function (record) {
+                return _this11._setStyle(record.key, record.currentValue);
+            });
+            changes.forEachChangedItem(function (record) {
+                return _this11._setStyle(record.key, record.currentValue);
+            });
+        }
+        /**
+         * @param {?} nameAndUnit
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: '_setStyle',
+        value: function _setStyle(nameAndUnit, value) {
+            var _nameAndUnit$split = nameAndUnit.split('.'),
+                _nameAndUnit$split2 = _slicedToArray(_nameAndUnit$split, 2),
+                name = _nameAndUnit$split2[0],
+                unit = _nameAndUnit$split2[1];
+
+            value = value != null && unit ? '' + value + unit : value;
+            this._renderer.setElementStyle(this._ngEl.nativeElement, name, /** @type {?} */value);
+        }
+    }, {
+        key: 'ngStyle',
+        set: function set(v) {
+            this._ngStyle = v;
+            if (!this._differ && v) {
+                this._differ = this._differs.find(v).create();
+            }
+        }
+    }]);
+
+    return NgStyle;
+}();
+
+NgStyle.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngStyle]' }] }];
+/** @nocollapse */
+NgStyle.ctorParameters = function () {
+    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["KeyValueDiffers"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Renderer"] }];
+};
+NgStyle.propDecorators = {
+    'ngStyle': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
+};
+
+/**
+ * \@ngModule CommonModule
+ *
+ * \@whatItDoes Inserts an embedded view from a prepared `TemplateRef`
+ *
+ * \@howToUse
+ * ```
+ * <ng-container *ngTemplateOutlet="templateRefExp; context: contextExp"></ng-container>
+ * ```
+ *
+ * \@description
+ *
+ * You can attach a context object to the `EmbeddedViewRef` by setting `[ngTemplateOutletContext]`.
+ * `[ngTemplateOutletContext]` should be an object, the object's keys will be available for binding
+ * by the local template `let` declarations.
+ *
+ * Note: using the key `$implicit` in the context object will set it's value as default.
+ *
+ * # Example
+ *
+ * {\@example common/ngTemplateOutlet/ts/module.ts region='NgTemplateOutlet'}
+ *
+ * \@experimental
+ */
+
+var NgTemplateOutlet = function () {
+    /**
+     * @param {?} _viewContainerRef
+     */
+    function NgTemplateOutlet(_viewContainerRef) {
+        _classCallCheck(this, NgTemplateOutlet);
+
+        this._viewContainerRef = _viewContainerRef;
+    }
+    /**
+     * @deprecated v4.0.0 - Renamed to ngTemplateOutletContext.
+     * @param {?} context
+     * @return {?}
+     */
+
+
+    _createClass(NgTemplateOutlet, [{
+        key: 'ngOnChanges',
+
+        /**
+         * @param {?} changes
+         * @return {?}
+         */
+        value: function ngOnChanges(changes) {
+            if (this._viewRef) {
+                this._viewContainerRef.remove(this._viewContainerRef.indexOf(this._viewRef));
+            }
+            if (this.ngTemplateOutlet) {
+                this._viewRef = this._viewContainerRef.createEmbeddedView(this.ngTemplateOutlet, this.ngTemplateOutletContext);
+            }
+        }
+    }, {
+        key: 'ngOutletContext',
+        set: function set(context) {
+            this.ngTemplateOutletContext = context;
+        }
+    }]);
+
+    return NgTemplateOutlet;
+}();
+
+NgTemplateOutlet.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"], args: [{ selector: '[ngTemplateOutlet]' }] }];
+/** @nocollapse */
+NgTemplateOutlet.ctorParameters = function () {
+    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewContainerRef"] }];
+};
+NgTemplateOutlet.propDecorators = {
+    'ngTemplateOutletContext': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
+    'ngTemplateOutlet': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }],
+    'ngOutletContext': [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"] }]
+};
+
+/**
+ * A collection of Angular directives that are likely to be used in each and every Angular
+ * application.
+ */
+var /** @type {?} */COMMON_DIRECTIVES = [NgClass, NgComponentOutlet, NgForOf, NgIf, NgTemplateOutlet, NgStyle, NgSwitch, NgSwitchCase, NgSwitchDefault, NgPlural, NgPluralCase];
+
+/**
+ * @param {?} type
+ * @param {?} value
+ * @return {?}
+ */
+function invalidPipeArgumentError(type, value) {
+    return Error('InvalidPipeArgument: \'' + value + '\' for pipe \'' + stringify(type) + '\'');
+}
+
+var ObservableStrategy = function () {
+    function ObservableStrategy() {
+        _classCallCheck(this, ObservableStrategy);
+    }
+
+    _createClass(ObservableStrategy, [{
+        key: 'createSubscription',
+
+        /**
+         * @param {?} async
+         * @param {?} updateLatestValue
+         * @return {?}
+         */
+        value: function createSubscription(async, updateLatestValue) {
+            return async.subscribe({ next: updateLatestValue, error: function error(e) {
+                    throw e;
+                } });
+        }
+        /**
+         * @param {?} subscription
+         * @return {?}
+         */
+
+    }, {
+        key: 'dispose',
+        value: function dispose(subscription) {
+            subscription.unsubscribe();
+        }
+        /**
+         * @param {?} subscription
+         * @return {?}
+         */
+
+    }, {
+        key: 'onDestroy',
+        value: function onDestroy(subscription) {
+            subscription.unsubscribe();
+        }
+    }]);
+
+    return ObservableStrategy;
+}();
+
+var PromiseStrategy = function () {
+    function PromiseStrategy() {
+        _classCallCheck(this, PromiseStrategy);
+    }
+
+    _createClass(PromiseStrategy, [{
+        key: 'createSubscription',
+
+        /**
+         * @param {?} async
+         * @param {?} updateLatestValue
+         * @return {?}
+         */
+        value: function createSubscription(async, updateLatestValue) {
+            return async.then(updateLatestValue, function (e) {
+                throw e;
+            });
+        }
+        /**
+         * @param {?} subscription
+         * @return {?}
+         */
+
+    }, {
+        key: 'dispose',
+        value: function dispose(subscription) {}
+        /**
+         * @param {?} subscription
+         * @return {?}
+         */
+
+    }, {
+        key: 'onDestroy',
+        value: function onDestroy(subscription) {}
+    }]);
+
+    return PromiseStrategy;
+}();
+
+var /** @type {?} */_promiseStrategy = new PromiseStrategy();
+var /** @type {?} */_observableStrategy = new ObservableStrategy();
+/**
+ * \@ngModule CommonModule
+ * \@whatItDoes Unwraps a value from an asynchronous primitive.
+ * \@howToUse `observable_or_promise_expression | async`
+ * \@description
+ * The `async` pipe subscribes to an `Observable` or `Promise` and returns the latest value it has
+ * emitted. When a new value is emitted, the `async` pipe marks the component to be checked for
+ * changes. When the component gets destroyed, the `async` pipe unsubscribes automatically to avoid
+ * potential memory leaks.
+ *
+ *
+ * ## Examples
+ *
+ * This example binds a `Promise` to the view. Clicking the `Resolve` button resolves the
+ * promise.
+ *
+ * {\@example common/pipes/ts/async_pipe.ts region='AsyncPipePromise'}
+ *
+ * It's also possible to use `async` with Observables. The example below binds the `time` Observable
+ * to the view. The Observable continuously updates the view with the current time.
+ *
+ * {\@example common/pipes/ts/async_pipe.ts region='AsyncPipeObservable'}
+ *
+ * \@stable
+ */
+
+var AsyncPipe = function () {
+    /**
+     * @param {?} _ref
+     */
+    function AsyncPipe(_ref) {
+        _classCallCheck(this, AsyncPipe);
+
+        this._ref = _ref;
+        this._latestValue = null;
+        this._latestReturnedValue = null;
+        this._subscription = null;
+        this._obj = null;
+        this._strategy = null;
+    }
+    /**
+     * @return {?}
+     */
+
+
+    _createClass(AsyncPipe, [{
+        key: 'ngOnDestroy',
+        value: function ngOnDestroy() {
+            if (this._subscription) {
+                this._dispose();
+            }
+        }
+        /**
+         * @param {?} obj
+         * @return {?}
+         */
+
+    }, {
+        key: 'transform',
+        value: function transform(obj) {
+            if (!this._obj) {
+                if (obj) {
+                    this._subscribe(obj);
+                }
+                this._latestReturnedValue = this._latestValue;
+                return this._latestValue;
+            }
+            if (obj !== this._obj) {
+                this._dispose();
+                return this.transform( /** @type {?} */obj);
+            }
+            if (this._latestValue === this._latestReturnedValue) {
+                return this._latestReturnedValue;
+            }
+            this._latestReturnedValue = this._latestValue;
+            return __WEBPACK_IMPORTED_MODULE_0__angular_core__["WrappedValue"].wrap(this._latestValue);
+        }
+        /**
+         * @param {?} obj
+         * @return {?}
+         */
+
+    }, {
+        key: '_subscribe',
+        value: function _subscribe(obj) {
+            var _this12 = this;
+
+            this._obj = obj;
+            this._strategy = this._selectStrategy(obj);
+            this._subscription = this._strategy.createSubscription(obj, function (value) {
+                return _this12._updateLatestValue(obj, value);
+            });
+        }
+        /**
+         * @param {?} obj
+         * @return {?}
+         */
+
+    }, {
+        key: '_selectStrategy',
+        value: function _selectStrategy(obj) {
+            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵisPromise"])(obj)) {
+                return _promiseStrategy;
+            }
+            if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ɵisObservable"])(obj)) {
+                return _observableStrategy;
+            }
+            throw invalidPipeArgumentError(AsyncPipe, obj);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: '_dispose',
+        value: function _dispose() {
+            this._strategy.dispose(this._subscription);
+            this._latestValue = null;
+            this._latestReturnedValue = null;
+            this._subscription = null;
+            this._obj = null;
+        }
+        /**
+         * @param {?} async
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: '_updateLatestValue',
+        value: function _updateLatestValue(async, value) {
+            if (async === this._obj) {
+                this._latestValue = value;
+                this._ref.markForCheck();
+            }
+        }
+    }]);
+
+    return AsyncPipe;
+}();
+
+AsyncPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'async', pure: false }] }];
+/** @nocollapse */
+AsyncPipe.ctorParameters = function () {
+    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectorRef"] }];
+};
+
+/**
+ * Transforms text to lowercase.
+ *
+ * {\@example  common/pipes/ts/lowerupper_pipe.ts region='LowerUpperPipe' }
+ *
+ * \@stable
+ */
+
+var LowerCasePipe = function () {
+    function LowerCasePipe() {
+        _classCallCheck(this, LowerCasePipe);
+    }
+
+    _createClass(LowerCasePipe, [{
+        key: 'transform',
+
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        value: function transform(value) {
+            if (!value) return value;
+            if (typeof value !== 'string') {
+                throw invalidPipeArgumentError(LowerCasePipe, value);
+            }
+            return value.toLowerCase();
+        }
+    }]);
+
+    return LowerCasePipe;
+}();
+
+LowerCasePipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'lowercase' }] }];
+/** @nocollapse */
+LowerCasePipe.ctorParameters = function () {
+    return [];
+};
+/**
+ * Helper method to transform a single word to titlecase.
+ *
+ * \@stable
+ * @param {?} word
+ * @return {?}
+ */
+function titleCaseWord(word) {
+    if (!word) return word;
+    return word[0].toUpperCase() + word.substr(1).toLowerCase();
+}
+/**
+ * Transforms text to titlecase.
+ *
+ * \@stable
+ */
+
+var TitleCasePipe = function () {
+    function TitleCasePipe() {
+        _classCallCheck(this, TitleCasePipe);
+    }
+
+    _createClass(TitleCasePipe, [{
+        key: 'transform',
+
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        value: function transform(value) {
+            if (!value) return value;
+            if (typeof value !== 'string') {
+                throw invalidPipeArgumentError(TitleCasePipe, value);
+            }
+            return value.split(/\b/g).map(function (word) {
+                return titleCaseWord(word);
+            }).join('');
+        }
+    }]);
+
+    return TitleCasePipe;
+}();
+
+TitleCasePipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'titlecase' }] }];
+/** @nocollapse */
+TitleCasePipe.ctorParameters = function () {
+    return [];
+};
+/**
+ * Transforms text to uppercase.
+ *
+ * \@stable
+ */
+
+var UpperCasePipe = function () {
+    function UpperCasePipe() {
+        _classCallCheck(this, UpperCasePipe);
+    }
+
+    _createClass(UpperCasePipe, [{
+        key: 'transform',
+
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        value: function transform(value) {
+            if (!value) return value;
+            if (typeof value !== 'string') {
+                throw invalidPipeArgumentError(UpperCasePipe, value);
+            }
+            return value.toUpperCase();
+        }
+    }]);
+
+    return UpperCasePipe;
+}();
+
+UpperCasePipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'uppercase' }] }];
+/** @nocollapse */
+UpperCasePipe.ctorParameters = function () {
+    return [];
+};
+
+var NumberFormatStyle = {};
+NumberFormatStyle.Decimal = 0;
+NumberFormatStyle.Percent = 1;
+NumberFormatStyle.Currency = 2;
+NumberFormatStyle[NumberFormatStyle.Decimal] = "Decimal";
+NumberFormatStyle[NumberFormatStyle.Percent] = "Percent";
+NumberFormatStyle[NumberFormatStyle.Currency] = "Currency";
+
+var NumberFormatter = function () {
+    function NumberFormatter() {
+        _classCallCheck(this, NumberFormatter);
+    }
+
+    _createClass(NumberFormatter, null, [{
+        key: 'format',
+
+        /**
+         * @param {?} num
+         * @param {?} locale
+         * @param {?} style
+         * @param {?=} __3
+         * @return {?}
+         */
+        value: function format(num, locale, style) {
+            var _ref2 = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {},
+                minimumIntegerDigits = _ref2.minimumIntegerDigits,
+                minimumFractionDigits = _ref2.minimumFractionDigits,
+                maximumFractionDigits = _ref2.maximumFractionDigits,
+                currency = _ref2.currency,
+                _ref2$currencyAsSymbo = _ref2.currencyAsSymbol,
+                currencyAsSymbol = _ref2$currencyAsSymbo === undefined ? false : _ref2$currencyAsSymbo;
+
+            var /** @type {?} */options = {
+                minimumIntegerDigits: minimumIntegerDigits,
+                minimumFractionDigits: minimumFractionDigits,
+                maximumFractionDigits: maximumFractionDigits,
+                style: NumberFormatStyle[style].toLowerCase()
+            };
+            if (style == NumberFormatStyle.Currency) {
+                options.currency = currency;
+                options.currencyDisplay = currencyAsSymbol ? 'symbol' : 'code';
+            }
+            return new Intl.NumberFormat(locale, options).format(num);
+        }
+    }]);
+
+    return NumberFormatter;
+}();
+
+var /** @type {?} */DATE_FORMATS_SPLIT = /((?:[^yMLdHhmsazZEwGjJ']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|L+|d+|H+|h+|J+|j+|m+|s+|a|z|Z|G+|w+))(.*)/;
+var /** @type {?} */PATTERN_ALIASES = {
+    // Keys are quoted so they do not get renamed during closure compilation.
+    'yMMMdjms': datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 3), digitCondition('day', 1), digitCondition('hour', 1), digitCondition('minute', 1), digitCondition('second', 1)])),
+    'yMdjm': datePartGetterFactory(combine([digitCondition('year', 1), digitCondition('month', 1), digitCondition('day', 1), digitCondition('hour', 1), digitCondition('minute', 1)])),
+    'yMMMMEEEEd': datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 4), nameCondition('weekday', 4), digitCondition('day', 1)])),
+    'yMMMMd': datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 4), digitCondition('day', 1)])),
+    'yMMMd': datePartGetterFactory(combine([digitCondition('year', 1), nameCondition('month', 3), digitCondition('day', 1)])),
+    'yMd': datePartGetterFactory(combine([digitCondition('year', 1), digitCondition('month', 1), digitCondition('day', 1)])),
+    'jms': datePartGetterFactory(combine([digitCondition('hour', 1), digitCondition('second', 1), digitCondition('minute', 1)])),
+    'jm': datePartGetterFactory(combine([digitCondition('hour', 1), digitCondition('minute', 1)]))
+};
+var /** @type {?} */DATE_FORMATS = {
+    // Keys are quoted so they do not get renamed.
+    'yyyy': datePartGetterFactory(digitCondition('year', 4)),
+    'yy': datePartGetterFactory(digitCondition('year', 2)),
+    'y': datePartGetterFactory(digitCondition('year', 1)),
+    'MMMM': datePartGetterFactory(nameCondition('month', 4)),
+    'MMM': datePartGetterFactory(nameCondition('month', 3)),
+    'MM': datePartGetterFactory(digitCondition('month', 2)),
+    'M': datePartGetterFactory(digitCondition('month', 1)),
+    'LLLL': datePartGetterFactory(nameCondition('month', 4)),
+    'L': datePartGetterFactory(nameCondition('month', 1)),
+    'dd': datePartGetterFactory(digitCondition('day', 2)),
+    'd': datePartGetterFactory(digitCondition('day', 1)),
+    'HH': digitModifier(hourExtractor(datePartGetterFactory(hour12Modify(digitCondition('hour', 2), false)))),
+    'H': hourExtractor(datePartGetterFactory(hour12Modify(digitCondition('hour', 1), false))),
+    'hh': digitModifier(hourExtractor(datePartGetterFactory(hour12Modify(digitCondition('hour', 2), true)))),
+    'h': hourExtractor(datePartGetterFactory(hour12Modify(digitCondition('hour', 1), true))),
+    'jj': datePartGetterFactory(digitCondition('hour', 2)),
+    'j': datePartGetterFactory(digitCondition('hour', 1)),
+    'mm': digitModifier(datePartGetterFactory(digitCondition('minute', 2))),
+    'm': datePartGetterFactory(digitCondition('minute', 1)),
+    'ss': digitModifier(datePartGetterFactory(digitCondition('second', 2))),
+    's': datePartGetterFactory(digitCondition('second', 1)),
+    // while ISO 8601 requires fractions to be prefixed with `.` or `,`
+    // we can be just safely rely on using `sss` since we currently don't support single or two digit
+    // fractions
+    'sss': datePartGetterFactory(digitCondition('second', 3)),
+    'EEEE': datePartGetterFactory(nameCondition('weekday', 4)),
+    'EEE': datePartGetterFactory(nameCondition('weekday', 3)),
+    'EE': datePartGetterFactory(nameCondition('weekday', 2)),
+    'E': datePartGetterFactory(nameCondition('weekday', 1)),
+    'a': hourClockExtractor(datePartGetterFactory(hour12Modify(digitCondition('hour', 1), true))),
+    'Z': timeZoneGetter('short'),
+    'z': timeZoneGetter('long'),
+    'ww': datePartGetterFactory({}),
+    // first Thursday of the year. not support ?
+    'w': datePartGetterFactory({}),
+    // of the year not support ?
+    'G': datePartGetterFactory(nameCondition('era', 1)),
+    'GG': datePartGetterFactory(nameCondition('era', 2)),
+    'GGG': datePartGetterFactory(nameCondition('era', 3)),
+    'GGGG': datePartGetterFactory(nameCondition('era', 4))
+};
+/**
+ * @param {?} inner
+ * @return {?}
+ */
+function digitModifier(inner) {
+    return function (date, locale) {
+        var /** @type {?} */result = inner(date, locale);
+        return result.length == 1 ? '0' + result : result;
+    };
+}
+/**
+ * @param {?} inner
+ * @return {?}
+ */
+function hourClockExtractor(inner) {
+    return function (date, locale) {
+        return inner(date, locale).split(' ')[1];
+    };
+}
+/**
+ * @param {?} inner
+ * @return {?}
+ */
+function hourExtractor(inner) {
+    return function (date, locale) {
+        return inner(date, locale).split(' ')[0];
+    };
+}
+/**
+ * @param {?} date
+ * @param {?} locale
+ * @param {?} options
+ * @return {?}
+ */
+function intlDateFormat(date, locale, options) {
+    return new Intl.DateTimeFormat(locale, options).format(date).replace(/[\u200e\u200f]/g, '');
+}
+/**
+ * @param {?} timezone
+ * @return {?}
+ */
+function timeZoneGetter(timezone) {
+    // To workaround `Intl` API restriction for single timezone let format with 24 hours
+    var /** @type {?} */options = { hour: '2-digit', hour12: false, timeZoneName: timezone };
+    return function (date, locale) {
+        var /** @type {?} */result = intlDateFormat(date, locale, options);
+        // Then extract first 3 letters that related to hours
+        return result ? result.substring(3) : '';
+    };
+}
+/**
+ * @param {?} options
+ * @param {?} value
+ * @return {?}
+ */
+function hour12Modify(options, value) {
+    options.hour12 = value;
+    return options;
+}
+/**
+ * @param {?} prop
+ * @param {?} len
+ * @return {?}
+ */
+function digitCondition(prop, len) {
+    var /** @type {?} */result = {};
+    result[prop] = len === 2 ? '2-digit' : 'numeric';
+    return result;
+}
+/**
+ * @param {?} prop
+ * @param {?} len
+ * @return {?}
+ */
+function nameCondition(prop, len) {
+    var /** @type {?} */result = {};
+    if (len < 4) {
+        result[prop] = len > 1 ? 'short' : 'narrow';
+    } else {
+        result[prop] = 'long';
+    }
+    return result;
+}
+/**
+ * @param {?} options
+ * @return {?}
+ */
+function combine(options) {
+    return Object.assign.apply(Object, [{}].concat(_toConsumableArray(options)));
+}
+/**
+ * @param {?} ret
+ * @return {?}
+ */
+function datePartGetterFactory(ret) {
+    return function (date, locale) {
+        return intlDateFormat(date, locale, ret);
+    };
+}
+var /** @type {?} */DATE_FORMATTER_CACHE = new Map();
+/**
+ * @param {?} format
+ * @param {?} date
+ * @param {?} locale
+ * @return {?}
+ */
+function dateFormatter(format, date, locale) {
+    var /** @type {?} */fn = PATTERN_ALIASES[format];
+    if (fn) return fn(date, locale);
+    var /** @type {?} */cacheKey = format;
+    var /** @type {?} */parts = DATE_FORMATTER_CACHE.get(cacheKey);
+    if (!parts) {
+        parts = [];
+        var /** @type {?} */match = void 0;
+        DATE_FORMATS_SPLIT.exec(format);
+        while (format) {
+            match = DATE_FORMATS_SPLIT.exec(format);
+            if (match) {
+                parts = parts.concat(match.slice(1));
+                format = parts.pop();
+            } else {
+                parts.push(format);
+                format = null;
+            }
+        }
+        DATE_FORMATTER_CACHE.set(cacheKey, parts);
+    }
+    return parts.reduce(function (text, part) {
+        var /** @type {?} */fn = DATE_FORMATS[part];
+        return text + (fn ? fn(date, locale) : partToTime(part));
+    }, '');
+}
+/**
+ * @param {?} part
+ * @return {?}
+ */
+function partToTime(part) {
+    return part === '\'\'' ? '\'' : part.replace(/(^'|'$)/g, '').replace(/''/g, '\'');
+}
+
+var DateFormatter = function () {
+    function DateFormatter() {
+        _classCallCheck(this, DateFormatter);
+    }
+
+    _createClass(DateFormatter, null, [{
+        key: 'format',
+
+        /**
+         * @param {?} date
+         * @param {?} locale
+         * @param {?} pattern
+         * @return {?}
+         */
+        value: function format(date, locale, pattern) {
+            return dateFormatter(pattern, date, locale);
+        }
+    }]);
+
+    return DateFormatter;
+}();
+
+var /** @type {?} */ISO8601_DATE_REGEX = /^(\d{4})-?(\d\d)-?(\d\d)(?:T(\d\d)(?::?(\d\d)(?::?(\d\d)(?:\.(\d+))?)?)?(Z|([+-])(\d\d):?(\d\d))?)?$/;
+/**
+ * \@ngModule CommonModule
+ * \@whatItDoes Formats a date according to locale rules.
+ * \@howToUse `date_expression | date[:format]`
+ * \@description
+ *
+ * Where:
+ * - `expression` is a date object or a number (milliseconds since UTC epoch) or an ISO string
+ * (https://www.w3.org/TR/NOTE-datetime).
+ * - `format` indicates which date/time components to include. The format can be predefined as
+ *   shown below or custom as shown in the table.
+ *   - `'medium'`: equivalent to `'yMMMdjms'` (e.g. `Sep 3, 2010, 12:05:08 PM` for `en-US`)
+ *   - `'short'`: equivalent to `'yMdjm'` (e.g. `9/3/2010, 12:05 PM` for `en-US`)
+ *   - `'fullDate'`: equivalent to `'yMMMMEEEEd'` (e.g. `Friday, September 3, 2010` for `en-US`)
+ *   - `'longDate'`: equivalent to `'yMMMMd'` (e.g. `September 3, 2010` for `en-US`)
+ *   - `'mediumDate'`: equivalent to `'yMMMd'` (e.g. `Sep 3, 2010` for `en-US`)
+ *   - `'shortDate'`: equivalent to `'yMd'` (e.g. `9/3/2010` for `en-US`)
+ *   - `'mediumTime'`: equivalent to `'jms'` (e.g. `12:05:08 PM` for `en-US`)
+ *   - `'shortTime'`: equivalent to `'jm'` (e.g. `12:05 PM` for `en-US`)
+ *
+ *
+ *  | Component | Symbol | Narrow | Short Form   | Long Form         | Numeric   | 2-digit   |
+ *  |-----------|:------:|--------|--------------|-------------------|-----------|-----------|
+ *  | era       |   G    | G (A)  | GGG (AD)     | GGGG (Anno Domini)| -         | -         |
+ *  | year      |   y    | -      | -            | -                 | y (2015)  | yy (15)   |
+ *  | month     |   M    | L (S)  | MMM (Sep)    | MMMM (September)  | M (9)     | MM (09)   |
+ *  | day       |   d    | -      | -            | -                 | d (3)     | dd (03)   |
+ *  | weekday   |   E    | E (S)  | EEE (Sun)    | EEEE (Sunday)     | -         | -         |
+ *  | hour      |   j    | -      | -            | -                 | j (13)    | jj (13)   |
+ *  | hour12    |   h    | -      | -            | -                 | h (1 PM)  | hh (01 PM)|
+ *  | hour24    |   H    | -      | -            | -                 | H (13)    | HH (13)   |
+ *  | minute    |   m    | -      | -            | -                 | m (5)     | mm (05)   |
+ *  | second    |   s    | -      | -            | -                 | s (9)     | ss (09)   |
+ *  | timezone  |   z    | -      | -            | z (Pacific Standard Time)| -  | -         |
+ *  | timezone  |   Z    | -      | Z (GMT-8:00) | -                 | -         | -         |
+ *  | timezone  |   a    | -      | a (PM)       | -                 | -         | -         |
+ *
+ * In javascript, only the components specified will be respected (not the ordering,
+ * punctuations, ...) and details of the formatting will be dependent on the locale.
+ *
+ * Timezone of the formatted text will be the local system timezone of the end-user's machine.
+ *
+ * When the expression is a ISO string without time (e.g. 2016-09-19) the time zone offset is not
+ * applied and the formatted text will have the same day, month and year of the expression.
+ *
+ * WARNINGS:
+ * - this pipe is marked as pure hence it will not be re-evaluated when the input is mutated.
+ *   Instead users should treat the date as an immutable object and change the reference when the
+ *   pipe needs to re-run (this is to avoid reformatting the date on every change detection run
+ *   which would be an expensive operation).
+ * - this pipe uses the Internationalization API. Therefore it is only reliable in Chrome and Opera
+ *   browsers.
+ *
+ * ### Examples
+ *
+ * Assuming `dateObj` is (year: 2015, month: 6, day: 15, hour: 21, minute: 43, second: 11)
+ * in the _local_ time and locale is 'en-US':
+ *
+ * ```
+ *     {{ dateObj | date }}               // output is 'Jun 15, 2015'
+ *     {{ dateObj | date:'medium' }}      // output is 'Jun 15, 2015, 9:43:11 PM'
+ *     {{ dateObj | date:'shortTime' }}   // output is '9:43 PM'
+ *     {{ dateObj | date:'mmss' }}        // output is '43:11'
+ * ```
+ *
+ * {\@example common/pipes/ts/date_pipe.ts region='DatePipe'}
+ *
+ * \@stable
+ */
+
+var DatePipe = function () {
+    /**
+     * @param {?} _locale
+     */
+    function DatePipe(_locale) {
+        _classCallCheck(this, DatePipe);
+
+        this._locale = _locale;
+    }
+    /**
+     * @param {?} value
+     * @param {?=} pattern
+     * @return {?}
+     */
+
+
+    _createClass(DatePipe, [{
+        key: 'transform',
+        value: function transform(value) {
+            var pattern = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'mediumDate';
+
+            var /** @type {?} */date = void 0;
+            if (isBlank$1(value) || value !== value) return null;
+            if (typeof value === 'string') {
+                value = value.trim();
+            }
+            if (isDate(value)) {
+                date = value;
+            } else if (NumberWrapper.isNumeric(value)) {
+                date = new Date(parseFloat(value));
+            } else if (typeof value === 'string' && /^(\d{4}-\d{1,2}-\d{1,2})$/.test(value)) {
+                /**
+                * For ISO Strings without time the day, month and year must be extracted from the ISO String
+                * before Date creation to avoid time offset and errors in the new Date.
+                * If we only replace '-' with ',' in the ISO String ("2015,01,01"), and try to create a new
+                * date, some browsers (e.g. IE 9) will throw an invalid Date error
+                * If we leave the '-' ("2015-01-01") and try to create a new Date("2015-01-01") the timeoffset
+                * is applied
+                * Note: ISO months are 0 for January, 1 for February, ...
+                */
+                var _value$split$map = value.split('-').map(function (val) {
+                    return parseInt(val, 10);
+                }),
+                    _value$split$map2 = _slicedToArray(_value$split$map, 3),
+                    y = _value$split$map2[0],
+                    m = _value$split$map2[1],
+                    d = _value$split$map2[2];
+
+                date = new Date(y, m - 1, d);
+            } else {
+                date = new Date(value);
+            }
+            if (!isDate(date)) {
+                var /** @type {?} */match = void 0;
+                if (typeof value === 'string' && (match = value.match(ISO8601_DATE_REGEX))) {
+                    date = isoStringToDate(match);
+                } else {
+                    throw invalidPipeArgumentError(DatePipe, value);
+                }
+            }
+            return DateFormatter.format(date, this._locale, DatePipe._ALIASES[pattern] || pattern);
+        }
+    }]);
+
+    return DatePipe;
+}();
+/** @internal */
+
+
+DatePipe._ALIASES = {
+    'medium': 'yMMMdjms',
+    'short': 'yMdjm',
+    'fullDate': 'yMMMMEEEEd',
+    'longDate': 'yMMMMd',
+    'mediumDate': 'yMMMd',
+    'shortDate': 'yMd',
+    'mediumTime': 'jms',
+    'shortTime': 'jm'
+};
+DatePipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'date', pure: true }] }];
+/** @nocollapse */
+DatePipe.ctorParameters = function () {
+    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["LOCALE_ID"]] }] }];
+};
+/**
+ * @param {?} obj
+ * @return {?}
+ */
+function isBlank$1(obj) {
+    return obj == null || obj === '';
+}
+/**
+ * @param {?} obj
+ * @return {?}
+ */
+function isDate(obj) {
+    return obj instanceof Date && !isNaN(obj.valueOf());
+}
+/**
+ * @param {?} match
+ * @return {?}
+ */
+function isoStringToDate(match) {
+    var /** @type {?} */date = new Date(0);
+    var /** @type {?} */tzHour = 0;
+    var /** @type {?} */tzMin = 0;
+    var /** @type {?} */dateSetter = match[8] ? date.setUTCFullYear : date.setFullYear;
+    var /** @type {?} */timeSetter = match[8] ? date.setUTCHours : date.setHours;
+    if (match[9]) {
+        tzHour = toInt(match[9] + match[10]);
+        tzMin = toInt(match[9] + match[11]);
+    }
+    dateSetter.call(date, toInt(match[1]), toInt(match[2]) - 1, toInt(match[3]));
+    var /** @type {?} */h = toInt(match[4] || '0') - tzHour;
+    var /** @type {?} */m = toInt(match[5] || '0') - tzMin;
+    var /** @type {?} */s = toInt(match[6] || '0');
+    var /** @type {?} */ms = Math.round(parseFloat('0.' + (match[7] || 0)) * 1000);
+    timeSetter.call(date, h, m, s, ms);
+    return date;
+}
+/**
+ * @param {?} str
+ * @return {?}
+ */
+function toInt(str) {
+    return parseInt(str, 10);
+}
+
+var /** @type {?} */_INTERPOLATION_REGEXP = /#/g;
+/**
+ * \@ngModule CommonModule
+ * \@whatItDoes Maps a value to a string that pluralizes the value according to locale rules.
+ * \@howToUse `expression | i18nPlural:mapping`
+ * \@description
+ *
+ *  Where:
+ *  - `expression` is a number.
+ *  - `mapping` is an object that mimics the ICU format, see
+ *    http://userguide.icu-project.org/formatparse/messages
+ *
+ *  ## Example
+ *
+ * {\@example common/pipes/ts/i18n_pipe.ts region='I18nPluralPipeComponent'}
+ *
+ * \@experimental
+ */
+
+var I18nPluralPipe = function () {
+    /**
+     * @param {?} _localization
+     */
+    function I18nPluralPipe(_localization) {
+        _classCallCheck(this, I18nPluralPipe);
+
+        this._localization = _localization;
+    }
+    /**
+     * @param {?} value
+     * @param {?} pluralMap
+     * @return {?}
+     */
+
+
+    _createClass(I18nPluralPipe, [{
+        key: 'transform',
+        value: function transform(value, pluralMap) {
+            if (value == null) return '';
+            if ((typeof pluralMap === 'undefined' ? 'undefined' : _typeof(pluralMap)) !== 'object' || pluralMap === null) {
+                throw invalidPipeArgumentError(I18nPluralPipe, pluralMap);
+            }
+            var /** @type {?} */key = getPluralCategory(value, Object.keys(pluralMap), this._localization);
+            return pluralMap[key].replace(_INTERPOLATION_REGEXP, value.toString());
+        }
+    }]);
+
+    return I18nPluralPipe;
+}();
+
+I18nPluralPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'i18nPlural', pure: true }] }];
+/** @nocollapse */
+I18nPluralPipe.ctorParameters = function () {
+    return [{ type: NgLocalization }];
+};
+
+/**
+ * \@ngModule CommonModule
+ * \@whatItDoes Generic selector that displays the string that matches the current value.
+ * \@howToUse `expression | i18nSelect:mapping`
+ * \@description
+ *
+ *  Where `mapping` is an object that indicates the text that should be displayed
+ *  for different values of the provided `expression`.
+ *  If none of the keys of the mapping match the value of the `expression`, then the content
+ *  of the `other` key is returned when present, otherwise an empty string is returned.
+ *
+ *  ## Example
+ *
+ * {\@example common/pipes/ts/i18n_pipe.ts region='I18nSelectPipeComponent'}
+ *
+ *  \@experimental
+ */
+
+var I18nSelectPipe = function () {
+    function I18nSelectPipe() {
+        _classCallCheck(this, I18nSelectPipe);
+    }
+
+    _createClass(I18nSelectPipe, [{
+        key: 'transform',
+
+        /**
+         * @param {?} value
+         * @param {?} mapping
+         * @return {?}
+         */
+        value: function transform(value, mapping) {
+            if (value == null) return '';
+            if ((typeof mapping === 'undefined' ? 'undefined' : _typeof(mapping)) !== 'object' || typeof value !== 'string') {
+                throw invalidPipeArgumentError(I18nSelectPipe, mapping);
+            }
+            if (mapping.hasOwnProperty(value)) {
+                return mapping[value];
+            }
+            if (mapping.hasOwnProperty('other')) {
+                return mapping['other'];
+            }
+            return '';
+        }
+    }]);
+
+    return I18nSelectPipe;
+}();
+
+I18nSelectPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'i18nSelect', pure: true }] }];
+/** @nocollapse */
+I18nSelectPipe.ctorParameters = function () {
+    return [];
+};
+
+/**
+ * \@ngModule CommonModule
+ * \@whatItDoes Converts value into JSON string.
+ * \@howToUse `expression | json`
+ * \@description
+ *
+ * Converts value into string using `JSON.stringify`. Useful for debugging.
+ *
+ * ### Example
+ * {\@example common/pipes/ts/json_pipe.ts region='JsonPipe'}
+ *
+ * \@stable
+ */
+
+var JsonPipe = function () {
+    function JsonPipe() {
+        _classCallCheck(this, JsonPipe);
+    }
+
+    _createClass(JsonPipe, [{
+        key: 'transform',
+
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        value: function transform(value) {
+            return JSON.stringify(value, null, 2);
+        }
+    }]);
+
+    return JsonPipe;
+}();
+
+JsonPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'json', pure: false }] }];
+/** @nocollapse */
+JsonPipe.ctorParameters = function () {
+    return [];
+};
+
+var /** @type {?} */_NUMBER_FORMAT_REGEXP = /^(\d+)?\.((\d+)(-(\d+))?)?$/;
+/**
+ * @param {?} pipe
+ * @param {?} locale
+ * @param {?} value
+ * @param {?} style
+ * @param {?} digits
+ * @param {?=} currency
+ * @param {?=} currencyAsSymbol
+ * @return {?}
+ */
+function formatNumber(pipe, locale, value, style, digits) {
+    var currency = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : null;
+    var currencyAsSymbol = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+
+    if (value == null) return null;
+    // Convert strings to numbers
+    value = typeof value === 'string' && NumberWrapper.isNumeric(value) ? +value : value;
+    if (typeof value !== 'number') {
+        throw invalidPipeArgumentError(pipe, value);
+    }
+    var /** @type {?} */minInt = void 0;
+    var /** @type {?} */minFraction = void 0;
+    var /** @type {?} */maxFraction = void 0;
+    if (style !== NumberFormatStyle.Currency) {
+        // rely on Intl default for currency
+        minInt = 1;
+        minFraction = 0;
+        maxFraction = 3;
+    }
+    if (digits) {
+        var /** @type {?} */parts = digits.match(_NUMBER_FORMAT_REGEXP);
+        if (parts === null) {
+            throw new Error(digits + ' is not a valid digit info for number pipes');
+        }
+        if (parts[1] != null) {
+            minInt = NumberWrapper.parseIntAutoRadix(parts[1]);
+        }
+        if (parts[3] != null) {
+            minFraction = NumberWrapper.parseIntAutoRadix(parts[3]);
+        }
+        if (parts[5] != null) {
+            maxFraction = NumberWrapper.parseIntAutoRadix(parts[5]);
+        }
+    }
+    return NumberFormatter.format( /** @type {?} */value, locale, style, {
+        minimumIntegerDigits: minInt,
+        minimumFractionDigits: minFraction,
+        maximumFractionDigits: maxFraction,
+        currency: currency,
+        currencyAsSymbol: currencyAsSymbol
+    });
+}
+/**
+ * \@ngModule CommonModule
+ * \@whatItDoes Formats a number according to locale rules.
+ * \@howToUse `number_expression | number[:digitInfo]`
+ *
+ * Formats a number as text. Group sizing and separator and other locale-specific
+ * configurations are based on the active locale.
+ *
+ * where `expression` is a number:
+ *  - `digitInfo` is a `string` which has a following format: <br>
+ *     <code>{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}</code>
+ *   - `minIntegerDigits` is the minimum number of integer digits to use. Defaults to `1`.
+ *   - `minFractionDigits` is the minimum number of digits after fraction. Defaults to `0`.
+ *   - `maxFractionDigits` is the maximum number of digits after fraction. Defaults to `3`.
+ *
+ * For more information on the acceptable range for each of these numbers and other
+ * details see your native internationalization library.
+ *
+ * WARNING: this pipe uses the Internationalization API which is not yet available in all browsers
+ * and may require a polyfill. See {\@linkDocs guide/browser-support} for details.
+ *
+ * ### Example
+ *
+ * {\@example common/pipes/ts/number_pipe.ts region='NumberPipe'}
+ *
+ * \@stable
+ */
+
+var DecimalPipe = function () {
+    /**
+     * @param {?} _locale
+     */
+    function DecimalPipe(_locale) {
+        _classCallCheck(this, DecimalPipe);
+
+        this._locale = _locale;
+    }
+    /**
+     * @param {?} value
+     * @param {?=} digits
+     * @return {?}
+     */
+
+
+    _createClass(DecimalPipe, [{
+        key: 'transform',
+        value: function transform(value) {
+            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+            return formatNumber(DecimalPipe, this._locale, value, NumberFormatStyle.Decimal, digits);
+        }
+    }]);
+
+    return DecimalPipe;
+}();
+
+DecimalPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'number' }] }];
+/** @nocollapse */
+DecimalPipe.ctorParameters = function () {
+    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["LOCALE_ID"]] }] }];
+};
+/**
+ * \@ngModule CommonModule
+ * \@whatItDoes Formats a number as a percentage according to locale rules.
+ * \@howToUse `number_expression | percent[:digitInfo]`
+ *
+ * \@description
+ *
+ * Formats a number as percentage.
+ *
+ * - `digitInfo` See {\@link DecimalPipe} for detailed description.
+ *
+ * WARNING: this pipe uses the Internationalization API which is not yet available in all browsers
+ * and may require a polyfill. See {\@linkDocs guide/browser-support} for details.
+ *
+ * ### Example
+ *
+ * {\@example common/pipes/ts/number_pipe.ts region='PercentPipe'}
+ *
+ * \@stable
+ */
+
+var PercentPipe = function () {
+    /**
+     * @param {?} _locale
+     */
+    function PercentPipe(_locale) {
+        _classCallCheck(this, PercentPipe);
+
+        this._locale = _locale;
+    }
+    /**
+     * @param {?} value
+     * @param {?=} digits
+     * @return {?}
+     */
+
+
+    _createClass(PercentPipe, [{
+        key: 'transform',
+        value: function transform(value) {
+            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+            return formatNumber(PercentPipe, this._locale, value, NumberFormatStyle.Percent, digits);
+        }
+    }]);
+
+    return PercentPipe;
+}();
+
+PercentPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'percent' }] }];
+/** @nocollapse */
+PercentPipe.ctorParameters = function () {
+    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["LOCALE_ID"]] }] }];
+};
+/**
+ * \@ngModule CommonModule
+ * \@whatItDoes Formats a number as currency using locale rules.
+ * \@howToUse `number_expression | currency[:currencyCode[:symbolDisplay[:digitInfo]]]`
+ * \@description
+ *
+ * Use `currency` to format a number as currency.
+ *
+ * - `currencyCode` is the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) currency code, such
+ *    as `USD` for the US dollar and `EUR` for the euro.
+ * - `symbolDisplay` is a boolean indicating whether to use the currency symbol or code.
+ *   - `true`: use symbol (e.g. `$`).
+ *   - `false`(default): use code (e.g. `USD`).
+ * - `digitInfo` See {\@link DecimalPipe} for detailed description.
+ *
+ * WARNING: this pipe uses the Internationalization API which is not yet available in all browsers
+ * and may require a polyfill. See {\@linkDocs guide/browser-support} for details.
+ *
+ * ### Example
+ *
+ * {\@example common/pipes/ts/number_pipe.ts region='CurrencyPipe'}
+ *
+ * \@stable
+ */
+
+var CurrencyPipe = function () {
+    /**
+     * @param {?} _locale
+     */
+    function CurrencyPipe(_locale) {
+        _classCallCheck(this, CurrencyPipe);
+
+        this._locale = _locale;
+    }
+    /**
+     * @param {?} value
+     * @param {?=} currencyCode
+     * @param {?=} symbolDisplay
+     * @param {?=} digits
+     * @return {?}
+     */
+
+
+    _createClass(CurrencyPipe, [{
+        key: 'transform',
+        value: function transform(value) {
+            var currencyCode = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'USD';
+            var symbolDisplay = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+            var digits = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+            return formatNumber(CurrencyPipe, this._locale, value, NumberFormatStyle.Currency, digits, currencyCode, symbolDisplay);
+        }
+    }]);
+
+    return CurrencyPipe;
+}();
+
+CurrencyPipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'currency' }] }];
+/** @nocollapse */
+CurrencyPipe.ctorParameters = function () {
+    return [{ type: undefined, decorators: [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Inject"], args: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["LOCALE_ID"]] }] }];
+};
+
+/**
+ * \@ngModule CommonModule
+ * \@whatItDoes Creates a new List or String containing a subset (slice) of the elements.
+ * \@howToUse `array_or_string_expression | slice:start[:end]`
+ * \@description
+ *
+ * Where the input expression is a `List` or `String`, and:
+ * - `start`: The starting index of the subset to return.
+ *   - **a positive integer**: return the item at `start` index and all items after
+ *     in the list or string expression.
+ *   - **a negative integer**: return the item at `start` index from the end and all items after
+ *     in the list or string expression.
+ *   - **if positive and greater than the size of the expression**: return an empty list or string.
+ *   - **if negative and greater than the size of the expression**: return entire list or string.
+ * - `end`: The ending index of the subset to return.
+ *   - **omitted**: return all items until the end.
+ *   - **if positive**: return all items before `end` index of the list or string.
+ *   - **if negative**: return all items before `end` index from the end of the list or string.
+ *
+ * All behavior is based on the expected behavior of the JavaScript API `Array.prototype.slice()`
+ * and `String.prototype.slice()`.
+ *
+ * When operating on a [List], the returned list is always a copy even when all
+ * the elements are being returned.
+ *
+ * When operating on a blank value, the pipe returns the blank value.
+ *
+ * ## List Example
+ *
+ * This `ngFor` example:
+ *
+ * {\@example common/pipes/ts/slice_pipe.ts region='SlicePipe_list'}
+ *
+ * produces the following:
+ *
+ *     <li>b</li>
+ *     <li>c</li>
+ *
+ * ## String Examples
+ *
+ * {\@example common/pipes/ts/slice_pipe.ts region='SlicePipe_string'}
+ *
+ * \@stable
+ */
+
+var SlicePipe = function () {
+    function SlicePipe() {
+        _classCallCheck(this, SlicePipe);
+    }
+
+    _createClass(SlicePipe, [{
+        key: 'transform',
+
+        /**
+         * @param {?} value
+         * @param {?} start
+         * @param {?=} end
+         * @return {?}
+         */
+        value: function transform(value, start, end) {
+            if (value == null) return value;
+            if (!this.supports(value)) {
+                throw invalidPipeArgumentError(SlicePipe, value);
+            }
+            return value.slice(start, end);
+        }
+        /**
+         * @param {?} obj
+         * @return {?}
+         */
+
+    }, {
+        key: 'supports',
+        value: function supports(obj) {
+            return typeof obj === 'string' || Array.isArray(obj);
+        }
+    }]);
+
+    return SlicePipe;
+}();
+
+SlicePipe.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Pipe"], args: [{ name: 'slice', pure: false }] }];
+/** @nocollapse */
+SlicePipe.ctorParameters = function () {
+    return [];
+};
+
+/**
+ * A collection of Angular pipes that are likely to be used in each and every application.
+ */
+var /** @type {?} */COMMON_PIPES = [AsyncPipe, UpperCasePipe, LowerCasePipe, JsonPipe, SlicePipe, DecimalPipe, PercentPipe, TitleCasePipe, CurrencyPipe, DatePipe, I18nPluralPipe, I18nSelectPipe];
+
+/**
+ * The module that includes all the basic Angular directives like {\@link NgIf}, {\@link NgForOf}, ...
+ *
+ * \@stable
+ */
+
+var CommonModule = function CommonModule() {
+    _classCallCheck(this, CommonModule);
+};
+
+CommonModule.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"], args: [{
+        declarations: [COMMON_DIRECTIVES, COMMON_PIPES],
+        exports: [COMMON_DIRECTIVES, COMMON_PIPES],
+        providers: [{ provide: NgLocalization, useClass: NgLocaleLocalization }]
+    }] }];
+/** @nocollapse */
+CommonModule.ctorParameters = function () {
+    return [];
+};
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */var /** @type {?} */PLATFORM_BROWSER_ID = 'browser';
+var /** @type {?} */PLATFORM_SERVER_ID = 'server';
+var /** @type {?} */PLATFORM_WORKER_APP_ID = 'browserWorkerApp';
+var /** @type {?} */PLATFORM_WORKER_UI_ID = 'browserWorkerUi';
+/**
+ * Returns whether a platform id represents a browser platform.
+ * \@experimental
+ * @param {?} platformId
+ * @return {?}
+ */
+function isPlatformBrowser(platformId) {
+    return platformId === PLATFORM_BROWSER_ID;
+}
+/**
+ * Returns whether a platform id represents a server platform.
+ * \@experimental
+ * @param {?} platformId
+ * @return {?}
+ */
+function isPlatformServer(platformId) {
+    return platformId === PLATFORM_SERVER_ID;
+}
+/**
+ * Returns whether a platform id represents a web worker app platform.
+ * \@experimental
+ * @param {?} platformId
+ * @return {?}
+ */
+function isPlatformWorkerApp(platformId) {
+    return platformId === PLATFORM_WORKER_APP_ID;
+}
+/**
+ * Returns whether a platform id represents a web worker UI platform.
+ * \@experimental
+ * @param {?} platformId
+ * @return {?}
+ */
+function isPlatformWorkerUi(platformId) {
+    return platformId === PLATFORM_WORKER_UI_ID;
+}
+
+/**
+ * @stable
+ */
+var /** @type {?} */VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["Version"]('4.0.0-rc.2');
+
+
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var toast_1 = __webpack_require__(17);
+exports.Toast = toast_1.Toast;
+var toast_manager_1 = __webpack_require__(16);
+exports.ToastsManager = toast_manager_1.ToastsManager;
+var toast_container_component_1 = __webpack_require__(11);
+exports.ToastContainer = toast_container_component_1.ToastContainer;
+var toast_options_1 = __webpack_require__(7);
+exports.ToastOptions = toast_options_1.ToastOptions;
+var toast_module_1 = __webpack_require__(31);
+exports.ToastModule = toast_module_1.ToastModule;
+//# sourceMappingURL=ng2-toastr.js.map
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(0);
+var animations_1 = __webpack_require__(14);
+var toast_options_1 = __webpack_require__(7);
+var platform_browser_1 = __webpack_require__(6);
+__webpack_require__(35);
 var Subject_1 = __webpack_require__(4);
 var ToastContainer = (function () {
     function ToastContainer(sanitizer, cdr, _zone, options) {
@@ -26581,39 +26632,7 @@ exports.ToastContainer = ToastContainer;
 //# sourceMappingURL=toast-container.component.js.map
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(0);
-var ToastOptions = (function () {
-    function ToastOptions() {
-        this.positionClass = 'toast-top-right';
-        this.maxShown = 5;
-        this.newestOnTop = false;
-        this.animate = 'fade';
-        // override-able properties
-        this.toastLife = 5000;
-        this.enableHTML = false;
-        this.dismiss = 'auto'; //'auto' | 'click' | 'controlled'
-        this.messageClass = 'toast-message';
-        this.titleClass = 'toast-title';
-        this.showCloseButton = false;
-    }
-    return ToastOptions;
-}());
-ToastOptions.decorators = [
-    { type: core_1.Injectable },
-];
-/** @nocollapse */
-ToastOptions.ctorParameters = function () { return []; };
-exports.ToastOptions = ToastOptions;
-//# sourceMappingURL=toast-options.js.map
-
-/***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26641,7 +26660,7 @@ exports.$$observable = getSymbolObservable(root_1.root);
 //# sourceMappingURL=observable.js.map
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26653,7 +26672,1038 @@ exports.$$rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 
 //# sourceMappingURL=rxSubscriber.js.map
 
 /***/ }),
-/* 13 */
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AUTO_STYLE", function() { return AUTO_STYLE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "animate", function() { return animate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "group", function() { return group; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "keyframes", function() { return keyframes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sequence", function() { return sequence; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "state", function() { return state; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "style", function() { return style; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transition", function() { return transition; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "trigger", function() { return trigger; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimationPlayer", function() { return AnimationPlayer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NoopAnimationPlayer", function() { return NoopAnimationPlayer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵAnimationGroupPlayer", function() { return AnimationGroupPlayer; });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @license Angular v4.0.0-rc.2
+ * (c) 2010-2017 Google, Inc. https://angular.io/
+ * License: MIT
+ */
+/**
+ * @experimental Animation support is experimental.
+ */
+var /** @type {?} */AUTO_STYLE = '*';
+/**
+ * `trigger` is an animation-specific function that is designed to be used inside of Angular2's
+ * animation DSL language. If this information is new, please navigate to the {\@link
+ * Component#animations-anchor component animations metadata page} to gain a better understanding of
+ * how animations in Angular2 are used.
+ *
+ * `trigger` Creates an animation trigger which will a list of {\@link state state} and {\@link
+ * transition transition} entries that will be evaluated when the expression bound to the trigger
+ * changes.
+ *
+ * Triggers are registered within the component annotation data under the {\@link
+ * Component#animations-anchor animations section}. An animation trigger can be placed on an element
+ * within a template by referencing the name of the trigger followed by the expression value that the
+ * trigger is bound to (in the form of `[\@triggerName]="expression"`.
+ *
+ * ### Usage
+ *
+ * `trigger` will create an animation trigger reference based on the provided `name` value. The
+ * provided `animation` value is expected to be an array consisting of {\@link state state} and {\@link
+ * transition transition} declarations.
+ *
+ * ```typescript
+ * \@Component({
+ *   selector: 'my-component',
+ *   templateUrl: 'my-component-tpl.html',
+ *   animations: [
+ *     trigger("myAnimationTrigger", [
+ *       state(...),
+ *       state(...),
+ *       transition(...),
+ *       transition(...)
+ *     ])
+ *   ]
+ * })
+ * class MyComponent {
+ *   myStatusExp = "something";
+ * }
+ * ```
+ *
+ * The template associated with this component will make use of the `myAnimationTrigger` animation
+ * trigger by binding to an element within its template code.
+ *
+ * ```html
+ * <!-- somewhere inside of my-component-tpl.html -->
+ * <div [\@myAnimationTrigger]="myStatusExp">...</div>
+ * tools/gulp-tasks/validate-commit-message.js ```
+ *
+ * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
+ *
+ * \@experimental Animation support is experimental.
+ * @param {?} name
+ * @param {?} definitions
+ * @return {?}
+ */
+function trigger(name, definitions) {
+  return { name: name, definitions: definitions };
+}
+/**
+ * `animate` is an animation-specific function that is designed to be used inside of Angular2's
+ * animation DSL language. If this information is new, please navigate to the {\@link
+ * Component#animations-anchor component animations metadata page} to gain a better understanding of
+ * how animations in Angular2 are used.
+ *
+ * `animate` specifies an animation step that will apply the provided `styles` data for a given
+ * amount of time based on the provided `timing` expression value. Calls to `animate` are expected
+ * to be used within {\@link sequence an animation sequence}, {\@link group group}, or {\@link
+ * transition transition}.
+ *
+ * ### Usage
+ *
+ * The `animate` function accepts two input parameters: `timing` and `styles`:
+ *
+ * - `timing` is a string based value that can be a combination of a duration with optional delay
+ * and easing values. The format for the expression breaks down to `duration delay easing`
+ * (therefore a value such as `1s 100ms ease-out` will be parse itself into `duration=1000,
+ * delay=100, easing=ease-out`. If a numeric value is provided then that will be used as the
+ * `duration` value in millisecond form.
+ * - `styles` is the style input data which can either be a call to {\@link style style} or {\@link
+ * keyframes keyframes}. If left empty then the styles from the destination state will be collected
+ * and used (this is useful when describing an animation step that will complete an animation by
+ * {\@link transition#the-final-animate-call animating to the final state}).
+ *
+ * ```typescript
+ * // various functions for specifying timing data
+ * animate(500, style(...))
+ * animate("1s", style(...))
+ * animate("100ms 0.5s", style(...))
+ * animate("5s ease", style(...))
+ * animate("5s 10ms cubic-bezier(.17,.67,.88,.1)", style(...))
+ *
+ * // either style() of keyframes() can be used
+ * animate(500, style({ background: "red" }))
+ * animate(500, keyframes([
+ *   style({ background: "blue" })),
+ *   style({ background: "red" }))
+ * ])
+ * ```
+ *
+ * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
+ *
+ * \@experimental Animation support is experimental.
+ * @param {?} timings
+ * @param {?=} styles
+ * @return {?}
+ */
+function animate(timings) {
+  var styles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+  return { type: 4 /* Animate */, styles: styles, timings: timings };
+}
+/**
+ * `group` is an animation-specific function that is designed to be used inside of Angular2's
+ * animation DSL language. If this information is new, please navigate to the {\@link
+ * Component#animations-anchor component animations metadata page} to gain a better understanding of
+ * how animations in Angular2 are used.
+ *
+ * `group` specifies a list of animation steps that are all run in parallel. Grouped animations are
+ * useful when a series of styles must be animated/closed off at different statrting/ending times.
+ *
+ * The `group` function can either be used within a {\@link sequence sequence} or a {\@link transition
+ * transition} and it will only continue to the next instruction once all of the inner animation
+ * steps have completed.
+ *
+ * ### Usage
+ *
+ * The `steps` data that is passed into the `group` animation function can either consist of {\@link
+ * style style} or {\@link animate animate} function calls. Each call to `style()` or `animate()`
+ * within a group will be executed instantly (use {\@link keyframes keyframes} or a {\@link
+ * animate#usage animate() with a delay value} to offset styles to be applied at a later time).
+ *
+ * ```typescript
+ * group([
+ *   animate("1s", { background: "black" }))
+ *   animate("2s", { color: "white" }))
+ * ])
+ * ```
+ *
+ * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
+ *
+ * \@experimental Animation support is experimental.
+ * @param {?} steps
+ * @return {?}
+ */
+function group(steps) {
+  return { type: 3 /* Group */, steps: steps };
+}
+/**
+ * `sequence` is an animation-specific function that is designed to be used inside of Angular2's
+ * animation DSL language. If this information is new, please navigate to the {\@link
+ * Component#animations-anchor component animations metadata page} to gain a better understanding of
+ * how animations in Angular2 are used.
+ *
+ * `sequence` Specifies a list of animation steps that are run one by one. (`sequence` is used by
+ * default when an array is passed as animation data into {\@link transition transition}.)
+ *
+ * The `sequence` function can either be used within a {\@link group group} or a {\@link transition
+ * transition} and it will only continue to the next instruction once each of the inner animation
+ * steps have completed.
+ *
+ * To perform animation styling in parallel with other animation steps then have a look at the
+ * {\@link group group} animation function.
+ *
+ * ### Usage
+ *
+ * The `steps` data that is passed into the `sequence` animation function can either consist of
+ * {\@link style style} or {\@link animate animate} function calls. A call to `style()` will apply the
+ * provided styling data immediately while a call to `animate()` will apply its styling data over a
+ * given time depending on its timing data.
+ *
+ * ```typescript
+ * sequence([
+ *   style({ opacity: 0 })),
+ *   animate("1s", { opacity: 1 }))
+ * ])
+ * ```
+ *
+ * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
+ *
+ * \@experimental Animation support is experimental.
+ * @param {?} steps
+ * @return {?}
+ */
+function sequence(steps) {
+  return { type: 2 /* Sequence */, steps: steps };
+}
+/**
+ * `style` is an animation-specific function that is designed to be used inside of Angular2's
+ * animation DSL language. If this information is new, please navigate to the {\@link
+ * Component#animations-anchor component animations metadata page} to gain a better understanding of
+ * how animations in Angular2 are used.
+ *
+ * `style` declares a key/value object containing CSS properties/styles that can then be used for
+ * {\@link state animation states}, within an {\@link sequence animation sequence}, or as styling data
+ * for both {\@link animate animate} and {\@link keyframes keyframes}.
+ *
+ * ### Usage
+ *
+ * `style` takes in a key/value string map as data and expects one or more CSS property/value pairs
+ * to be defined.
+ *
+ * ```typescript
+ * // string values are used for css properties
+ * style({ background: "red", color: "blue" })
+ *
+ * // numerical (pixel) values are also supported
+ * style({ width: 100, height: 0 })
+ * ```
+ *
+ * #### Auto-styles (using `*`)
+ *
+ * When an asterix (`*`) character is used as a value then it will be detected from the element
+ * being animated and applied as animation data when the animation starts.
+ *
+ * This feature proves useful for a state depending on layout and/or environment factors; in such
+ * cases the styles are calculated just before the animation starts.
+ *
+ * ```typescript
+ * // the steps below will animate from 0 to the
+ * // actual height of the element
+ * style({ height: 0 }),
+ * animate("1s", style({ height: "*" }))
+ * ```
+ *
+ * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
+ *
+ * \@experimental Animation support is experimental.
+ * @param {?} tokens
+ * @return {?}
+ */
+function style(tokens) {
+  return { type: 6 /* Style */, styles: tokens };
+}
+/**
+ * `state` is an animation-specific function that is designed to be used inside of Angular2's
+ * animation DSL language. If this information is new, please navigate to the {\@link
+ * Component#animations-anchor component animations metadata page} to gain a better understanding of
+ * how animations in Angular2 are used.
+ *
+ * `state` declares an animation state within the given trigger. When a state is active within a
+ * component then its associated styles will persist on the element that the trigger is attached to
+ * (even when the animation ends).
+ *
+ * To animate between states, have a look at the animation {\@link transition transition} DSL
+ * function. To register states to an animation trigger please have a look at the {\@link trigger
+ * trigger} function.
+ *
+ * #### The `void` state
+ *
+ * The `void` state value is a reserved word that angular uses to determine when the element is not
+ * apart of the application anymore (e.g. when an `ngIf` evaluates to false then the state of the
+ * associated element is void).
+ *
+ * #### The `*` (default) state
+ *
+ * The `*` state (when styled) is a fallback state that will be used if the state that is being
+ * animated is not declared within the trigger.
+ *
+ * ### Usage
+ *
+ * `state` will declare an animation state with its associated styles
+ * within the given trigger.
+ *
+ * - `stateNameExpr` can be one or more state names separated by commas.
+ * - `styles` refers to the {\@link style styling data} that will be persisted on the element once
+ * the state has been reached.
+ *
+ * ```typescript
+ * // "void" is a reserved name for a state and is used to represent
+ * // the state in which an element is detached from from the application.
+ * state("void", style({ height: 0 }))
+ *
+ * // user-defined states
+ * state("closed", style({ height: 0 }))
+ * state("open, visible", style({ height: "*" }))
+ * ```
+ *
+ * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
+ *
+ * \@experimental Animation support is experimental.
+ * @param {?} name
+ * @param {?} styles
+ * @return {?}
+ */
+function state(name, styles) {
+  return { type: 0 /* State */, name: name, styles: styles };
+}
+/**
+ * `keyframes` is an animation-specific function that is designed to be used inside of Angular2's
+ * animation DSL language. If this information is new, please navigate to the {\@link
+ * Component#animations-anchor component animations metadata page} to gain a better understanding of
+ * how animations in Angular2 are used.
+ *
+ * `keyframes` specifies a collection of {\@link style style} entries each optionally characterized
+ * by an `offset` value.
+ *
+ * ### Usage
+ *
+ * The `keyframes` animation function is designed to be used alongside the {\@link animate animate}
+ * animation function. Instead of applying animations from where they are currently to their
+ * destination, keyframes can describe how each style entry is applied and at what point within the
+ * animation arc (much like CSS Keyframe Animations do).
+ *
+ * For each `style()` entry an `offset` value can be set. Doing so allows to specifiy at what
+ * percentage of the animate time the styles will be applied.
+ *
+ * ```typescript
+ * // the provided offset values describe when each backgroundColor value is applied.
+ * animate("5s", keyframes([
+ *   style({ backgroundColor: "red", offset: 0 }),
+ *   style({ backgroundColor: "blue", offset: 0.2 }),
+ *   style({ backgroundColor: "orange", offset: 0.3 }),
+ *   style({ backgroundColor: "black", offset: 1 })
+ * ]))
+ * ```
+ *
+ * Alternatively, if there are no `offset` values used within the style entries then the offsets
+ * will be calculated automatically.
+ *
+ * ```typescript
+ * animate("5s", keyframes([
+ *   style({ backgroundColor: "red" }) // offset = 0
+ *   style({ backgroundColor: "blue" }) // offset = 0.33
+ *   style({ backgroundColor: "orange" }) // offset = 0.66
+ *   style({ backgroundColor: "black" }) // offset = 1
+ * ]))
+ * ```
+ *
+ * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
+ *
+ * \@experimental Animation support is experimental.
+ * @param {?} steps
+ * @return {?}
+ */
+function keyframes(steps) {
+  return { type: 5 /* KeyframeSequence */, steps: steps };
+}
+/**
+ * `transition` is an animation-specific function that is designed to be used inside of Angular2's
+ * animation DSL language. If this information is new, please navigate to the {\@link
+ * Component#animations-anchor component animations metadata page} to gain a better understanding of
+ * how animations in Angular2 are used.
+ *
+ * `transition` declares the {\@link sequence sequence of animation steps} that will be run when the
+ * provided `stateChangeExpr` value is satisfied. The `stateChangeExpr` consists of a `state1 =>
+ * state2` which consists of two known states (use an asterix (`*`) to refer to a dynamic starting
+ * and/or ending state).
+ *
+ * A function can also be provided as the `stateChangeExpr` argument for a transition and this
+ * function will be executed each time a state change occurs. If the value returned within the
+ * function is true then the associated animation will be run.
+ *
+ * Animation transitions are placed within an {\@link trigger animation trigger}. For an transition
+ * to animate to a state value and persist its styles then one or more {\@link state animation
+ * states} is expected to be defined.
+ *
+ * ### Usage
+ *
+ * An animation transition is kicked off the `stateChangeExpr` predicate evaluates to true based on
+ * what the previous state is and what the current state has become. In other words, if a transition
+ * is defined that matches the old/current state criteria then the associated animation will be
+ * triggered.
+ *
+ * ```typescript
+ * // all transition/state changes are defined within an animation trigger
+ * trigger("myAnimationTrigger", [
+ *   // if a state is defined then its styles will be persisted when the
+ *   // animation has fully completed itself
+ *   state("on", style({ background: "green" })),
+ *   state("off", style({ background: "grey" })),
+ *
+ *   // a transition animation that will be kicked off when the state value
+ *   // bound to "myAnimationTrigger" changes from "on" to "off"
+ *   transition("on => off", animate(500)),
+ *
+ *   // it is also possible to do run the same animation for both directions
+ *   transition("on <=> off", animate(500)),
+ *
+ *   // or to define multiple states pairs separated by commas
+ *   transition("on => off, off => void", animate(500)),
+ *
+ *   // this is a catch-all state change for when an element is inserted into
+ *   // the page and the destination state is unknown
+ *   transition("void => *", [
+ *     style({ opacity: 0 }),
+ *     animate(500)
+ *   ]),
+ *
+ *   // this will capture a state change between any states
+ *   transition("* => *", animate("1s 0s")),
+ *
+ *   // you can also go full out and include a function
+ *   transition((fromState, toState) => {
+ *     // when `true` then it will allow the animation below to be invoked
+ *     return fromState == "off" && toState == "on";
+ *   }, animate("1s 0s"))
+ * ])
+ * ```
+ *
+ * The template associated with this component will make use of the `myAnimationTrigger` animation
+ * trigger by binding to an element within its template code.
+ *
+ * ```html
+ * <!-- somewhere inside of my-component-tpl.html -->
+ * <div [\@myAnimationTrigger]="myStatusExp">...</div>
+ * ```
+ *
+ * #### The final `animate` call
+ *
+ * If the final step within the transition steps is a call to `animate()` that **only** uses a
+ * timing value with **no style data** then it will be automatically used as the final animation arc
+ * for the element to animate itself to the final state. This involves an automatic mix of
+ * adding/removing CSS styles so that the element will be in the exact state it should be for the
+ * applied state to be presented correctly.
+ *
+ * ```
+ * // start off by hiding the element, but make sure that it animates properly to whatever state
+ * // is currently active for "myAnimationTrigger"
+ * transition("void => *", [
+ *   style({ opacity: 0 }),
+ *   animate(500)
+ * ])
+ * ```
+ *
+ * ### Transition Aliases (`:enter` and `:leave`)
+ *
+ * Given that enter (insertion) and leave (removal) animations are so common, the `transition`
+ * function accepts both `:enter` and `:leave` values which are aliases for the `void => *` and `*
+ * => void` state changes.
+ *
+ * ```
+ * transition(":enter", [
+ *   style({ opacity: 0 }),
+ *   animate(500, style({ opacity: 1 }))
+ * ])
+ * transition(":leave", [
+ *   animate(500, style({ opacity: 0 }))
+ * ])
+ * ```
+ *
+ * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
+ *
+ * \@experimental Animation support is experimental.
+ * @param {?} stateChangeExpr
+ * @param {?} steps
+ * @return {?}
+ */
+function transition(stateChangeExpr, steps) {
+  return { type: 1 /* Transition */, expr: stateChangeExpr, animation: steps };
+}
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ * @param {?} cb
+ * @return {?}
+ */
+function scheduleMicroTask(cb) {
+  Promise.resolve(null).then(cb);
+}
+
+/**
+ * \@experimental Animation support is experimental.
+ * @abstract
+ */
+
+var AnimationPlayer = function () {
+  function AnimationPlayer() {
+    _classCallCheck(this, AnimationPlayer);
+  }
+
+  _createClass(AnimationPlayer, [{
+    key: 'onDone',
+
+    /**
+     * @abstract
+     * @param {?} fn
+     * @return {?}
+     */
+    value: function onDone(fn) {}
+    /**
+     * @abstract
+     * @param {?} fn
+     * @return {?}
+     */
+
+  }, {
+    key: 'onStart',
+    value: function onStart(fn) {}
+    /**
+     * @abstract
+     * @param {?} fn
+     * @return {?}
+     */
+
+  }, {
+    key: 'onDestroy',
+    value: function onDestroy(fn) {}
+    /**
+     * @abstract
+     * @return {?}
+     */
+
+  }, {
+    key: 'init',
+    value: function init() {}
+    /**
+     * @abstract
+     * @return {?}
+     */
+
+  }, {
+    key: 'hasStarted',
+    value: function hasStarted() {}
+    /**
+     * @abstract
+     * @return {?}
+     */
+
+  }, {
+    key: 'play',
+    value: function play() {}
+    /**
+     * @abstract
+     * @return {?}
+     */
+
+  }, {
+    key: 'pause',
+    value: function pause() {}
+    /**
+     * @abstract
+     * @return {?}
+     */
+
+  }, {
+    key: 'restart',
+    value: function restart() {}
+    /**
+     * @abstract
+     * @return {?}
+     */
+
+  }, {
+    key: 'finish',
+    value: function finish() {}
+    /**
+     * @abstract
+     * @return {?}
+     */
+
+  }, {
+    key: 'destroy',
+    value: function destroy() {}
+    /**
+     * @abstract
+     * @return {?}
+     */
+
+  }, {
+    key: 'reset',
+    value: function reset() {}
+    /**
+     * @abstract
+     * @param {?} p
+     * @return {?}
+     */
+
+  }, {
+    key: 'setPosition',
+    value: function setPosition(p) {}
+    /**
+     * @abstract
+     * @return {?}
+     */
+
+  }, {
+    key: 'getPosition',
+    value: function getPosition() {}
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'parentPlayer',
+    get: function get() {
+      throw new Error('NOT IMPLEMENTED: Base Class');
+    }
+    /**
+     * @param {?} player
+     * @return {?}
+     */
+    ,
+    set: function set(player) {
+      throw new Error('NOT IMPLEMENTED: Base Class');
+    }
+  }]);
+
+  return AnimationPlayer;
+}();
+/**
+ * \@experimental Animation support is experimental.
+ */
+
+
+var NoopAnimationPlayer = function () {
+  function NoopAnimationPlayer() {
+    var _this = this;
+
+    _classCallCheck(this, NoopAnimationPlayer);
+
+    this._onDoneFns = [];
+    this._onStartFns = [];
+    this._onDestroyFns = [];
+    this._started = false;
+    this._destroyed = false;
+    this._finished = false;
+    this.parentPlayer = null;
+    scheduleMicroTask(function () {
+      return _this._onFinish();
+    });
+  }
+  /**
+   * @return {?}
+   */
+
+
+  _createClass(NoopAnimationPlayer, [{
+    key: '_onFinish',
+    value: function _onFinish() {
+      if (!this._finished) {
+        this._finished = true;
+        this._onDoneFns.forEach(function (fn) {
+          return fn();
+        });
+        this._onDoneFns = [];
+      }
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+
+  }, {
+    key: 'onStart',
+    value: function onStart(fn) {
+      this._onStartFns.push(fn);
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+
+  }, {
+    key: 'onDone',
+    value: function onDone(fn) {
+      this._onDoneFns.push(fn);
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+
+  }, {
+    key: 'onDestroy',
+    value: function onDestroy(fn) {
+      this._onDestroyFns.push(fn);
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'hasStarted',
+    value: function hasStarted() {
+      return this._started;
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'init',
+    value: function init() {}
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'play',
+    value: function play() {
+      if (!this.hasStarted()) {
+        this._onStartFns.forEach(function (fn) {
+          return fn();
+        });
+        this._onStartFns = [];
+      }
+      this._started = true;
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'pause',
+    value: function pause() {}
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'restart',
+    value: function restart() {}
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'finish',
+    value: function finish() {
+      this._onFinish();
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      if (!this._destroyed) {
+        this._destroyed = true;
+        this.finish();
+        this._onDestroyFns.forEach(function (fn) {
+          return fn();
+        });
+        this._onDestroyFns = [];
+      }
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'reset',
+    value: function reset() {}
+    /**
+     * @param {?} p
+     * @return {?}
+     */
+
+  }, {
+    key: 'setPosition',
+    value: function setPosition(p) {}
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'getPosition',
+    value: function getPosition() {
+      return 0;
+    }
+  }]);
+
+  return NoopAnimationPlayer;
+}();
+
+var AnimationGroupPlayer = function () {
+  /**
+   * @param {?} _players
+   */
+  function AnimationGroupPlayer(_players) {
+    var _this2 = this;
+
+    _classCallCheck(this, AnimationGroupPlayer);
+
+    this._players = _players;
+    this._onDoneFns = [];
+    this._onStartFns = [];
+    this._finished = false;
+    this._started = false;
+    this._destroyed = false;
+    this._onDestroyFns = [];
+    this.parentPlayer = null;
+    var count = 0;
+    var total = this._players.length;
+    if (total == 0) {
+      scheduleMicroTask(function () {
+        return _this2._onFinish();
+      });
+    } else {
+      this._players.forEach(function (player) {
+        player.parentPlayer = _this2;
+        player.onDone(function () {
+          if (++count >= total) {
+            _this2._onFinish();
+          }
+        });
+      });
+    }
+  }
+  /**
+   * @return {?}
+   */
+
+
+  _createClass(AnimationGroupPlayer, [{
+    key: '_onFinish',
+    value: function _onFinish() {
+      if (!this._finished) {
+        this._finished = true;
+        this._onDoneFns.forEach(function (fn) {
+          return fn();
+        });
+        this._onDoneFns = [];
+      }
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'init',
+    value: function init() {
+      this._players.forEach(function (player) {
+        return player.init();
+      });
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+
+  }, {
+    key: 'onStart',
+    value: function onStart(fn) {
+      this._onStartFns.push(fn);
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+
+  }, {
+    key: 'onDone',
+    value: function onDone(fn) {
+      this._onDoneFns.push(fn);
+    }
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+
+  }, {
+    key: 'onDestroy',
+    value: function onDestroy(fn) {
+      this._onDestroyFns.push(fn);
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'hasStarted',
+    value: function hasStarted() {
+      return this._started;
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'play',
+    value: function play() {
+      if (!this.parentPlayer) {
+        this.init();
+      }
+      if (!this.hasStarted()) {
+        this._onStartFns.forEach(function (fn) {
+          return fn();
+        });
+        this._onStartFns = [];
+        this._started = true;
+      }
+      this._players.forEach(function (player) {
+        return player.play();
+      });
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'pause',
+    value: function pause() {
+      this._players.forEach(function (player) {
+        return player.pause();
+      });
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'restart',
+    value: function restart() {
+      this._players.forEach(function (player) {
+        return player.restart();
+      });
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'finish',
+    value: function finish() {
+      this._onFinish();
+      this._players.forEach(function (player) {
+        return player.finish();
+      });
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'destroy',
+    value: function destroy() {
+      if (!this._destroyed) {
+        this._onFinish();
+        this._players.forEach(function (player) {
+          return player.destroy();
+        });
+        this._destroyed = true;
+        this._onDestroyFns.forEach(function (fn) {
+          return fn();
+        });
+        this._onDestroyFns = [];
+      }
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'reset',
+    value: function reset() {
+      this._players.forEach(function (player) {
+        return player.reset();
+      });
+      this._destroyed = false;
+      this._finished = false;
+      this._started = false;
+    }
+    /**
+     * @param {?} p
+     * @return {?}
+     */
+
+  }, {
+    key: 'setPosition',
+    value: function setPosition(p) {
+      this._players.forEach(function (player) {
+        player.setPosition(p);
+      });
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'getPosition',
+    value: function getPosition() {
+      var /** @type {?} */min = 0;
+      this._players.forEach(function (player) {
+        var /** @type {?} */p = player.getPosition();
+        min = Math.min(p, min);
+      });
+      return min;
+    }
+    /**
+     * @return {?}
+     */
+
+  }, {
+    key: 'players',
+    get: function get() {
+      return this._players;
+    }
+  }]);
+
+  return AnimationGroupPlayer;
+}();
+
+
+
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -26662,39 +27712,20 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 13;
+webpackEmptyContext.id = 15;
 
 
 /***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var toast_1 = __webpack_require__(16);
-exports.Toast = toast_1.Toast;
-var toast_manager_1 = __webpack_require__(15);
-exports.ToastsManager = toast_manager_1.ToastsManager;
-var toast_container_component_1 = __webpack_require__(9);
-exports.ToastContainer = toast_container_component_1.ToastContainer;
-var toast_options_1 = __webpack_require__(10);
-exports.ToastOptions = toast_options_1.ToastOptions;
-var toast_module_1 = __webpack_require__(30);
-exports.ToastModule = toast_module_1.ToastModule;
-//# sourceMappingURL=ng2-toastr.js.map
-
-/***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var toast_container_component_1 = __webpack_require__(9);
-var toast_options_1 = __webpack_require__(10);
-var toast_1 = __webpack_require__(16);
+var toast_container_component_1 = __webpack_require__(11);
+var toast_options_1 = __webpack_require__(7);
+var toast_1 = __webpack_require__(17);
 var Subject_1 = __webpack_require__(4);
 var ToastsManager = (function () {
     function ToastsManager(componentFactoryResolver, appRef, options) {
@@ -26832,7 +27863,7 @@ exports.ToastsManager = ToastsManager;
 //# sourceMappingURL=toast-manager.js.map
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26859,7 +27890,7 @@ exports.Toast = Toast;
 //# sourceMappingURL=toast.js.map
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -27045,7 +28076,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27059,7 +28090,7 @@ exports.empty = {
 //# sourceMappingURL=Observer.js.map
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27069,7 +28100,7 @@ exports.errorObject = { e: {} };
 //# sourceMappingURL=errorObject.js.map
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27081,7 +28112,7 @@ exports.isFunction = isFunction;
 //# sourceMappingURL=isFunction.js.map
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27093,7 +28124,7 @@ exports.isObject = isObject;
 //# sourceMappingURL=isObject.js.map
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27105,15 +28136,15 @@ exports.isScheduler = isScheduler;
 //# sourceMappingURL=isScheduler.js.map
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_compiler__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__(6);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RESOURCE_CACHE_PROVIDER", function() { return RESOURCE_CACHE_PROVIDER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "platformBrowserDynamic", function() { return platformBrowserDynamic; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VERSION", function() { return VERSION; });
@@ -27286,7 +28317,7 @@ var platformBrowserDynamic = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {/*! *****************************************************************************
@@ -28414,10 +29445,10 @@ var Reflect;
             Function("return this;")());
 })(Reflect || (Reflect = {}));
 //# sourceMappingURL=Reflect.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17), __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(2)))
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28433,9 +29464,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var platform_browser_1 = __webpack_require__(8);
-var app_component_1 = __webpack_require__(55);
-var ng2_toastr_1 = __webpack_require__(14);
+var platform_browser_1 = __webpack_require__(6);
+var app_component_1 = __webpack_require__(56);
+var ng2_toastr_1 = __webpack_require__(10);
+var animations_1 = __webpack_require__(30);
+var custom_option_1 = __webpack_require__(57);
 var AppModule = (function () {
     function AppModule() {
     }
@@ -28443,8 +29476,11 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, ng2_toastr_1.ToastModule.forRoot()],
+        imports: [platform_browser_1.BrowserModule, animations_1.BrowserAnimationsModule, ng2_toastr_1.ToastModule.forRoot()],
         declarations: [app_component_1.AppComponent],
+        providers: [
+            { provide: ng2_toastr_1.ToastOptions, useClass: custom_option_1.CustomOption },
+        ],
         bootstrap: [app_component_1.AppComponent],
     })
 ], AppModule);
@@ -28452,7 +29488,7 @@ exports.AppModule = AppModule;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -28615,7 +29651,7 @@ computeIgnoreFrames();
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {/**
@@ -30635,1038 +31671,7 @@ if (_global['navigator'] && _global['navigator'].geolocation) {
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(17)))
-
-/***/ }),
-/* 28 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AUTO_STYLE", function() { return AUTO_STYLE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "animate", function() { return animate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "group", function() { return group; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "keyframes", function() { return keyframes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sequence", function() { return sequence; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "state", function() { return state; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "style", function() { return style; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transition", function() { return transition; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "trigger", function() { return trigger; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimationPlayer", function() { return AnimationPlayer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NoopAnimationPlayer", function() { return NoopAnimationPlayer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵAnimationGroupPlayer", function() { return AnimationGroupPlayer; });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/**
- * @license Angular v4.0.0-rc.2
- * (c) 2010-2017 Google, Inc. https://angular.io/
- * License: MIT
- */
-/**
- * @experimental Animation support is experimental.
- */
-var /** @type {?} */AUTO_STYLE = '*';
-/**
- * `trigger` is an animation-specific function that is designed to be used inside of Angular2's
- * animation DSL language. If this information is new, please navigate to the {\@link
- * Component#animations-anchor component animations metadata page} to gain a better understanding of
- * how animations in Angular2 are used.
- *
- * `trigger` Creates an animation trigger which will a list of {\@link state state} and {\@link
- * transition transition} entries that will be evaluated when the expression bound to the trigger
- * changes.
- *
- * Triggers are registered within the component annotation data under the {\@link
- * Component#animations-anchor animations section}. An animation trigger can be placed on an element
- * within a template by referencing the name of the trigger followed by the expression value that the
- * trigger is bound to (in the form of `[\@triggerName]="expression"`.
- *
- * ### Usage
- *
- * `trigger` will create an animation trigger reference based on the provided `name` value. The
- * provided `animation` value is expected to be an array consisting of {\@link state state} and {\@link
- * transition transition} declarations.
- *
- * ```typescript
- * \@Component({
- *   selector: 'my-component',
- *   templateUrl: 'my-component-tpl.html',
- *   animations: [
- *     trigger("myAnimationTrigger", [
- *       state(...),
- *       state(...),
- *       transition(...),
- *       transition(...)
- *     ])
- *   ]
- * })
- * class MyComponent {
- *   myStatusExp = "something";
- * }
- * ```
- *
- * The template associated with this component will make use of the `myAnimationTrigger` animation
- * trigger by binding to an element within its template code.
- *
- * ```html
- * <!-- somewhere inside of my-component-tpl.html -->
- * <div [\@myAnimationTrigger]="myStatusExp">...</div>
- * tools/gulp-tasks/validate-commit-message.js ```
- *
- * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
- *
- * \@experimental Animation support is experimental.
- * @param {?} name
- * @param {?} definitions
- * @return {?}
- */
-function trigger(name, definitions) {
-  return { name: name, definitions: definitions };
-}
-/**
- * `animate` is an animation-specific function that is designed to be used inside of Angular2's
- * animation DSL language. If this information is new, please navigate to the {\@link
- * Component#animations-anchor component animations metadata page} to gain a better understanding of
- * how animations in Angular2 are used.
- *
- * `animate` specifies an animation step that will apply the provided `styles` data for a given
- * amount of time based on the provided `timing` expression value. Calls to `animate` are expected
- * to be used within {\@link sequence an animation sequence}, {\@link group group}, or {\@link
- * transition transition}.
- *
- * ### Usage
- *
- * The `animate` function accepts two input parameters: `timing` and `styles`:
- *
- * - `timing` is a string based value that can be a combination of a duration with optional delay
- * and easing values. The format for the expression breaks down to `duration delay easing`
- * (therefore a value such as `1s 100ms ease-out` will be parse itself into `duration=1000,
- * delay=100, easing=ease-out`. If a numeric value is provided then that will be used as the
- * `duration` value in millisecond form.
- * - `styles` is the style input data which can either be a call to {\@link style style} or {\@link
- * keyframes keyframes}. If left empty then the styles from the destination state will be collected
- * and used (this is useful when describing an animation step that will complete an animation by
- * {\@link transition#the-final-animate-call animating to the final state}).
- *
- * ```typescript
- * // various functions for specifying timing data
- * animate(500, style(...))
- * animate("1s", style(...))
- * animate("100ms 0.5s", style(...))
- * animate("5s ease", style(...))
- * animate("5s 10ms cubic-bezier(.17,.67,.88,.1)", style(...))
- *
- * // either style() of keyframes() can be used
- * animate(500, style({ background: "red" }))
- * animate(500, keyframes([
- *   style({ background: "blue" })),
- *   style({ background: "red" }))
- * ])
- * ```
- *
- * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
- *
- * \@experimental Animation support is experimental.
- * @param {?} timings
- * @param {?=} styles
- * @return {?}
- */
-function animate(timings) {
-  var styles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-  return { type: 4 /* Animate */, styles: styles, timings: timings };
-}
-/**
- * `group` is an animation-specific function that is designed to be used inside of Angular2's
- * animation DSL language. If this information is new, please navigate to the {\@link
- * Component#animations-anchor component animations metadata page} to gain a better understanding of
- * how animations in Angular2 are used.
- *
- * `group` specifies a list of animation steps that are all run in parallel. Grouped animations are
- * useful when a series of styles must be animated/closed off at different statrting/ending times.
- *
- * The `group` function can either be used within a {\@link sequence sequence} or a {\@link transition
- * transition} and it will only continue to the next instruction once all of the inner animation
- * steps have completed.
- *
- * ### Usage
- *
- * The `steps` data that is passed into the `group` animation function can either consist of {\@link
- * style style} or {\@link animate animate} function calls. Each call to `style()` or `animate()`
- * within a group will be executed instantly (use {\@link keyframes keyframes} or a {\@link
- * animate#usage animate() with a delay value} to offset styles to be applied at a later time).
- *
- * ```typescript
- * group([
- *   animate("1s", { background: "black" }))
- *   animate("2s", { color: "white" }))
- * ])
- * ```
- *
- * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
- *
- * \@experimental Animation support is experimental.
- * @param {?} steps
- * @return {?}
- */
-function group(steps) {
-  return { type: 3 /* Group */, steps: steps };
-}
-/**
- * `sequence` is an animation-specific function that is designed to be used inside of Angular2's
- * animation DSL language. If this information is new, please navigate to the {\@link
- * Component#animations-anchor component animations metadata page} to gain a better understanding of
- * how animations in Angular2 are used.
- *
- * `sequence` Specifies a list of animation steps that are run one by one. (`sequence` is used by
- * default when an array is passed as animation data into {\@link transition transition}.)
- *
- * The `sequence` function can either be used within a {\@link group group} or a {\@link transition
- * transition} and it will only continue to the next instruction once each of the inner animation
- * steps have completed.
- *
- * To perform animation styling in parallel with other animation steps then have a look at the
- * {\@link group group} animation function.
- *
- * ### Usage
- *
- * The `steps` data that is passed into the `sequence` animation function can either consist of
- * {\@link style style} or {\@link animate animate} function calls. A call to `style()` will apply the
- * provided styling data immediately while a call to `animate()` will apply its styling data over a
- * given time depending on its timing data.
- *
- * ```typescript
- * sequence([
- *   style({ opacity: 0 })),
- *   animate("1s", { opacity: 1 }))
- * ])
- * ```
- *
- * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
- *
- * \@experimental Animation support is experimental.
- * @param {?} steps
- * @return {?}
- */
-function sequence(steps) {
-  return { type: 2 /* Sequence */, steps: steps };
-}
-/**
- * `style` is an animation-specific function that is designed to be used inside of Angular2's
- * animation DSL language. If this information is new, please navigate to the {\@link
- * Component#animations-anchor component animations metadata page} to gain a better understanding of
- * how animations in Angular2 are used.
- *
- * `style` declares a key/value object containing CSS properties/styles that can then be used for
- * {\@link state animation states}, within an {\@link sequence animation sequence}, or as styling data
- * for both {\@link animate animate} and {\@link keyframes keyframes}.
- *
- * ### Usage
- *
- * `style` takes in a key/value string map as data and expects one or more CSS property/value pairs
- * to be defined.
- *
- * ```typescript
- * // string values are used for css properties
- * style({ background: "red", color: "blue" })
- *
- * // numerical (pixel) values are also supported
- * style({ width: 100, height: 0 })
- * ```
- *
- * #### Auto-styles (using `*`)
- *
- * When an asterix (`*`) character is used as a value then it will be detected from the element
- * being animated and applied as animation data when the animation starts.
- *
- * This feature proves useful for a state depending on layout and/or environment factors; in such
- * cases the styles are calculated just before the animation starts.
- *
- * ```typescript
- * // the steps below will animate from 0 to the
- * // actual height of the element
- * style({ height: 0 }),
- * animate("1s", style({ height: "*" }))
- * ```
- *
- * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
- *
- * \@experimental Animation support is experimental.
- * @param {?} tokens
- * @return {?}
- */
-function style(tokens) {
-  return { type: 6 /* Style */, styles: tokens };
-}
-/**
- * `state` is an animation-specific function that is designed to be used inside of Angular2's
- * animation DSL language. If this information is new, please navigate to the {\@link
- * Component#animations-anchor component animations metadata page} to gain a better understanding of
- * how animations in Angular2 are used.
- *
- * `state` declares an animation state within the given trigger. When a state is active within a
- * component then its associated styles will persist on the element that the trigger is attached to
- * (even when the animation ends).
- *
- * To animate between states, have a look at the animation {\@link transition transition} DSL
- * function. To register states to an animation trigger please have a look at the {\@link trigger
- * trigger} function.
- *
- * #### The `void` state
- *
- * The `void` state value is a reserved word that angular uses to determine when the element is not
- * apart of the application anymore (e.g. when an `ngIf` evaluates to false then the state of the
- * associated element is void).
- *
- * #### The `*` (default) state
- *
- * The `*` state (when styled) is a fallback state that will be used if the state that is being
- * animated is not declared within the trigger.
- *
- * ### Usage
- *
- * `state` will declare an animation state with its associated styles
- * within the given trigger.
- *
- * - `stateNameExpr` can be one or more state names separated by commas.
- * - `styles` refers to the {\@link style styling data} that will be persisted on the element once
- * the state has been reached.
- *
- * ```typescript
- * // "void" is a reserved name for a state and is used to represent
- * // the state in which an element is detached from from the application.
- * state("void", style({ height: 0 }))
- *
- * // user-defined states
- * state("closed", style({ height: 0 }))
- * state("open, visible", style({ height: "*" }))
- * ```
- *
- * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
- *
- * \@experimental Animation support is experimental.
- * @param {?} name
- * @param {?} styles
- * @return {?}
- */
-function state(name, styles) {
-  return { type: 0 /* State */, name: name, styles: styles };
-}
-/**
- * `keyframes` is an animation-specific function that is designed to be used inside of Angular2's
- * animation DSL language. If this information is new, please navigate to the {\@link
- * Component#animations-anchor component animations metadata page} to gain a better understanding of
- * how animations in Angular2 are used.
- *
- * `keyframes` specifies a collection of {\@link style style} entries each optionally characterized
- * by an `offset` value.
- *
- * ### Usage
- *
- * The `keyframes` animation function is designed to be used alongside the {\@link animate animate}
- * animation function. Instead of applying animations from where they are currently to their
- * destination, keyframes can describe how each style entry is applied and at what point within the
- * animation arc (much like CSS Keyframe Animations do).
- *
- * For each `style()` entry an `offset` value can be set. Doing so allows to specifiy at what
- * percentage of the animate time the styles will be applied.
- *
- * ```typescript
- * // the provided offset values describe when each backgroundColor value is applied.
- * animate("5s", keyframes([
- *   style({ backgroundColor: "red", offset: 0 }),
- *   style({ backgroundColor: "blue", offset: 0.2 }),
- *   style({ backgroundColor: "orange", offset: 0.3 }),
- *   style({ backgroundColor: "black", offset: 1 })
- * ]))
- * ```
- *
- * Alternatively, if there are no `offset` values used within the style entries then the offsets
- * will be calculated automatically.
- *
- * ```typescript
- * animate("5s", keyframes([
- *   style({ backgroundColor: "red" }) // offset = 0
- *   style({ backgroundColor: "blue" }) // offset = 0.33
- *   style({ backgroundColor: "orange" }) // offset = 0.66
- *   style({ backgroundColor: "black" }) // offset = 1
- * ]))
- * ```
- *
- * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
- *
- * \@experimental Animation support is experimental.
- * @param {?} steps
- * @return {?}
- */
-function keyframes(steps) {
-  return { type: 5 /* KeyframeSequence */, steps: steps };
-}
-/**
- * `transition` is an animation-specific function that is designed to be used inside of Angular2's
- * animation DSL language. If this information is new, please navigate to the {\@link
- * Component#animations-anchor component animations metadata page} to gain a better understanding of
- * how animations in Angular2 are used.
- *
- * `transition` declares the {\@link sequence sequence of animation steps} that will be run when the
- * provided `stateChangeExpr` value is satisfied. The `stateChangeExpr` consists of a `state1 =>
- * state2` which consists of two known states (use an asterix (`*`) to refer to a dynamic starting
- * and/or ending state).
- *
- * A function can also be provided as the `stateChangeExpr` argument for a transition and this
- * function will be executed each time a state change occurs. If the value returned within the
- * function is true then the associated animation will be run.
- *
- * Animation transitions are placed within an {\@link trigger animation trigger}. For an transition
- * to animate to a state value and persist its styles then one or more {\@link state animation
- * states} is expected to be defined.
- *
- * ### Usage
- *
- * An animation transition is kicked off the `stateChangeExpr` predicate evaluates to true based on
- * what the previous state is and what the current state has become. In other words, if a transition
- * is defined that matches the old/current state criteria then the associated animation will be
- * triggered.
- *
- * ```typescript
- * // all transition/state changes are defined within an animation trigger
- * trigger("myAnimationTrigger", [
- *   // if a state is defined then its styles will be persisted when the
- *   // animation has fully completed itself
- *   state("on", style({ background: "green" })),
- *   state("off", style({ background: "grey" })),
- *
- *   // a transition animation that will be kicked off when the state value
- *   // bound to "myAnimationTrigger" changes from "on" to "off"
- *   transition("on => off", animate(500)),
- *
- *   // it is also possible to do run the same animation for both directions
- *   transition("on <=> off", animate(500)),
- *
- *   // or to define multiple states pairs separated by commas
- *   transition("on => off, off => void", animate(500)),
- *
- *   // this is a catch-all state change for when an element is inserted into
- *   // the page and the destination state is unknown
- *   transition("void => *", [
- *     style({ opacity: 0 }),
- *     animate(500)
- *   ]),
- *
- *   // this will capture a state change between any states
- *   transition("* => *", animate("1s 0s")),
- *
- *   // you can also go full out and include a function
- *   transition((fromState, toState) => {
- *     // when `true` then it will allow the animation below to be invoked
- *     return fromState == "off" && toState == "on";
- *   }, animate("1s 0s"))
- * ])
- * ```
- *
- * The template associated with this component will make use of the `myAnimationTrigger` animation
- * trigger by binding to an element within its template code.
- *
- * ```html
- * <!-- somewhere inside of my-component-tpl.html -->
- * <div [\@myAnimationTrigger]="myStatusExp">...</div>
- * ```
- *
- * #### The final `animate` call
- *
- * If the final step within the transition steps is a call to `animate()` that **only** uses a
- * timing value with **no style data** then it will be automatically used as the final animation arc
- * for the element to animate itself to the final state. This involves an automatic mix of
- * adding/removing CSS styles so that the element will be in the exact state it should be for the
- * applied state to be presented correctly.
- *
- * ```
- * // start off by hiding the element, but make sure that it animates properly to whatever state
- * // is currently active for "myAnimationTrigger"
- * transition("void => *", [
- *   style({ opacity: 0 }),
- *   animate(500)
- * ])
- * ```
- *
- * ### Transition Aliases (`:enter` and `:leave`)
- *
- * Given that enter (insertion) and leave (removal) animations are so common, the `transition`
- * function accepts both `:enter` and `:leave` values which are aliases for the `void => *` and `*
- * => void` state changes.
- *
- * ```
- * transition(":enter", [
- *   style({ opacity: 0 }),
- *   animate(500, style({ opacity: 1 }))
- * ])
- * transition(":leave", [
- *   animate(500, style({ opacity: 0 }))
- * ])
- * ```
- *
- * {\@example core/animation/ts/dsl/animation_example.ts region='Component'}
- *
- * \@experimental Animation support is experimental.
- * @param {?} stateChangeExpr
- * @param {?} steps
- * @return {?}
- */
-function transition(stateChangeExpr, steps) {
-  return { type: 1 /* Transition */, expr: stateChangeExpr, animation: steps };
-}
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- * @param {?} cb
- * @return {?}
- */
-function scheduleMicroTask(cb) {
-  Promise.resolve(null).then(cb);
-}
-
-/**
- * \@experimental Animation support is experimental.
- * @abstract
- */
-
-var AnimationPlayer = function () {
-  function AnimationPlayer() {
-    _classCallCheck(this, AnimationPlayer);
-  }
-
-  _createClass(AnimationPlayer, [{
-    key: 'onDone',
-
-    /**
-     * @abstract
-     * @param {?} fn
-     * @return {?}
-     */
-    value: function onDone(fn) {}
-    /**
-     * @abstract
-     * @param {?} fn
-     * @return {?}
-     */
-
-  }, {
-    key: 'onStart',
-    value: function onStart(fn) {}
-    /**
-     * @abstract
-     * @param {?} fn
-     * @return {?}
-     */
-
-  }, {
-    key: 'onDestroy',
-    value: function onDestroy(fn) {}
-    /**
-     * @abstract
-     * @return {?}
-     */
-
-  }, {
-    key: 'init',
-    value: function init() {}
-    /**
-     * @abstract
-     * @return {?}
-     */
-
-  }, {
-    key: 'hasStarted',
-    value: function hasStarted() {}
-    /**
-     * @abstract
-     * @return {?}
-     */
-
-  }, {
-    key: 'play',
-    value: function play() {}
-    /**
-     * @abstract
-     * @return {?}
-     */
-
-  }, {
-    key: 'pause',
-    value: function pause() {}
-    /**
-     * @abstract
-     * @return {?}
-     */
-
-  }, {
-    key: 'restart',
-    value: function restart() {}
-    /**
-     * @abstract
-     * @return {?}
-     */
-
-  }, {
-    key: 'finish',
-    value: function finish() {}
-    /**
-     * @abstract
-     * @return {?}
-     */
-
-  }, {
-    key: 'destroy',
-    value: function destroy() {}
-    /**
-     * @abstract
-     * @return {?}
-     */
-
-  }, {
-    key: 'reset',
-    value: function reset() {}
-    /**
-     * @abstract
-     * @param {?} p
-     * @return {?}
-     */
-
-  }, {
-    key: 'setPosition',
-    value: function setPosition(p) {}
-    /**
-     * @abstract
-     * @return {?}
-     */
-
-  }, {
-    key: 'getPosition',
-    value: function getPosition() {}
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'parentPlayer',
-    get: function get() {
-      throw new Error('NOT IMPLEMENTED: Base Class');
-    }
-    /**
-     * @param {?} player
-     * @return {?}
-     */
-    ,
-    set: function set(player) {
-      throw new Error('NOT IMPLEMENTED: Base Class');
-    }
-  }]);
-
-  return AnimationPlayer;
-}();
-/**
- * \@experimental Animation support is experimental.
- */
-
-
-var NoopAnimationPlayer = function () {
-  function NoopAnimationPlayer() {
-    var _this = this;
-
-    _classCallCheck(this, NoopAnimationPlayer);
-
-    this._onDoneFns = [];
-    this._onStartFns = [];
-    this._onDestroyFns = [];
-    this._started = false;
-    this._destroyed = false;
-    this._finished = false;
-    this.parentPlayer = null;
-    scheduleMicroTask(function () {
-      return _this._onFinish();
-    });
-  }
-  /**
-   * @return {?}
-   */
-
-
-  _createClass(NoopAnimationPlayer, [{
-    key: '_onFinish',
-    value: function _onFinish() {
-      if (!this._finished) {
-        this._finished = true;
-        this._onDoneFns.forEach(function (fn) {
-          return fn();
-        });
-        this._onDoneFns = [];
-      }
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-
-  }, {
-    key: 'onStart',
-    value: function onStart(fn) {
-      this._onStartFns.push(fn);
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-
-  }, {
-    key: 'onDone',
-    value: function onDone(fn) {
-      this._onDoneFns.push(fn);
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-
-  }, {
-    key: 'onDestroy',
-    value: function onDestroy(fn) {
-      this._onDestroyFns.push(fn);
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'hasStarted',
-    value: function hasStarted() {
-      return this._started;
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'init',
-    value: function init() {}
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'play',
-    value: function play() {
-      if (!this.hasStarted()) {
-        this._onStartFns.forEach(function (fn) {
-          return fn();
-        });
-        this._onStartFns = [];
-      }
-      this._started = true;
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'pause',
-    value: function pause() {}
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'restart',
-    value: function restart() {}
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'finish',
-    value: function finish() {
-      this._onFinish();
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      if (!this._destroyed) {
-        this._destroyed = true;
-        this.finish();
-        this._onDestroyFns.forEach(function (fn) {
-          return fn();
-        });
-        this._onDestroyFns = [];
-      }
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'reset',
-    value: function reset() {}
-    /**
-     * @param {?} p
-     * @return {?}
-     */
-
-  }, {
-    key: 'setPosition',
-    value: function setPosition(p) {}
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'getPosition',
-    value: function getPosition() {
-      return 0;
-    }
-  }]);
-
-  return NoopAnimationPlayer;
-}();
-
-var AnimationGroupPlayer = function () {
-  /**
-   * @param {?} _players
-   */
-  function AnimationGroupPlayer(_players) {
-    var _this2 = this;
-
-    _classCallCheck(this, AnimationGroupPlayer);
-
-    this._players = _players;
-    this._onDoneFns = [];
-    this._onStartFns = [];
-    this._finished = false;
-    this._started = false;
-    this._destroyed = false;
-    this._onDestroyFns = [];
-    this.parentPlayer = null;
-    var count = 0;
-    var total = this._players.length;
-    if (total == 0) {
-      scheduleMicroTask(function () {
-        return _this2._onFinish();
-      });
-    } else {
-      this._players.forEach(function (player) {
-        player.parentPlayer = _this2;
-        player.onDone(function () {
-          if (++count >= total) {
-            _this2._onFinish();
-          }
-        });
-      });
-    }
-  }
-  /**
-   * @return {?}
-   */
-
-
-  _createClass(AnimationGroupPlayer, [{
-    key: '_onFinish',
-    value: function _onFinish() {
-      if (!this._finished) {
-        this._finished = true;
-        this._onDoneFns.forEach(function (fn) {
-          return fn();
-        });
-        this._onDoneFns = [];
-      }
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'init',
-    value: function init() {
-      this._players.forEach(function (player) {
-        return player.init();
-      });
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-
-  }, {
-    key: 'onStart',
-    value: function onStart(fn) {
-      this._onStartFns.push(fn);
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-
-  }, {
-    key: 'onDone',
-    value: function onDone(fn) {
-      this._onDoneFns.push(fn);
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-
-  }, {
-    key: 'onDestroy',
-    value: function onDestroy(fn) {
-      this._onDestroyFns.push(fn);
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'hasStarted',
-    value: function hasStarted() {
-      return this._started;
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'play',
-    value: function play() {
-      if (!this.parentPlayer) {
-        this.init();
-      }
-      if (!this.hasStarted()) {
-        this._onStartFns.forEach(function (fn) {
-          return fn();
-        });
-        this._onStartFns = [];
-        this._started = true;
-      }
-      this._players.forEach(function (player) {
-        return player.play();
-      });
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'pause',
-    value: function pause() {
-      this._players.forEach(function (player) {
-        return player.pause();
-      });
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'restart',
-    value: function restart() {
-      this._players.forEach(function (player) {
-        return player.restart();
-      });
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'finish',
-    value: function finish() {
-      this._onFinish();
-      this._players.forEach(function (player) {
-        return player.finish();
-      });
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'destroy',
-    value: function destroy() {
-      if (!this._destroyed) {
-        this._onFinish();
-        this._players.forEach(function (player) {
-          return player.destroy();
-        });
-        this._destroyed = true;
-        this._onDestroyFns.forEach(function (fn) {
-          return fn();
-        });
-        this._onDestroyFns = [];
-      }
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'reset',
-    value: function reset() {
-      this._players.forEach(function (player) {
-        return player.reset();
-      });
-      this._destroyed = false;
-      this._finished = false;
-      this._started = false;
-    }
-    /**
-     * @param {?} p
-     * @return {?}
-     */
-
-  }, {
-    key: 'setPosition',
-    value: function setPosition(p) {
-      this._players.forEach(function (player) {
-        player.setPosition(p);
-      });
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'getPosition',
-    value: function getPosition() {
-      var /** @type {?} */min = 0;
-      this._players.forEach(function (player) {
-        var /** @type {?} */p = player.getPosition();
-        min = Math.min(p, min);
-      });
-      return min;
-    }
-    /**
-     * @return {?}
-     */
-
-  }, {
-    key: 'players',
-    get: function get() {
-      return this._players;
-    }
-  }]);
-
-  return AnimationGroupPlayer;
-}();
-
-
-
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(18)))
 
 /***/ }),
 /* 29 */
@@ -61615,22 +61620,3331 @@ var ImportResolver = function () {
 
 /***/ }),
 /* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_animations__ = __webpack_require__(14);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BrowserAnimationsModule", function() { return BrowserAnimationsModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NoopAnimationsModule", function() { return NoopAnimationsModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnimationDriver", function() { return AnimationDriver; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵAnimationEngine", function() { return AnimationEngine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵAnimation", function() { return Animation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵAnimationStyleNormalizer", function() { return AnimationStyleNormalizer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵNoopAnimationStyleNormalizer", function() { return NoopAnimationStyleNormalizer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵNoopAnimationDriver", function() { return NoopAnimationDriver; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵAnimationRenderer", function() { return AnimationRenderer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵAnimationRendererFactory", function() { return AnimationRendererFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵDomAnimationEngine", function() { return DomAnimationEngine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵg", function() { return WebAnimationsStyleNormalizer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵe", function() { return BROWSER_ANIMATIONS_PROVIDERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵf", function() { return BROWSER_NOOP_ANIMATIONS_PROVIDERS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return InjectableAnimationEngine; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵc", function() { return instantiateDefaultStyleNormalizer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵd", function() { return instantiateRendererFactory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵb", function() { return instantiateSupportedAnimationDriver; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵh", function() { return NoopAnimationEngine; });
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+
+/**
+ * @abstract
+ */
+
+var AnimationEngine = function () {
+    function AnimationEngine() {
+        _classCallCheck(this, AnimationEngine);
+    }
+
+    _createClass(AnimationEngine, [{
+        key: 'registerTrigger',
+
+        /**
+         * @abstract
+         * @param {?} trigger
+         * @param {?=} name
+         * @return {?}
+         */
+        value: function registerTrigger(trigger, name) {}
+        /**
+         * @abstract
+         * @param {?} element
+         * @param {?} domFn
+         * @return {?}
+         */
+
+    }, {
+        key: 'onInsert',
+        value: function onInsert(element, domFn) {}
+        /**
+         * @abstract
+         * @param {?} element
+         * @param {?} domFn
+         * @return {?}
+         */
+
+    }, {
+        key: 'onRemove',
+        value: function onRemove(element, domFn) {}
+        /**
+         * @abstract
+         * @param {?} element
+         * @param {?} property
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: 'setProperty',
+        value: function setProperty(element, property, value) {}
+        /**
+         * @abstract
+         * @param {?} element
+         * @param {?} eventName
+         * @param {?} eventPhase
+         * @param {?} callback
+         * @return {?}
+         */
+
+    }, {
+        key: 'listen',
+        value: function listen(element, eventName, eventPhase, callback) {}
+        /**
+         * @abstract
+         * @return {?}
+         */
+
+    }, {
+        key: 'flush',
+        value: function flush() {}
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'activePlayers',
+        get: function get() {
+            throw new Error('...');
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'queuedPlayers',
+        get: function get() {
+            throw new Error('...');
+        }
+    }]);
+
+    return AnimationEngine;
+}();
+
+/**
+ * \@experimental Animation support is experimental.
+ * @abstract
+ */
+
+
+var AnimationStyleNormalizer = function () {
+    function AnimationStyleNormalizer() {
+        _classCallCheck(this, AnimationStyleNormalizer);
+    }
+
+    _createClass(AnimationStyleNormalizer, [{
+        key: 'normalizePropertyName',
+
+        /**
+         * @abstract
+         * @param {?} propertyName
+         * @param {?} errors
+         * @return {?}
+         */
+        value: function normalizePropertyName(propertyName, errors) {}
+        /**
+         * @abstract
+         * @param {?} userProvidedProperty
+         * @param {?} normalizedProperty
+         * @param {?} value
+         * @param {?} errors
+         * @return {?}
+         */
+
+    }, {
+        key: 'normalizeStyleValue',
+        value: function normalizeStyleValue(userProvidedProperty, normalizedProperty, value, errors) {}
+    }]);
+
+    return AnimationStyleNormalizer;
+}();
+/**
+ * \@experimental Animation support is experimental.
+ */
+
+
+var NoopAnimationStyleNormalizer = function () {
+    function NoopAnimationStyleNormalizer() {
+        _classCallCheck(this, NoopAnimationStyleNormalizer);
+    }
+
+    _createClass(NoopAnimationStyleNormalizer, [{
+        key: 'normalizePropertyName',
+
+        /**
+         * @param {?} propertyName
+         * @param {?} errors
+         * @return {?}
+         */
+        value: function normalizePropertyName(propertyName, errors) {
+            return propertyName;
+        }
+        /**
+         * @param {?} userProvidedProperty
+         * @param {?} normalizedProperty
+         * @param {?} value
+         * @param {?} errors
+         * @return {?}
+         */
+
+    }, {
+        key: 'normalizeStyleValue',
+        value: function normalizeStyleValue(userProvidedProperty, normalizedProperty, value, errors) {
+            return value;
+        }
+    }]);
+
+    return NoopAnimationStyleNormalizer;
+}();
+
+var WebAnimationsStyleNormalizer = function (_AnimationStyleNormal) {
+    _inherits(WebAnimationsStyleNormalizer, _AnimationStyleNormal);
+
+    function WebAnimationsStyleNormalizer() {
+        _classCallCheck(this, WebAnimationsStyleNormalizer);
+
+        return _possibleConstructorReturn(this, (WebAnimationsStyleNormalizer.__proto__ || Object.getPrototypeOf(WebAnimationsStyleNormalizer)).apply(this, arguments));
+    }
+
+    _createClass(WebAnimationsStyleNormalizer, [{
+        key: 'normalizePropertyName',
+
+        /**
+         * @param {?} propertyName
+         * @param {?} errors
+         * @return {?}
+         */
+        value: function normalizePropertyName(propertyName, errors) {
+            return dashCaseToCamelCase(propertyName);
+        }
+        /**
+         * @param {?} userProvidedProperty
+         * @param {?} normalizedProperty
+         * @param {?} value
+         * @param {?} errors
+         * @return {?}
+         */
+
+    }, {
+        key: 'normalizeStyleValue',
+        value: function normalizeStyleValue(userProvidedProperty, normalizedProperty, value, errors) {
+            var /** @type {?} */unit = '';
+            var /** @type {?} */strVal = value.toString().trim();
+            if (DIMENSIONAL_PROP_MAP[normalizedProperty] && value !== 0 && value !== '0') {
+                if (typeof value === 'number') {
+                    unit = 'px';
+                } else {
+                    var /** @type {?} */valAndSuffixMatch = value.match(/^[+-]?[\d\.]+([a-z]*)$/);
+                    if (valAndSuffixMatch && valAndSuffixMatch[1].length == 0) {
+                        errors.push('Please provide a CSS unit value for ' + userProvidedProperty + ':' + value);
+                    }
+                }
+            }
+            return strVal + unit;
+        }
+    }]);
+
+    return WebAnimationsStyleNormalizer;
+}(AnimationStyleNormalizer);
+
+var /** @type {?} */DIMENSIONAL_PROP_MAP = makeBooleanMap('width,height,minWidth,minHeight,maxWidth,maxHeight,left,top,bottom,right,fontSize,outlineWidth,outlineOffset,paddingTop,paddingLeft,paddingBottom,paddingRight,marginTop,marginLeft,marginBottom,marginRight,borderRadius,borderWidth,borderTopWidth,borderLeftWidth,borderRightWidth,borderBottomWidth,textIndent'.split(','));
+/**
+ * @param {?} keys
+ * @return {?}
+ */
+function makeBooleanMap(keys) {
+    var /** @type {?} */map = {};
+    keys.forEach(function (key) {
+        return map[key] = true;
+    });
+    return map;
+}
+var /** @type {?} */DASH_CASE_REGEXP = /-+([a-z0-9])/g;
+/**
+ * @param {?} input
+ * @return {?}
+ */
+function dashCaseToCamelCase(input) {
+    return input.replace(DASH_CASE_REGEXP, function () {
+        for (var _len = arguments.length, m = Array(_len), _key = 0; _key < _len; _key++) {
+            m[_key] = arguments[_key];
+        }
+
+        return m[1].toUpperCase();
+    });
+}
+
+/**
+ * @experimental
+ */
+
+var NoopAnimationDriver = function () {
+    function NoopAnimationDriver() {
+        _classCallCheck(this, NoopAnimationDriver);
+    }
+
+    _createClass(NoopAnimationDriver, [{
+        key: 'animate',
+        value: function animate(element, keyframes, duration, delay, easing) {
+            var previousPlayers = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : [];
+
+            return new __WEBPACK_IMPORTED_MODULE_2__angular_animations__["NoopAnimationPlayer"]();
+        }
+    }]);
+
+    return NoopAnimationDriver;
+}();
+/**
+ * @experimental
+ */
+
+
+var AnimationDriver = function AnimationDriver() {
+    _classCallCheck(this, AnimationDriver);
+};
+
+AnimationDriver.NOOP = new NoopAnimationDriver();
+
+var AnimationRendererFactory = function () {
+    /**
+     * @param {?} delegate
+     * @param {?} _engine
+     * @param {?} _zone
+     */
+    function AnimationRendererFactory(delegate, _engine, _zone) {
+        _classCallCheck(this, AnimationRendererFactory);
+
+        this.delegate = delegate;
+        this._engine = _engine;
+        this._zone = _zone;
+    }
+    /**
+     * @param {?} hostElement
+     * @param {?} type
+     * @return {?}
+     */
+
+
+    _createClass(AnimationRendererFactory, [{
+        key: 'createRenderer',
+        value: function createRenderer(hostElement, type) {
+            var _this2 = this;
+
+            var /** @type {?} */delegate = this.delegate.createRenderer(hostElement, type);
+            if (!hostElement || !type || !type.data || !type.data['animation']) return delegate;
+            var /** @type {?} */namespaceId = type.id;
+            var /** @type {?} */animationTriggers = type.data['animation'];
+            animationTriggers.forEach(function (trigger) {
+                return _this2._engine.registerTrigger(trigger, namespaceify(namespaceId, trigger.name));
+            });
+            return new AnimationRenderer(delegate, this._engine, this._zone, namespaceId);
+        }
+    }]);
+
+    return AnimationRendererFactory;
+}();
+
+AnimationRendererFactory.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] }];
+/** @nocollapse */
+AnimationRendererFactory.ctorParameters = function () {
+    return [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["RendererFactoryV2"] }, { type: AnimationEngine }, { type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"] }];
+};
+
+var AnimationRenderer = function () {
+    /**
+     * @param {?} delegate
+     * @param {?} _engine
+     * @param {?} _zone
+     * @param {?} _namespaceId
+     */
+    function AnimationRenderer(delegate, _engine, _zone, _namespaceId) {
+        _classCallCheck(this, AnimationRenderer);
+
+        this.delegate = delegate;
+        this._engine = _engine;
+        this._zone = _zone;
+        this._namespaceId = _namespaceId;
+        this.destroyNode = null;
+        this._flushPromise = null;
+        this.destroyNode = this.delegate.destroyNode ? function (n) {
+            return delegate.destroyNode(n);
+        } : null;
+    }
+    /**
+     * @return {?}
+     */
+
+
+    _createClass(AnimationRenderer, [{
+        key: 'destroy',
+
+        /**
+         * @return {?}
+         */
+        value: function destroy() {
+            this.delegate.destroy();
+        }
+        /**
+         * @param {?} name
+         * @param {?=} namespace
+         * @return {?}
+         */
+
+    }, {
+        key: 'createElement',
+        value: function createElement(name, namespace) {
+            return this.delegate.createElement(name, namespace);
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: 'createComment',
+        value: function createComment(value) {
+            return this.delegate.createComment(value);
+        }
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: 'createText',
+        value: function createText(value) {
+            return this.delegate.createText(value);
+        }
+        /**
+         * @param {?} selectorOrNode
+         * @return {?}
+         */
+
+    }, {
+        key: 'selectRootElement',
+        value: function selectRootElement(selectorOrNode) {
+            return this.delegate.selectRootElement(selectorOrNode);
+        }
+        /**
+         * @param {?} node
+         * @return {?}
+         */
+
+    }, {
+        key: 'parentNode',
+        value: function parentNode(node) {
+            return this.delegate.parentNode(node);
+        }
+        /**
+         * @param {?} node
+         * @return {?}
+         */
+
+    }, {
+        key: 'nextSibling',
+        value: function nextSibling(node) {
+            return this.delegate.nextSibling(node);
+        }
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @param {?} value
+         * @param {?=} namespace
+         * @return {?}
+         */
+
+    }, {
+        key: 'setAttribute',
+        value: function setAttribute(el, name, value, namespace) {
+            this.delegate.setAttribute(el, name, value, namespace);
+        }
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @param {?=} namespace
+         * @return {?}
+         */
+
+    }, {
+        key: 'removeAttribute',
+        value: function removeAttribute(el, name, namespace) {
+            this.delegate.removeAttribute(el, name, namespace);
+        }
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @return {?}
+         */
+
+    }, {
+        key: 'addClass',
+        value: function addClass(el, name) {
+            this.delegate.addClass(el, name);
+        }
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @return {?}
+         */
+
+    }, {
+        key: 'removeClass',
+        value: function removeClass(el, name) {
+            this.delegate.removeClass(el, name);
+        }
+        /**
+         * @param {?} el
+         * @param {?} style
+         * @param {?} value
+         * @param {?} hasVendorPrefix
+         * @param {?} hasImportant
+         * @return {?}
+         */
+
+    }, {
+        key: 'setStyle',
+        value: function setStyle(el, style, value, hasVendorPrefix, hasImportant) {
+            this.delegate.setStyle(el, style, value, hasVendorPrefix, hasImportant);
+        }
+        /**
+         * @param {?} el
+         * @param {?} style
+         * @param {?} hasVendorPrefix
+         * @return {?}
+         */
+
+    }, {
+        key: 'removeStyle',
+        value: function removeStyle(el, style, hasVendorPrefix) {
+            this.delegate.removeStyle(el, style, hasVendorPrefix);
+        }
+        /**
+         * @param {?} node
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: 'setValue',
+        value: function setValue(node, value) {
+            this.delegate.setValue(node, value);
+        }
+        /**
+         * @param {?} parent
+         * @param {?} newChild
+         * @return {?}
+         */
+
+    }, {
+        key: 'appendChild',
+        value: function appendChild(parent, newChild) {
+            var _this3 = this;
+
+            this._engine.onInsert(newChild, function () {
+                return _this3.delegate.appendChild(parent, newChild);
+            });
+            this._queueFlush();
+        }
+        /**
+         * @param {?} parent
+         * @param {?} newChild
+         * @param {?} refChild
+         * @return {?}
+         */
+
+    }, {
+        key: 'insertBefore',
+        value: function insertBefore(parent, newChild, refChild) {
+            var _this4 = this;
+
+            this._engine.onInsert(newChild, function () {
+                return _this4.delegate.insertBefore(parent, newChild, refChild);
+            });
+            this._queueFlush();
+        }
+        /**
+         * @param {?} parent
+         * @param {?} oldChild
+         * @return {?}
+         */
+
+    }, {
+        key: 'removeChild',
+        value: function removeChild(parent, oldChild) {
+            var _this5 = this;
+
+            this._engine.onRemove(oldChild, function () {
+                return _this5.delegate.removeChild(parent, oldChild);
+            });
+            this._queueFlush();
+        }
+        /**
+         * @param {?} el
+         * @param {?} name
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: 'setProperty',
+        value: function setProperty(el, name, value) {
+            if (name.charAt(0) == '@') {
+                this._engine.setProperty(el, namespaceify(this._namespaceId, name.substr(1)), value);
+                this._queueFlush();
+            } else {
+                this.delegate.setProperty(el, name, value);
+            }
+        }
+        /**
+         * @param {?} target
+         * @param {?} eventName
+         * @param {?} callback
+         * @return {?}
+         */
+
+    }, {
+        key: 'listen',
+        value: function listen(target, eventName, callback) {
+            var _this6 = this;
+
+            if (eventName.charAt(0) == '@') {
+                var /** @type {?} */element = resolveElementFromTarget(target);
+
+                var _parseTriggerCallback = parseTriggerCallbackName(eventName.substr(1)),
+                    _parseTriggerCallback2 = _slicedToArray(_parseTriggerCallback, 2),
+                    name = _parseTriggerCallback2[0],
+                    phase = _parseTriggerCallback2[1];
+
+                return this._engine.listen(element, namespaceify(this._namespaceId, name), phase, function (event) {
+                    var /** @type {?} */e = event;
+                    if (e.triggerName) {
+                        e.triggerName = deNamespaceify(_this6._namespaceId, e.triggerName);
+                    }
+                    _this6._zone.run(function () {
+                        return callback(event);
+                    });
+                });
+            }
+            return this.delegate.listen(target, eventName, callback);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: '_queueFlush',
+        value: function _queueFlush() {
+            var _this7 = this;
+
+            if (!this._flushPromise) {
+                this._zone.runOutsideAngular(function () {
+                    _this7._flushPromise = Promise.resolve(null).then(function () {
+                        _this7._flushPromise = null;
+                        _this7._engine.flush();
+                    });
+                });
+            }
+        }
+    }, {
+        key: 'data',
+        get: function get() {
+            return this.delegate.data;
+        }
+    }]);
+
+    return AnimationRenderer;
+}();
+/**
+ * @param {?} target
+ * @return {?}
+ */
+
+
+function resolveElementFromTarget(target) {
+    switch (target) {
+        case 'body':
+            return document.body;
+        case 'document':
+            return document;
+        case 'window':
+            return window;
+        default:
+            return target;
+    }
+}
+/**
+ * @param {?} triggerName
+ * @return {?}
+ */
+function parseTriggerCallbackName(triggerName) {
+    var /** @type {?} */dotIndex = triggerName.indexOf('.');
+    var /** @type {?} */trigger = triggerName.substring(0, dotIndex);
+    var /** @type {?} */phase = triggerName.substr(dotIndex + 1);
+    return [trigger, phase];
+}
+/**
+ * @param {?} namespaceId
+ * @param {?} value
+ * @return {?}
+ */
+function namespaceify(namespaceId, value) {
+    return namespaceId + '#' + value;
+}
+/**
+ * @param {?} namespaceId
+ * @param {?} value
+ * @return {?}
+ */
+function deNamespaceify(namespaceId, value) {
+    return value.replace(namespaceId + '#', '');
+}
+
+var /** @type {?} */ONE_SECOND = 1000;
+/**
+ * @param {?} exp
+ * @param {?} errors
+ * @return {?}
+ */
+function parseTimeExpression(exp, errors) {
+    var /** @type {?} */regex = /^([\.\d]+)(m?s)(?:\s+([\.\d]+)(m?s))?(?:\s+([-a-z]+(?:\(.+?\))?))?$/i;
+    var /** @type {?} */duration = void 0;
+    var /** @type {?} */delay = 0;
+    var /** @type {?} */easing = null;
+    if (typeof exp === 'string') {
+        var /** @type {?} */matches = exp.match(regex);
+        if (matches === null) {
+            errors.push('The provided timing value "' + exp + '" is invalid.');
+            return { duration: 0, delay: 0, easing: null };
+        }
+        var /** @type {?} */durationMatch = parseFloat(matches[1]);
+        var /** @type {?} */durationUnit = matches[2];
+        if (durationUnit == 's') {
+            durationMatch *= ONE_SECOND;
+        }
+        duration = Math.floor(durationMatch);
+        var /** @type {?} */delayMatch = matches[3];
+        var /** @type {?} */delayUnit = matches[4];
+        if (delayMatch != null) {
+            var /** @type {?} */delayVal = parseFloat(delayMatch);
+            if (delayUnit != null && delayUnit == 's') {
+                delayVal *= ONE_SECOND;
+            }
+            delay = Math.floor(delayVal);
+        }
+        var /** @type {?} */easingVal = matches[5];
+        if (easingVal) {
+            easing = easingVal;
+        }
+    } else {
+        duration = exp;
+    }
+    return { duration: duration, delay: delay, easing: easing };
+}
+/**
+ * @param {?} styles
+ * @return {?}
+ */
+function normalizeStyles(styles) {
+    var /** @type {?} */normalizedStyles = {};
+    if (Array.isArray(styles)) {
+        styles.forEach(function (data) {
+            return copyStyles(data, false, normalizedStyles);
+        });
+    } else {
+        copyStyles(styles, false, normalizedStyles);
+    }
+    return normalizedStyles;
+}
+/**
+ * @param {?} styles
+ * @param {?} readPrototype
+ * @param {?=} destination
+ * @return {?}
+ */
+function copyStyles(styles, readPrototype) {
+    var destination = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    if (readPrototype) {
+        // we make use of a for-in loop so that the
+        // prototypically inherited properties are
+        // revealed from the backFill map
+        for (var /** @type {?} */prop in styles) {
+            destination[prop] = styles[prop];
+        }
+    } else {
+        Object.keys(styles).forEach(function (prop) {
+            return destination[prop] = styles[prop];
+        });
+    }
+    return destination;
+}
+/**
+ * @param {?} element
+ * @param {?} styles
+ * @return {?}
+ */
+function setStyles(element, styles) {
+    if (element['style']) {
+        Object.keys(styles).forEach(function (prop) {
+            return element.style[prop] = styles[prop];
+        });
+    }
+}
+/**
+ * @param {?} element
+ * @param {?} styles
+ * @return {?}
+ */
+function eraseStyles(element, styles) {
+    if (element['style']) {
+        Object.keys(styles).forEach(function (prop) {
+            // IE requires '' instead of null
+            // see https://github.com/angular/angular/issues/7916
+            element.style[prop] = '';
+        });
+    }
+}
+
+/**
+ * @param {?} visitor
+ * @param {?} node
+ * @param {?} context
+ * @return {?}
+ */
+function visitAnimationNode(visitor, node, context) {
+    switch (node.type) {
+        case 0 /* State */:
+            return visitor.visitState( /** @type {?} */node, context);
+        case 1 /* Transition */:
+            return visitor.visitTransition( /** @type {?} */node, context);
+        case 2 /* Sequence */:
+            return visitor.visitSequence( /** @type {?} */node, context);
+        case 3 /* Group */:
+            return visitor.visitGroup( /** @type {?} */node, context);
+        case 4 /* Animate */:
+            return visitor.visitAnimate( /** @type {?} */node, context);
+        case 5 /* KeyframeSequence */:
+            return visitor.visitKeyframeSequence( /** @type {?} */node, context);
+        case 6 /* Style */:
+            return visitor.visitStyle( /** @type {?} */node, context);
+        default:
+            throw new Error('Unable to resolve animation metadata node #' + node.type);
+    }
+}
+
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */var /** @type {?} */ANY_STATE = '*';
+/**
+ * @param {?} transitionValue
+ * @param {?} errors
+ * @return {?}
+ */
+function parseTransitionExpr(transitionValue, errors) {
+    var /** @type {?} */expressions = [];
+    if (typeof transitionValue == 'string') {
+        transitionValue.split(/\s*,\s*/).forEach(function (str) {
+            return parseInnerTransitionStr(str, expressions, errors);
+        });
+    } else {
+        expressions.push( /** @type {?} */transitionValue);
+    }
+    return expressions;
+}
+/**
+ * @param {?} eventStr
+ * @param {?} expressions
+ * @param {?} errors
+ * @return {?}
+ */
+function parseInnerTransitionStr(eventStr, expressions, errors) {
+    if (eventStr[0] == ':') {
+        eventStr = parseAnimationAlias(eventStr, errors);
+    }
+    var /** @type {?} */match = eventStr.match(/^(\*|[-\w]+)\s*(<?[=-]>)\s*(\*|[-\w]+)$/);
+    if (match == null || match.length < 4) {
+        errors.push('The provided transition expression "' + eventStr + '" is not supported');
+        return expressions;
+    }
+    var /** @type {?} */fromState = match[1];
+    var /** @type {?} */separator = match[2];
+    var /** @type {?} */toState = match[3];
+    expressions.push(makeLambdaFromStates(fromState, toState));
+    var /** @type {?} */isFullAnyStateExpr = fromState == ANY_STATE && toState == ANY_STATE;
+    if (separator[0] == '<' && !isFullAnyStateExpr) {
+        expressions.push(makeLambdaFromStates(toState, fromState));
+    }
+}
+/**
+ * @param {?} alias
+ * @param {?} errors
+ * @return {?}
+ */
+function parseAnimationAlias(alias, errors) {
+    switch (alias) {
+        case ':enter':
+            return 'void => *';
+        case ':leave':
+            return '* => void';
+        default:
+            errors.push('The transition alias value "' + alias + '" is not supported');
+            return '* => *';
+    }
+}
+/**
+ * @param {?} lhs
+ * @param {?} rhs
+ * @return {?}
+ */
+function makeLambdaFromStates(lhs, rhs) {
+    return function (fromState, toState) {
+        var /** @type {?} */lhsMatch = lhs == ANY_STATE || lhs == fromState;
+        var /** @type {?} */rhsMatch = rhs == ANY_STATE || rhs == toState;
+        return lhsMatch && rhsMatch;
+    };
+}
+
+/**
+ * @param {?} keyframes
+ * @param {?} duration
+ * @param {?} delay
+ * @param {?} easing
+ * @return {?}
+ */
+function createTimelineInstruction(keyframes, duration, delay, easing) {
+    return {
+        type: 1 /* TimelineAnimation */
+        , keyframes: keyframes,
+        duration: duration,
+        delay: delay,
+        totalTime: duration + delay, easing: easing
+    };
+}
+
+/**
+ * @param {?} ast
+ * @param {?=} startingStyles
+ * @param {?=} finalStyles
+ * @return {?}
+ */
+function buildAnimationKeyframes(ast) {
+    var startingStyles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    var finalStyles = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    var /** @type {?} */normalizedAst = Array.isArray(ast) ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_animations__["sequence"])( /** @type {?} */ast) : ast;
+    return new AnimationTimelineVisitor().buildKeyframes(normalizedAst, startingStyles, finalStyles);
+}
+
+var AnimationTimelineContext = function () {
+    /**
+     * @param {?} errors
+     * @param {?} timelines
+     * @param {?=} initialTimeline
+     */
+    function AnimationTimelineContext(errors, timelines) {
+        var initialTimeline = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+        _classCallCheck(this, AnimationTimelineContext);
+
+        this.errors = errors;
+        this.timelines = timelines;
+        this.previousNode = {};
+        this.subContextCount = 0;
+        this.currentTimeline = initialTimeline || new TimelineBuilder(0);
+        timelines.push(this.currentTimeline);
+    }
+    /**
+     * @return {?}
+     */
+
+
+    _createClass(AnimationTimelineContext, [{
+        key: 'createSubContext',
+        value: function createSubContext() {
+            var /** @type {?} */context = new AnimationTimelineContext(this.errors, this.timelines, this.currentTimeline.fork());
+            context.previousNode = this.previousNode;
+            context.currentAnimateTimings = this.currentAnimateTimings;
+            this.subContextCount++;
+            return context;
+        }
+        /**
+         * @param {?=} newTime
+         * @return {?}
+         */
+
+    }, {
+        key: 'transformIntoNewTimeline',
+        value: function transformIntoNewTimeline() {
+            var newTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+            this.currentTimeline = this.currentTimeline.fork(newTime);
+            this.timelines.push(this.currentTimeline);
+            return this.currentTimeline;
+        }
+        /**
+         * @param {?} time
+         * @return {?}
+         */
+
+    }, {
+        key: 'incrementTime',
+        value: function incrementTime(time) {
+            this.currentTimeline.forwardTime(this.currentTimeline.duration + time);
+        }
+    }]);
+
+    return AnimationTimelineContext;
+}();
+
+var AnimationTimelineVisitor = function () {
+    function AnimationTimelineVisitor() {
+        _classCallCheck(this, AnimationTimelineVisitor);
+    }
+
+    _createClass(AnimationTimelineVisitor, [{
+        key: 'buildKeyframes',
+
+        /**
+         * @param {?} ast
+         * @param {?} startingStyles
+         * @param {?} finalStyles
+         * @return {?}
+         */
+        value: function buildKeyframes(ast, startingStyles, finalStyles) {
+            var /** @type {?} */context = new AnimationTimelineContext([], []);
+            context.currentTimeline.setStyles(startingStyles);
+            visitAnimationNode(this, ast, context);
+            var /** @type {?} */normalizedFinalStyles = copyStyles(finalStyles, true);
+            // this is a special case for when animate(TIME) is used (without any styles)
+            // thus indicating to create an animation arc between the final keyframe and
+            // the destination styles. When this occurs we need to ensure that the styles
+            // that are missing on the finalStyles map are set to AUTO
+            if (Object.keys(context.currentTimeline.getFinalKeyframe()).length == 0) {
+                context.currentTimeline.properties.forEach(function (prop) {
+                    var /** @type {?} */val = normalizedFinalStyles[prop];
+                    if (val == null) {
+                        normalizedFinalStyles[prop] = __WEBPACK_IMPORTED_MODULE_2__angular_animations__["AUTO_STYLE"];
+                    }
+                });
+            }
+            context.currentTimeline.setStyles(normalizedFinalStyles);
+            var /** @type {?} */timelineInstructions = [];
+            context.timelines.forEach(function (timeline) {
+                // this checks to see if an actual animation happened
+                if (timeline.hasStyling()) {
+                    timelineInstructions.push(timeline.buildKeyframes());
+                }
+            });
+            if (timelineInstructions.length == 0) {
+                timelineInstructions.push(createTimelineInstruction([], 0, 0, ''));
+            }
+            return timelineInstructions;
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitState',
+        value: function visitState(ast, context) {}
+        // these values are not visited in this AST
+
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitTransition',
+        value: function visitTransition(ast, context) {}
+        // these values are not visited in this AST
+
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitSequence',
+        value: function visitSequence(ast, context) {
+            var _this8 = this;
+
+            var /** @type {?} */subContextCount = context.subContextCount;
+            if (context.previousNode.type == 6 /* Style */) {
+                    context.currentTimeline.forwardFrame();
+                    context.currentTimeline.snapshotCurrentStyles();
+                }
+            ast.steps.forEach(function (s) {
+                return visitAnimationNode(_this8, s, context);
+            });
+            // this means that some animation function within the sequence
+            // ended up creating a sub timeline (which means the current
+            // timeline cannot overlap with the contents of the sequence)
+            if (context.subContextCount > subContextCount) {
+                context.transformIntoNewTimeline();
+            }
+            context.previousNode = ast;
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitGroup',
+        value: function visitGroup(ast, context) {
+            var _this9 = this;
+
+            var /** @type {?} */innerTimelines = [];
+            var /** @type {?} */furthestTime = context.currentTimeline.currentTime;
+            ast.steps.forEach(function (s) {
+                var /** @type {?} */innerContext = context.createSubContext();
+                visitAnimationNode(_this9, s, innerContext);
+                furthestTime = Math.max(furthestTime, innerContext.currentTimeline.currentTime);
+                innerTimelines.push(innerContext.currentTimeline);
+            });
+            // this operation is run after the AST loop because otherwise
+            // if the parent timeline's collected styles were updated then
+            // it would pass in invalid data into the new-to-be forked items
+            innerTimelines.forEach(function (timeline) {
+                return context.currentTimeline.mergeTimelineCollectedStyles(timeline);
+            });
+            context.transformIntoNewTimeline(furthestTime);
+            context.previousNode = ast;
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitAnimate',
+        value: function visitAnimate(ast, context) {
+            var /** @type {?} */timings = ast.timings.hasOwnProperty('duration') ? ast.timings : parseTimeExpression( /** @type {?} */ast.timings, context.errors);
+            context.currentAnimateTimings = timings;
+            if (timings.delay) {
+                context.incrementTime(timings.delay);
+                context.currentTimeline.snapshotCurrentStyles();
+            }
+            var /** @type {?} */astType = ast.styles ? ast.styles.type : -1;
+            if (astType == 5 /* KeyframeSequence */) {
+                    this.visitKeyframeSequence( /** @type {?} */ast.styles, context);
+                } else {
+                context.incrementTime(timings.duration);
+                if (astType == 6 /* Style */) {
+                        this.visitStyle( /** @type {?} */ast.styles, context);
+                    }
+            }
+            context.currentAnimateTimings = null;
+            context.previousNode = ast;
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitStyle',
+        value: function visitStyle(ast, context) {
+            // this is a special case when a style() call is issued directly after
+            // a call to animate(). If the clock is not forwarded by one frame then
+            // the style() calls will be merged into the previous animate() call
+            // which is incorrect.
+            if (!context.currentAnimateTimings && context.previousNode.type == 4 /* Animate */) {
+                    context.currentTimeline.forwardFrame();
+                }
+            var /** @type {?} */normalizedStyles = normalizeStyles(ast.styles);
+            var /** @type {?} */easing = context.currentAnimateTimings && context.currentAnimateTimings.easing;
+            if (easing) {
+                normalizedStyles['easing'] = easing;
+            }
+            context.currentTimeline.setStyles(normalizedStyles);
+            context.previousNode = ast;
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitKeyframeSequence',
+        value: function visitKeyframeSequence(ast, context) {
+            var /** @type {?} */MAX_KEYFRAME_OFFSET = 1;
+            var /** @type {?} */limit = ast.steps.length - 1;
+            var /** @type {?} */firstKeyframe = ast.steps[0];
+            var /** @type {?} */offsetGap = 0;
+            var /** @type {?} */containsOffsets = getOffset(firstKeyframe) != null;
+            if (!containsOffsets) {
+                offsetGap = MAX_KEYFRAME_OFFSET / limit;
+            }
+            var /** @type {?} */startTime = context.currentTimeline.duration;
+            var /** @type {?} */duration = context.currentAnimateTimings.duration;
+            var /** @type {?} */innerContext = context.createSubContext();
+            var /** @type {?} */innerTimeline = innerContext.currentTimeline;
+            innerTimeline.easing = context.currentAnimateTimings.easing;
+            ast.steps.forEach(function (step, i) {
+                var /** @type {?} */normalizedStyles = normalizeStyles(step.styles);
+                var /** @type {?} */offset = containsOffsets ? step.offset != null ? step.offset : parseFloat( /** @type {?} */normalizedStyles['offset']) : i == limit ? MAX_KEYFRAME_OFFSET : i * offsetGap;
+                innerTimeline.forwardTime(offset * duration);
+                innerTimeline.setStyles(normalizedStyles);
+            });
+            // this will ensure that the parent timeline gets all the styles from
+            // the child even if the new timeline below is not used
+            context.currentTimeline.mergeTimelineCollectedStyles(innerTimeline);
+            // we do this because the window between this timeline and the sub timeline
+            // should ensure that the styles within are exactly the same as they were before
+            context.transformIntoNewTimeline(startTime + duration);
+            context.previousNode = ast;
+        }
+    }]);
+
+    return AnimationTimelineVisitor;
+}();
+
+var TimelineBuilder = function () {
+    /**
+     * @param {?} startTime
+     * @param {?=} _globalTimelineStyles
+     */
+    function TimelineBuilder(startTime) {
+        var _globalTimelineStyles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+        _classCallCheck(this, TimelineBuilder);
+
+        this.startTime = startTime;
+        this._globalTimelineStyles = _globalTimelineStyles;
+        this.duration = 0;
+        this.easing = '';
+        this._keyframes = new Map();
+        this._styleSummary = {};
+        this._backFill = {};
+        this._localTimelineStyles = Object.create(this._backFill, {});
+        if (!this._globalTimelineStyles) {
+            this._globalTimelineStyles = this._localTimelineStyles;
+        }
+        this._loadKeyframe();
+    }
+    /**
+     * @return {?}
+     */
+
+
+    _createClass(TimelineBuilder, [{
+        key: 'hasStyling',
+        value: function hasStyling() {
+            return this._keyframes.size > 1;
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'fork',
+
+        /**
+         * @param {?=} currentTime
+         * @return {?}
+         */
+        value: function fork() {
+            var currentTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+
+            return new TimelineBuilder(currentTime || this.currentTime, this._globalTimelineStyles);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: '_loadKeyframe',
+        value: function _loadKeyframe() {
+            this._currentKeyframe = this._keyframes.get(this.duration);
+            if (!this._currentKeyframe) {
+                this._currentKeyframe = Object.create(this._backFill, {});
+                this._keyframes.set(this.duration, this._currentKeyframe);
+            }
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'forwardFrame',
+        value: function forwardFrame() {
+            this.duration++;
+            this._loadKeyframe();
+        }
+        /**
+         * @param {?} time
+         * @return {?}
+         */
+
+    }, {
+        key: 'forwardTime',
+        value: function forwardTime(time) {
+            this.duration = time;
+            this._loadKeyframe();
+        }
+        /**
+         * @param {?} prop
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: '_updateStyle',
+        value: function _updateStyle(prop, value) {
+            if (prop != 'easing') {
+                this._localTimelineStyles[prop] = value;
+                this._globalTimelineStyles[prop] = value;
+                this._styleSummary[prop] = { time: this.currentTime, value: value };
+            }
+        }
+        /**
+         * @param {?} styles
+         * @return {?}
+         */
+
+    }, {
+        key: 'setStyles',
+        value: function setStyles(styles) {
+            var _this10 = this;
+
+            Object.keys(styles).forEach(function (prop) {
+                if (prop !== 'offset') {
+                    var /** @type {?} */val = styles[prop];
+                    _this10._currentKeyframe[prop] = val;
+                    if (prop !== 'easing' && !_this10._localTimelineStyles[prop]) {
+                        _this10._backFill[prop] = _this10._globalTimelineStyles[prop] || __WEBPACK_IMPORTED_MODULE_2__angular_animations__["AUTO_STYLE"];
+                    }
+                    _this10._updateStyle(prop, val);
+                }
+            });
+            Object.keys(this._localTimelineStyles).forEach(function (prop) {
+                if (!_this10._currentKeyframe.hasOwnProperty(prop)) {
+                    _this10._currentKeyframe[prop] = _this10._localTimelineStyles[prop];
+                }
+            });
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'snapshotCurrentStyles',
+        value: function snapshotCurrentStyles() {
+            copyStyles(this._localTimelineStyles, false, this._currentKeyframe);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'getFinalKeyframe',
+        value: function getFinalKeyframe() {
+            return this._keyframes.get(this.duration);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'mergeTimelineCollectedStyles',
+
+        /**
+         * @param {?} timeline
+         * @return {?}
+         */
+        value: function mergeTimelineCollectedStyles(timeline) {
+            var _this11 = this;
+
+            Object.keys(timeline._styleSummary).forEach(function (prop) {
+                var /** @type {?} */details0 = _this11._styleSummary[prop];
+                var /** @type {?} */details1 = timeline._styleSummary[prop];
+                if (!details0 || details1.time > details0.time) {
+                    _this11._updateStyle(prop, details1.value);
+                }
+            });
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'buildKeyframes',
+        value: function buildKeyframes() {
+            var _this12 = this;
+
+            var /** @type {?} */finalKeyframes = [];
+            // special case for when there are only start/destination
+            // styles but no actual animation animate steps...
+            if (this.duration == 0) {
+                var /** @type {?} */targetKeyframe = this.getFinalKeyframe();
+                var /** @type {?} */firstKeyframe = copyStyles(targetKeyframe, true);
+                firstKeyframe['offset'] = 0;
+                finalKeyframes.push(firstKeyframe);
+                var /** @type {?} */lastKeyframe = copyStyles(targetKeyframe, true);
+                lastKeyframe['offset'] = 1;
+                finalKeyframes.push(lastKeyframe);
+            } else {
+                this._keyframes.forEach(function (keyframe, time) {
+                    var /** @type {?} */finalKeyframe = copyStyles(keyframe, true);
+                    finalKeyframe['offset'] = time / _this12.duration;
+                    finalKeyframes.push(finalKeyframe);
+                });
+            }
+            return createTimelineInstruction(finalKeyframes, this.duration, this.startTime, this.easing);
+        }
+    }, {
+        key: 'currentTime',
+        get: function get() {
+            return this.startTime + this.duration;
+        }
+    }, {
+        key: 'properties',
+        get: function get() {
+            var /** @type {?} */properties = [];
+            for (var /** @type {?} */prop in this._currentKeyframe) {
+                properties.push(prop);
+            }
+            return properties;
+        }
+    }]);
+
+    return TimelineBuilder;
+}();
+/**
+ * @param {?} ast
+ * @return {?}
+ */
+
+
+function getOffset(ast) {
+    var /** @type {?} */offset = ast.offset;
+    if (offset == null) {
+        var /** @type {?} */styles = ast.styles;
+        if (Array.isArray(styles)) {
+            for (var /** @type {?} */i = 0; i < styles.length; i++) {
+                var /** @type {?} */o = styles[i]['offset'];
+                if (o != null) {
+                    offset = o;
+                    break;
+                }
+            }
+        } else {
+            offset = styles['offset'];
+        }
+    }
+    return offset;
+}
+
+/**
+ * @param {?} triggerName
+ * @param {?} fromState
+ * @param {?} toState
+ * @param {?} isRemovalTransition
+ * @param {?} fromStyles
+ * @param {?} toStyles
+ * @param {?} timelines
+ * @return {?}
+ */
+function createTransitionInstruction(triggerName, fromState, toState, isRemovalTransition, fromStyles, toStyles, timelines) {
+    return {
+        type: 0 /* TransitionAnimation */
+        , triggerName: triggerName,
+        isRemovalTransition: isRemovalTransition,
+        fromState: fromState,
+        fromStyles: fromStyles,
+        toState: toState,
+        toStyles: toStyles,
+        timelines: timelines
+    };
+}
+
+var AnimationTransitionFactory = function () {
+    /**
+     * @param {?} _triggerName
+     * @param {?} ast
+     * @param {?} matchFns
+     * @param {?} _stateStyles
+     */
+    function AnimationTransitionFactory(_triggerName, ast, matchFns, _stateStyles) {
+        _classCallCheck(this, AnimationTransitionFactory);
+
+        this._triggerName = _triggerName;
+        this.matchFns = matchFns;
+        this._stateStyles = _stateStyles;
+        var normalizedAst = Array.isArray(ast.animation) ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_animations__["sequence"])(ast.animation) : ast.animation;
+        this._animationAst = normalizedAst;
+    }
+    /**
+     * @param {?} currentState
+     * @param {?} nextState
+     * @return {?}
+     */
+
+
+    _createClass(AnimationTransitionFactory, [{
+        key: 'match',
+        value: function match(currentState, nextState) {
+            if (!oneOrMoreTransitionsMatch(this.matchFns, currentState, nextState)) return;
+            var /** @type {?} */backupStateStyles = this._stateStyles['*'] || {};
+            var /** @type {?} */currentStateStyles = this._stateStyles[currentState] || backupStateStyles;
+            var /** @type {?} */nextStateStyles = this._stateStyles[nextState] || backupStateStyles;
+            var /** @type {?} */timelines = buildAnimationKeyframes(this._animationAst, currentStateStyles, nextStateStyles);
+            return createTransitionInstruction(this._triggerName, currentState, nextState, nextState === 'void', currentStateStyles, nextStateStyles, timelines);
+        }
+    }]);
+
+    return AnimationTransitionFactory;
+}();
+/**
+ * @param {?} matchFns
+ * @param {?} currentState
+ * @param {?} nextState
+ * @return {?}
+ */
+
+
+function oneOrMoreTransitionsMatch(matchFns, currentState, nextState) {
+    return matchFns.some(function (fn) {
+        return fn(currentState, nextState);
+    });
+}
+
+/**
+ * @param {?} ast
+ * @return {?}
+ */
+function validateAnimationSequence(ast) {
+    var /** @type {?} */normalizedAst = Array.isArray(ast) ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_animations__["sequence"])( /** @type {?} */ast) : ast;
+    return new AnimationValidatorVisitor().validate(normalizedAst);
+}
+
+var AnimationValidatorVisitor = function () {
+    function AnimationValidatorVisitor() {
+        _classCallCheck(this, AnimationValidatorVisitor);
+    }
+
+    _createClass(AnimationValidatorVisitor, [{
+        key: 'validate',
+
+        /**
+         * @param {?} ast
+         * @return {?}
+         */
+        value: function validate(ast) {
+            var /** @type {?} */context = new AnimationValidatorContext();
+            visitAnimationNode(this, ast, context);
+            return context.errors;
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitState',
+        value: function visitState(ast, context) {}
+        // these values are not visited in this AST
+
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitTransition',
+        value: function visitTransition(ast, context) {}
+        // these values are not visited in this AST
+
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitSequence',
+        value: function visitSequence(ast, context) {
+            var _this13 = this;
+
+            ast.steps.forEach(function (step) {
+                return visitAnimationNode(_this13, step, context);
+            });
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitGroup',
+        value: function visitGroup(ast, context) {
+            var _this14 = this;
+
+            var /** @type {?} */currentTime = context.currentTime;
+            var /** @type {?} */furthestTime = 0;
+            ast.steps.forEach(function (step) {
+                context.currentTime = currentTime;
+                visitAnimationNode(_this14, step, context);
+                furthestTime = Math.max(furthestTime, context.currentTime);
+            });
+            context.currentTime = furthestTime;
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitAnimate',
+        value: function visitAnimate(ast, context) {
+            // we reassign the timings here so that they are not reparsed each
+            // time an animation occurs
+            context.currentAnimateTimings = ast.timings = parseTimeExpression( /** @type {?} */ast.timings, context.errors);
+            var /** @type {?} */astType = ast.styles && ast.styles.type;
+            if (astType == 5 /* KeyframeSequence */) {
+                    this.visitKeyframeSequence( /** @type {?} */ast.styles, context);
+                } else {
+                context.currentTime += context.currentAnimateTimings.duration + context.currentAnimateTimings.delay;
+                if (astType == 6 /* Style */) {
+                        this.visitStyle( /** @type {?} */ast.styles, context);
+                    }
+            }
+            context.currentAnimateTimings = null;
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitStyle',
+        value: function visitStyle(ast, context) {
+            var /** @type {?} */styleData = normalizeStyles(ast.styles);
+            var /** @type {?} */timings = context.currentAnimateTimings;
+            var /** @type {?} */endTime = context.currentTime;
+            var /** @type {?} */startTime = context.currentTime;
+            if (timings && startTime > 0) {
+                startTime -= timings.duration + timings.delay;
+            }
+            Object.keys(styleData).forEach(function (prop) {
+                var /** @type {?} */collectedEntry = context.collectedStyles[prop];
+                var /** @type {?} */updateCollectedStyle = true;
+                if (collectedEntry) {
+                    if (startTime != endTime && startTime >= collectedEntry.startTime && endTime <= collectedEntry.endTime) {
+                        context.errors.push('The CSS property "' + prop + '" that exists between the times of "' + collectedEntry.startTime + 'ms" and "' + collectedEntry.endTime + 'ms" is also being animated in a parallel animation between the times of "' + startTime + 'ms" and "' + endTime + 'ms"');
+                        updateCollectedStyle = false;
+                    }
+                    // we always choose the smaller start time value since we
+                    // want to have a record of the entire animation window where
+                    // the style property is being animated in between
+                    startTime = collectedEntry.startTime;
+                }
+                if (updateCollectedStyle) {
+                    context.collectedStyles[prop] = { startTime: startTime, endTime: endTime };
+                }
+            });
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitKeyframeSequence',
+        value: function visitKeyframeSequence(ast, context) {
+            var _this15 = this;
+
+            var /** @type {?} */totalKeyframesWithOffsets = 0;
+            var /** @type {?} */offsets = [];
+            var /** @type {?} */offsetsOutOfOrder = false;
+            var /** @type {?} */keyframesOutOfRange = false;
+            var /** @type {?} */previousOffset = 0;
+            ast.steps.forEach(function (step) {
+                var /** @type {?} */styleData = normalizeStyles(step.styles);
+                var /** @type {?} */offset = 0;
+                if (styleData.hasOwnProperty('offset')) {
+                    totalKeyframesWithOffsets++;
+                    offset = styleData['offset'];
+                }
+                keyframesOutOfRange = keyframesOutOfRange || offset < 0 || offset > 1;
+                offsetsOutOfOrder = offsetsOutOfOrder || offset < previousOffset;
+                previousOffset = offset;
+                offsets.push(offset);
+            });
+            if (keyframesOutOfRange) {
+                context.errors.push('Please ensure that all keyframe offsets are between 0 and 1');
+            }
+            if (offsetsOutOfOrder) {
+                context.errors.push('Please ensure that all keyframe offsets are in order');
+            }
+            var /** @type {?} */length = ast.steps.length;
+            var /** @type {?} */generatedOffset = 0;
+            if (totalKeyframesWithOffsets > 0 && totalKeyframesWithOffsets < length) {
+                context.errors.push('Not all style() steps within the declared keyframes() contain offsets');
+            } else if (totalKeyframesWithOffsets == 0) {
+                generatedOffset = 1 / length;
+            }
+            var /** @type {?} */limit = length - 1;
+            var /** @type {?} */currentTime = context.currentTime;
+            var /** @type {?} */animateDuration = context.currentAnimateTimings.duration;
+            ast.steps.forEach(function (step, i) {
+                var /** @type {?} */offset = generatedOffset > 0 ? i == limit ? 1 : generatedOffset * i : offsets[i];
+                var /** @type {?} */durationUpToThisFrame = offset * animateDuration;
+                context.currentTime = currentTime + context.currentAnimateTimings.delay + durationUpToThisFrame;
+                context.currentAnimateTimings.duration = durationUpToThisFrame;
+                _this15.visitStyle(step, context);
+            });
+        }
+    }]);
+
+    return AnimationValidatorVisitor;
+}();
+
+var AnimationValidatorContext = function AnimationValidatorContext() {
+    _classCallCheck(this, AnimationValidatorContext);
+
+    this.errors = [];
+    this.currentTime = 0;
+    this.collectedStyles = {};
+};
+
+/**
+ * \@experimental Animation support is experimental.
+ * @param {?} name
+ * @param {?} definitions
+ * @return {?}
+ */
+
+
+function buildTrigger(name, definitions) {
+    return new AnimationTriggerVisitor().buildTrigger(name, definitions);
+}
+/**
+ * \@experimental Animation support is experimental.
+ */
+
+var AnimationTrigger = function () {
+    /**
+     * @param {?} name
+     * @param {?} states
+     * @param {?} _transitionAsts
+     */
+    function AnimationTrigger(name, states, _transitionAsts) {
+        var _this16 = this;
+
+        _classCallCheck(this, AnimationTrigger);
+
+        this.name = name;
+        this._transitionAsts = _transitionAsts;
+        this.transitionFactories = [];
+        this.states = {};
+        Object.keys(states).forEach(function (stateName) {
+            _this16.states[stateName] = copyStyles(states[stateName], false);
+        });
+        var errors = [];
+        _transitionAsts.forEach(function (ast) {
+            var exprs = parseTransitionExpr(ast.expr, errors);
+            var sequenceErrors = validateAnimationSequence(ast);
+            if (sequenceErrors.length) {
+                errors.push.apply(errors, _toConsumableArray(sequenceErrors));
+            } else {
+                _this16.transitionFactories.push(new AnimationTransitionFactory(_this16.name, ast, exprs, states));
+            }
+        });
+        if (errors.length) {
+            var LINE_START = '\n - ';
+            throw new Error('Animation parsing for the ' + name + ' trigger have failed:' + LINE_START + errors.join(LINE_START));
+        }
+    }
+    /**
+     * @param {?} currentState
+     * @param {?} nextState
+     * @return {?}
+     */
+
+
+    _createClass(AnimationTrigger, [{
+        key: 'createFallbackInstruction',
+        value: function createFallbackInstruction(currentState, nextState) {
+            var /** @type {?} */backupStateStyles = this.states['*'] || {};
+            var /** @type {?} */currentStateStyles = this.states[currentState] || backupStateStyles;
+            var /** @type {?} */nextStateStyles = this.states[nextState] || backupStateStyles;
+            return createTransitionInstruction(this.name, currentState, nextState, nextState == 'void', currentStateStyles, nextStateStyles, []);
+        }
+        /**
+         * @param {?} currentState
+         * @param {?} nextState
+         * @return {?}
+         */
+
+    }, {
+        key: 'matchTransition',
+        value: function matchTransition(currentState, nextState) {
+            for (var /** @type {?} */i = 0; i < this.transitionFactories.length; i++) {
+                var /** @type {?} */result = this.transitionFactories[i].match(currentState, nextState);
+                if (result) return result;
+            }
+        }
+    }]);
+
+    return AnimationTrigger;
+}();
+
+var AnimationTriggerContext = function AnimationTriggerContext() {
+    _classCallCheck(this, AnimationTriggerContext);
+
+    this.errors = [];
+    this.states = {};
+    this.transitions = [];
+};
+
+var AnimationTriggerVisitor = function () {
+    function AnimationTriggerVisitor() {
+        _classCallCheck(this, AnimationTriggerVisitor);
+    }
+
+    _createClass(AnimationTriggerVisitor, [{
+        key: 'buildTrigger',
+
+        /**
+         * @param {?} name
+         * @param {?} definitions
+         * @return {?}
+         */
+        value: function buildTrigger(name, definitions) {
+            var _this17 = this;
+
+            var /** @type {?} */context = new AnimationTriggerContext();
+            definitions.forEach(function (def) {
+                return visitAnimationNode(_this17, def, context);
+            });
+            return new AnimationTrigger(name, context.states, context.transitions);
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitState',
+        value: function visitState(ast, context) {
+            context.states[ast.name] = normalizeStyles(ast.styles.styles);
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitTransition',
+        value: function visitTransition(ast, context) {
+            context.transitions.push(ast);
+        }
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitSequence',
+        value: function visitSequence(ast, context) {}
+        // these values are not visited in this AST
+
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitGroup',
+        value: function visitGroup(ast, context) {}
+        // these values are not visited in this AST
+
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitAnimate',
+        value: function visitAnimate(ast, context) {}
+        // these values are not visited in this AST
+
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitStyle',
+        value: function visitStyle(ast, context) {}
+        // these values are not visited in this AST
+
+        /**
+         * @param {?} ast
+         * @param {?} context
+         * @return {?}
+         */
+
+    }, {
+        key: 'visitKeyframeSequence',
+        value: function visitKeyframeSequence(ast, context) {
+            // these values are not visited in this AST
+        }
+    }]);
+
+    return AnimationTriggerVisitor;
+}();
+
+var /** @type {?} */MARKED_FOR_ANIMATION = 'ng-animate';
+var /** @type {?} */MARKED_FOR_REMOVAL = '$$ngRemove';
+
+var DomAnimationEngine = function () {
+    /**
+     * @param {?} _driver
+     * @param {?} _normalizer
+     */
+    function DomAnimationEngine(_driver, _normalizer) {
+        _classCallCheck(this, DomAnimationEngine);
+
+        this._driver = _driver;
+        this._normalizer = _normalizer;
+        this._flaggedInserts = new Set();
+        this._queuedRemovals = new Map();
+        this._queuedTransitionAnimations = [];
+        this._activeTransitionAnimations = new Map();
+        this._activeElementAnimations = new Map();
+        this._elementTriggerStates = new Map();
+        this._triggers = Object.create(null);
+        this._triggerListeners = new Map();
+    }
+    /**
+     * @return {?}
+     */
+
+
+    _createClass(DomAnimationEngine, [{
+        key: 'registerTrigger',
+
+        /**
+         * @param {?} trigger
+         * @param {?=} name
+         * @return {?}
+         */
+        value: function registerTrigger(trigger) {
+            var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+            name = name || trigger.name;
+            if (this._triggers[name]) {
+                return;
+            }
+            this._triggers[name] = buildTrigger(name, trigger.definitions);
+        }
+        /**
+         * @param {?} element
+         * @param {?} domFn
+         * @return {?}
+         */
+
+    }, {
+        key: 'onInsert',
+        value: function onInsert(element, domFn) {
+            this._flaggedInserts.add(element);
+            domFn();
+        }
+        /**
+         * @param {?} element
+         * @param {?} domFn
+         * @return {?}
+         */
+
+    }, {
+        key: 'onRemove',
+        value: function onRemove(element, domFn) {
+            var _this18 = this;
+
+            var /** @type {?} */lookupRef = this._elementTriggerStates.get(element);
+            if (lookupRef) {
+                var /** @type {?} */possibleTriggers = Object.keys(lookupRef);
+                var /** @type {?} */hasRemoval = possibleTriggers.some(function (triggerName) {
+                    var /** @type {?} */oldValue = lookupRef[triggerName];
+                    var /** @type {?} */instruction = _this18._triggers[triggerName].matchTransition(oldValue, 'void');
+                    return !!instruction;
+                });
+                if (hasRemoval) {
+                    element[MARKED_FOR_REMOVAL] = true;
+                    this._queuedRemovals.set(element, domFn);
+                    return;
+                }
+            }
+            domFn();
+        }
+        /**
+         * @param {?} element
+         * @param {?} property
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: 'setProperty',
+        value: function setProperty(element, property, value) {
+            var /** @type {?} */trigger = this._triggers[property];
+            if (!trigger) {
+                throw new Error('The provided animation trigger "' + property + '" has not been registered!');
+            }
+            var /** @type {?} */lookupRef = this._elementTriggerStates.get(element);
+            if (!lookupRef) {
+                this._elementTriggerStates.set(element, lookupRef = {});
+            }
+            var /** @type {?} */oldValue = lookupRef[property] || 'void';
+            if (oldValue != value) {
+                var /** @type {?} */instruction = trigger.matchTransition(oldValue, value);
+                if (!instruction) {
+                    // we do this to make sure we always have an animation player so
+                    // that callback operations are properly called
+                    instruction = trigger.createFallbackInstruction(oldValue, value);
+                }
+                this.animateTransition(element, instruction);
+                lookupRef[property] = value;
+            }
+        }
+        /**
+         * @param {?} element
+         * @param {?} eventName
+         * @param {?} eventPhase
+         * @param {?} callback
+         * @return {?}
+         */
+
+    }, {
+        key: 'listen',
+        value: function listen(element, eventName, eventPhase, callback) {
+            if (!eventPhase) {
+                throw new Error('Unable to listen on the animation trigger "' + eventName + '" because the provided event is undefined!');
+            }
+            if (!this._triggers[eventName]) {
+                throw new Error('Unable to listen on the animation trigger event "' + eventPhase + '" because the animation trigger "' + eventName + '" doesn\'t exist!');
+            }
+            var /** @type {?} */elementListeners = this._triggerListeners.get(element);
+            if (!elementListeners) {
+                this._triggerListeners.set(element, elementListeners = []);
+            }
+            validatePlayerEvent(eventName, eventPhase);
+            var /** @type {?} */tuple = { triggerName: eventName, phase: eventPhase, callback: callback };
+            elementListeners.push(tuple);
+            return function () {
+                var /** @type {?} */index = elementListeners.indexOf(tuple);
+                if (index >= 0) {
+                    elementListeners.splice(index, 1);
+                }
+            };
+        }
+        /**
+         * @param {?} element
+         * @return {?}
+         */
+
+    }, {
+        key: '_onRemovalTransition',
+        value: function _onRemovalTransition(element) {
+            var _this19 = this;
+
+            // when a parent animation is set to trigger a removal we want to
+            // find all of the children that are currently animating and clear
+            // them out by destroying each of them.
+            var /** @type {?} */elms = element.querySelectorAll(MARKED_FOR_ANIMATION);
+
+            var _loop = function _loop(i) {
+                var /** @type {?} */elm = elms[i];
+                var /** @type {?} */activePlayers = _this19._activeElementAnimations.get(elm);
+                if (activePlayers) {
+                    activePlayers.forEach(function (player) {
+                        return player.destroy();
+                    });
+                }
+                var /** @type {?} */activeTransitions = _this19._activeTransitionAnimations.get(elm);
+                if (activeTransitions) {
+                    Object.keys(activeTransitions).forEach(function (triggerName) {
+                        var /** @type {?} */player = activeTransitions[triggerName];
+                        if (player) {
+                            player.destroy();
+                        }
+                    });
+                }
+            };
+
+            for (var /** @type {?} */i = 0; i < elms.length; i++) {
+                _loop(i);
+            }
+            // we make a copy of the array because the actual source array is modified
+            // each time a player is finished/destroyed (the forEach loop would fail otherwise)
+            return copyArray(this._activeElementAnimations.get(element));
+        }
+        /**
+         * @param {?} element
+         * @param {?} instruction
+         * @return {?}
+         */
+
+    }, {
+        key: 'animateTransition',
+        value: function animateTransition(element, instruction) {
+            var _this20 = this;
+
+            var /** @type {?} */triggerName = instruction.triggerName;
+            var /** @type {?} */previousPlayers = void 0;
+            if (instruction.isRemovalTransition) {
+                previousPlayers = this._onRemovalTransition(element);
+            } else {
+                previousPlayers = [];
+                var /** @type {?} */existingTransitions = this._activeTransitionAnimations.get(element);
+                var /** @type {?} */existingPlayer = existingTransitions ? existingTransitions[triggerName] : null;
+                if (existingPlayer) {
+                    previousPlayers.push(existingPlayer);
+                }
+            }
+            // it's important to do this step before destroying the players
+            // so that the onDone callback below won't fire before this
+            eraseStyles(element, instruction.fromStyles);
+            // we first run this so that the previous animation player
+            // data can be passed into the successive animation players
+            var /** @type {?} */totalTime = 0;
+            var /** @type {?} */players = instruction.timelines.map(function (timelineInstruction) {
+                totalTime = Math.max(totalTime, timelineInstruction.totalTime);
+                return _this20._buildPlayer(element, timelineInstruction, previousPlayers);
+            });
+            previousPlayers.forEach(function (previousPlayer) {
+                return previousPlayer.destroy();
+            });
+            var /** @type {?} */player = optimizeGroupPlayer(players);
+            player.onDone(function () {
+                player.destroy();
+                var /** @type {?} */elmTransitionMap = _this20._activeTransitionAnimations.get(element);
+                if (elmTransitionMap) {
+                    delete elmTransitionMap[triggerName];
+                    if (Object.keys(elmTransitionMap).length == 0) {
+                        _this20._activeTransitionAnimations.delete(element);
+                    }
+                }
+                deleteFromArrayMap(_this20._activeElementAnimations, element, player);
+                setStyles(element, instruction.toStyles);
+            });
+            var /** @type {?} */elmTransitionMap = getOrSetAsInMap(this._activeTransitionAnimations, element, {});
+            elmTransitionMap[triggerName] = player;
+            this._queuePlayer(element, triggerName, player, makeAnimationEvent(element, triggerName, instruction.fromState, instruction.toState, null, // this will be filled in during event creation
+            totalTime));
+            return player;
+        }
+        /**
+         * @param {?} element
+         * @param {?} instructions
+         * @param {?=} previousPlayers
+         * @return {?}
+         */
+
+    }, {
+        key: 'animateTimeline',
+        value: function animateTimeline(element, instructions) {
+            var _this21 = this;
+
+            var previousPlayers = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+
+            var /** @type {?} */players = instructions.map(function (instruction) {
+                var /** @type {?} */player = _this21._buildPlayer(element, instruction, previousPlayers);
+                player.onDestroy(function () {
+                    deleteFromArrayMap(_this21._activeElementAnimations, element, player);
+                });
+                player.init();
+                _this21._markPlayerAsActive(element, player);
+                return player;
+            });
+            return optimizeGroupPlayer(players);
+        }
+        /**
+         * @param {?} element
+         * @param {?} instruction
+         * @param {?} previousPlayers
+         * @return {?}
+         */
+
+    }, {
+        key: '_buildPlayer',
+        value: function _buildPlayer(element, instruction, previousPlayers) {
+            return this._driver.animate(element, this._normalizeKeyframes(instruction.keyframes), instruction.duration, instruction.delay, instruction.easing, previousPlayers);
+        }
+        /**
+         * @param {?} keyframes
+         * @return {?}
+         */
+
+    }, {
+        key: '_normalizeKeyframes',
+        value: function _normalizeKeyframes(keyframes) {
+            var _this22 = this;
+
+            var /** @type {?} */errors = [];
+            var /** @type {?} */normalizedKeyframes = [];
+            keyframes.forEach(function (kf) {
+                var /** @type {?} */normalizedKeyframe = {};
+                Object.keys(kf).forEach(function (prop) {
+                    var /** @type {?} */normalizedProp = prop;
+                    var /** @type {?} */normalizedValue = kf[prop];
+                    if (prop != 'offset') {
+                        normalizedProp = _this22._normalizer.normalizePropertyName(prop, errors);
+                        normalizedValue = _this22._normalizer.normalizeStyleValue(prop, normalizedProp, kf[prop], errors);
+                    }
+                    normalizedKeyframe[normalizedProp] = normalizedValue;
+                });
+                normalizedKeyframes.push(normalizedKeyframe);
+            });
+            if (errors.length) {
+                var /** @type {?} */LINE_START = '\n - ';
+                throw new Error('Unable to animate due to the following errors:' + LINE_START + errors.join(LINE_START));
+            }
+            return normalizedKeyframes;
+        }
+        /**
+         * @param {?} element
+         * @param {?} player
+         * @return {?}
+         */
+
+    }, {
+        key: '_markPlayerAsActive',
+        value: function _markPlayerAsActive(element, player) {
+            var /** @type {?} */elementAnimations = getOrSetAsInMap(this._activeElementAnimations, element, []);
+            elementAnimations.push(player);
+        }
+        /**
+         * @param {?} element
+         * @param {?} triggerName
+         * @param {?} player
+         * @param {?} event
+         * @return {?}
+         */
+
+    }, {
+        key: '_queuePlayer',
+        value: function _queuePlayer(element, triggerName, player, event) {
+            var /** @type {?} */tuple = { element: element, player: player, triggerName: triggerName, event: event };
+            this._queuedTransitionAnimations.push(tuple);
+            player.init();
+            element.classList.add(MARKED_FOR_ANIMATION);
+            player.onDone(function () {
+                element.classList.remove(MARKED_FOR_ANIMATION);
+            });
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: '_flushQueuedAnimations',
+        value: function _flushQueuedAnimations() {
+            var _this23 = this;
+
+            var _loop2 = function _loop2() {
+                var _queuedTransitionAnim = _this23._queuedTransitionAnimations.shift(),
+                    player = _queuedTransitionAnim.player,
+                    element = _queuedTransitionAnim.element,
+                    triggerName = _queuedTransitionAnim.triggerName,
+                    event = _queuedTransitionAnim.event;
+
+                var /** @type {?} */parent = element;
+                while (parent = parent.parentNode) {
+                    // this means that a parent element will or will not
+                    // have its own animation operation which in this case
+                    // there's no point in even trying to do an animation
+                    if (parent[MARKED_FOR_REMOVAL]) return 'continue|parentLoop';
+                }
+                // if a removal exists for the given element then we need cancel
+                // all the queued players so that a proper removal animation can go
+                if (_this23._queuedRemovals.has(element)) {
+                    player.destroy();
+                    return 'continue';
+                }
+                var /** @type {?} */listeners = _this23._triggerListeners.get(element);
+                if (listeners) {
+                    listeners.forEach(function (tuple) {
+                        if (tuple.triggerName == triggerName) {
+                            listenOnPlayer(player, tuple.phase, event, tuple.callback);
+                        }
+                    });
+                }
+                _this23._markPlayerAsActive(element, player);
+                // in the event that an animation throws an error then we do
+                // not want to re-run animations on any previous animations
+                // if they have already been kicked off beforehand
+                if (!player.hasStarted()) {
+                    player.play();
+                }
+            };
+
+            parentLoop: while (this._queuedTransitionAnimations.length) {
+                var _ret2 = _loop2();
+
+                switch (_ret2) {
+                    case 'continue|parentLoop':
+                        continue parentLoop;
+
+                    case 'continue':
+                        continue;}
+            }
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'flush',
+        value: function flush() {
+            var _this24 = this;
+
+            this._flushQueuedAnimations();
+            var /** @type {?} */flushAgain = false;
+            this._queuedRemovals.forEach(function (callback, element) {
+                // an item that was inserted/removed in the same flush means
+                // that an animation should not happen anyway
+                if (_this24._flaggedInserts.has(element)) return;
+                var /** @type {?} */parent = element;
+                var /** @type {?} */players = [];
+                while (parent = parent.parentNode) {
+                    // there is no reason to even try to
+                    if (parent[MARKED_FOR_REMOVAL]) {
+                        callback();
+                        return;
+                    }
+                    var /** @type {?} */match = _this24._activeElementAnimations.get(parent);
+                    if (match) {
+                        players.push.apply(players, _toConsumableArray(match));
+                        break;
+                    }
+                }
+                // the loop was unable to find an parent that is animating even
+                // though this element has set to be removed, so the algorithm
+                // should check to see if there are any triggers on the element
+                // that are present to handle a leave animation and then setup
+                // those players to facilitate the callback after done
+                if (players.length == 0) {
+                    // this means that the element has valid state triggers
+                    var /** @type {?} */stateDetails = _this24._elementTriggerStates.get(element);
+                    if (stateDetails) {
+                        Object.keys(stateDetails).forEach(function (triggerName) {
+                            var /** @type {?} */oldValue = stateDetails[triggerName];
+                            var /** @type {?} */instruction = _this24._triggers[triggerName].matchTransition(oldValue, 'void');
+                            if (instruction) {
+                                players.push(_this24.animateTransition(element, instruction));
+                                flushAgain = true;
+                            }
+                        });
+                    }
+                }
+                if (players.length) {
+                    optimizeGroupPlayer(players).onDone(callback);
+                } else {
+                    callback();
+                }
+            });
+            this._queuedRemovals.clear();
+            this._flaggedInserts.clear();
+            // this means that one or more leave animations were detected
+            if (flushAgain) {
+                this._flushQueuedAnimations();
+            }
+        }
+    }, {
+        key: 'queuedPlayers',
+        get: function get() {
+            return this._queuedTransitionAnimations.map(function (q) {
+                return q.player;
+            });
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'activePlayers',
+        get: function get() {
+            var /** @type {?} */players = [];
+            this._activeElementAnimations.forEach(function (activePlayers) {
+                return players.push.apply(players, _toConsumableArray(activePlayers));
+            });
+            return players;
+        }
+    }]);
+
+    return DomAnimationEngine;
+}();
+/**
+ * @param {?} map
+ * @param {?} key
+ * @param {?} defaultValue
+ * @return {?}
+ */
+
+
+function getOrSetAsInMap(map, key, defaultValue) {
+    var /** @type {?} */value = map.get(key);
+    if (!value) {
+        map.set(key, value = defaultValue);
+    }
+    return value;
+}
+/**
+ * @param {?} map
+ * @param {?} key
+ * @param {?} value
+ * @return {?}
+ */
+function deleteFromArrayMap(map, key, value) {
+    var /** @type {?} */arr = map.get(key);
+    if (arr) {
+        var /** @type {?} */index = arr.indexOf(value);
+        if (index >= 0) {
+            arr.splice(index, 1);
+            if (arr.length == 0) {
+                map.delete(key);
+            }
+        }
+    }
+}
+/**
+ * @param {?} players
+ * @return {?}
+ */
+function optimizeGroupPlayer(players) {
+    switch (players.length) {
+        case 0:
+            return new __WEBPACK_IMPORTED_MODULE_2__angular_animations__["NoopAnimationPlayer"]();
+        case 1:
+            return players[0];
+        default:
+            return new __WEBPACK_IMPORTED_MODULE_2__angular_animations__["ɵAnimationGroupPlayer"](players);
+    }
+}
+/**
+ * @param {?} source
+ * @return {?}
+ */
+function copyArray(source) {
+    return source ? source.splice(0) : [];
+}
+/**
+ * @param {?} triggerName
+ * @param {?} eventName
+ * @return {?}
+ */
+function validatePlayerEvent(triggerName, eventName) {
+    switch (eventName) {
+        case 'start':
+        case 'done':
+            return;
+        default:
+            throw new Error('The provided animation trigger event "' + eventName + '" for the animation trigger "' + triggerName + '" is not supported!');
+    }
+}
+/**
+ * @param {?} player
+ * @param {?} eventName
+ * @param {?} baseEvent
+ * @param {?} callback
+ * @return {?}
+ */
+function listenOnPlayer(player, eventName, baseEvent, callback) {
+    switch (eventName) {
+        case 'start':
+            player.onStart(function () {
+                var /** @type {?} */event = copyAnimationEvent(baseEvent);
+                event.phaseName = 'start';
+                callback(event);
+            });
+            break;
+        case 'done':
+            player.onDone(function () {
+                var /** @type {?} */event = copyAnimationEvent(baseEvent);
+                event.phaseName = 'done';
+                callback(event);
+            });
+            break;
+    }
+}
+/**
+ * @param {?} e
+ * @return {?}
+ */
+function copyAnimationEvent(e) {
+    return makeAnimationEvent(e.element, e.triggerName, e.fromState, e.toState, e.phaseName, e.totalTime);
+}
+/**
+ * @param {?} element
+ * @param {?} triggerName
+ * @param {?} fromState
+ * @param {?} toState
+ * @param {?} phaseName
+ * @param {?} totalTime
+ * @return {?}
+ */
+function makeAnimationEvent(element, triggerName, fromState, toState, phaseName, totalTime) {
+    return { element: element, triggerName: triggerName, fromState: fromState, toState: toState, phaseName: phaseName, totalTime: totalTime };
+}
+
+var /** @type {?} */DEFAULT_STATE_VALUE = 'void';
+var /** @type {?} */DEFAULT_STATE_STYLES = '*';
+
+var NoopAnimationEngine = function (_AnimationEngine) {
+    _inherits(NoopAnimationEngine, _AnimationEngine);
+
+    function NoopAnimationEngine() {
+        _classCallCheck(this, NoopAnimationEngine);
+
+        var _this25 = _possibleConstructorReturn(this, (NoopAnimationEngine.__proto__ || Object.getPrototypeOf(NoopAnimationEngine)).apply(this, arguments));
+
+        _this25._listeners = new Map();
+        _this25._changes = [];
+        _this25._flaggedRemovals = new Set();
+        _this25._onDoneFns = [];
+        _this25._triggerStyles = Object.create(null);
+        return _this25;
+    }
+    /**
+     * @param {?} trigger
+     * @param {?=} name
+     * @return {?}
+     */
+
+
+    _createClass(NoopAnimationEngine, [{
+        key: 'registerTrigger',
+        value: function registerTrigger(trigger) {
+            var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+            name = name || trigger.name;
+            if (this._triggerStyles[name]) {
+                return;
+            }
+            var /** @type {?} */stateMap = {};
+            trigger.definitions.forEach(function (def) {
+                if (def.type === 0 /* State */) {
+                        var /** @type {?} */stateDef = def;
+                        stateMap[stateDef.name] = normalizeStyles(stateDef.styles.styles);
+                    }
+            });
+            this._triggerStyles[name] = stateMap;
+        }
+        /**
+         * @param {?} element
+         * @param {?} domFn
+         * @return {?}
+         */
+
+    }, {
+        key: 'onInsert',
+        value: function onInsert(element, domFn) {
+            domFn();
+        }
+        /**
+         * @param {?} element
+         * @param {?} domFn
+         * @return {?}
+         */
+
+    }, {
+        key: 'onRemove',
+        value: function onRemove(element, domFn) {
+            domFn();
+            this._flaggedRemovals.add(element);
+        }
+        /**
+         * @param {?} element
+         * @param {?} property
+         * @param {?} value
+         * @return {?}
+         */
+
+    }, {
+        key: 'setProperty',
+        value: function setProperty(element, property, value) {
+            var /** @type {?} */storageProp = makeStorageProp(property);
+            var /** @type {?} */oldValue = element[storageProp] || DEFAULT_STATE_VALUE;
+            this._changes.push( /** @type {?} */{ element: element, oldValue: oldValue, newValue: value, triggerName: property });
+            var /** @type {?} */triggerStateStyles = this._triggerStyles[property] || {};
+            var /** @type {?} */fromStateStyles = triggerStateStyles[oldValue] || triggerStateStyles[DEFAULT_STATE_STYLES];
+            if (fromStateStyles) {
+                eraseStyles(element, fromStateStyles);
+            }
+            element[storageProp] = value;
+            this._onDoneFns.push(function () {
+                var /** @type {?} */toStateStyles = triggerStateStyles[value] || triggerStateStyles[DEFAULT_STATE_STYLES];
+                if (toStateStyles) {
+                    setStyles(element, toStateStyles);
+                }
+            });
+        }
+        /**
+         * @param {?} element
+         * @param {?} eventName
+         * @param {?} eventPhase
+         * @param {?} callback
+         * @return {?}
+         */
+
+    }, {
+        key: 'listen',
+        value: function listen(element, eventName, eventPhase, callback) {
+            var /** @type {?} */listeners = this._listeners.get(element);
+            if (!listeners) {
+                this._listeners.set(element, listeners = []);
+            }
+            var /** @type {?} */tuple = { triggerName: eventName, eventPhase: eventPhase, callback: callback };
+            listeners.push(tuple);
+            return function () {
+                return tuple.doRemove = true;
+            };
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'flush',
+        value: function flush() {
+            var _this26 = this;
+
+            var /** @type {?} */onStartCallbacks = [];
+            var /** @type {?} */onDoneCallbacks = [];
+            /**
+             * @param {?} listener
+             * @param {?} data
+             * @return {?}
+             */
+            function handleListener(listener, data) {
+                var /** @type {?} */phase = listener.eventPhase;
+                var /** @type {?} */event = makeAnimationEvent$1(data.element, data.triggerName, data.oldValue, data.newValue, phase, 0);
+                if (phase == 'start') {
+                    onStartCallbacks.push(function () {
+                        return listener.callback(event);
+                    });
+                } else if (phase == 'done') {
+                    onDoneCallbacks.push(function () {
+                        return listener.callback(event);
+                    });
+                }
+            }
+            this._changes.forEach(function (change) {
+                var /** @type {?} */element = change.element;
+                var /** @type {?} */listeners = _this26._listeners.get(element);
+                if (listeners) {
+                    listeners.forEach(function (listener) {
+                        if (listener.triggerName == change.triggerName) {
+                            handleListener(listener, change);
+                        }
+                    });
+                }
+            });
+            // upon removal ALL the animation triggers need to get fired
+            this._flaggedRemovals.forEach(function (element) {
+                var /** @type {?} */listeners = _this26._listeners.get(element);
+                if (listeners) {
+                    listeners.forEach(function (listener) {
+                        var /** @type {?} */triggerName = listener.triggerName;
+                        var /** @type {?} */storageProp = makeStorageProp(triggerName);
+                        handleListener(listener, /** @type {?} */{
+                            element: element,
+                            triggerName: triggerName,
+                            oldValue: element[storageProp] || DEFAULT_STATE_VALUE,
+                            newValue: DEFAULT_STATE_VALUE
+                        });
+                    });
+                }
+            });
+            // remove all the listeners after everything is complete
+            Array.from(this._listeners.keys()).forEach(function (element) {
+                var /** @type {?} */listenersToKeep = _this26._listeners.get(element).filter(function (l) {
+                    return !l.doRemove;
+                });
+                if (listenersToKeep.length) {
+                    _this26._listeners.set(element, listenersToKeep);
+                } else {
+                    _this26._listeners.delete(element);
+                }
+            });
+            onStartCallbacks.forEach(function (fn) {
+                return fn();
+            });
+            onDoneCallbacks.forEach(function (fn) {
+                return fn();
+            });
+            this._flaggedRemovals.clear();
+            this._changes = [];
+            this._onDoneFns.forEach(function (doneFn) {
+                return doneFn();
+            });
+            this._onDoneFns = [];
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'activePlayers',
+        get: function get() {
+            return [];
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'queuedPlayers',
+        get: function get() {
+            return [];
+        }
+    }]);
+
+    return NoopAnimationEngine;
+}(AnimationEngine);
+/**
+ * @param {?} element
+ * @param {?} triggerName
+ * @param {?} fromState
+ * @param {?} toState
+ * @param {?} phaseName
+ * @param {?} totalTime
+ * @return {?}
+ */
+
+
+function makeAnimationEvent$1(element, triggerName, fromState, toState, phaseName, totalTime) {
+    return { element: element, triggerName: triggerName, fromState: fromState, toState: toState, phaseName: phaseName, totalTime: totalTime };
+}
+/**
+ * @param {?} property
+ * @return {?}
+ */
+function makeStorageProp(property) {
+    return '_@_' + property;
+}
+
+var WebAnimationsPlayer = function () {
+    /**
+     * @param {?} element
+     * @param {?} keyframes
+     * @param {?} options
+     * @param {?=} previousPlayers
+     */
+    function WebAnimationsPlayer(element, keyframes, options) {
+        var _this27 = this;
+
+        var previousPlayers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+
+        _classCallCheck(this, WebAnimationsPlayer);
+
+        this.element = element;
+        this.keyframes = keyframes;
+        this.options = options;
+        this._onDoneFns = [];
+        this._onStartFns = [];
+        this._onDestroyFns = [];
+        this._initialized = false;
+        this._finished = false;
+        this._started = false;
+        this._destroyed = false;
+        this.time = 0;
+        this.parentPlayer = null;
+        this._duration = options['duration'];
+        this._delay = options['delay'] || 0;
+        this.time = this._duration + this._delay;
+        this.previousStyles = {};
+        previousPlayers.forEach(function (player) {
+            var styles = player._captureStyles();
+            Object.keys(styles).forEach(function (prop) {
+                return _this27.previousStyles[prop] = styles[prop];
+            });
+        });
+    }
+    /**
+     * @return {?}
+     */
+
+
+    _createClass(WebAnimationsPlayer, [{
+        key: '_onFinish',
+        value: function _onFinish() {
+            if (!this._finished) {
+                this._finished = true;
+                this._onDoneFns.forEach(function (fn) {
+                    return fn();
+                });
+                this._onDoneFns = [];
+            }
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'init',
+        value: function init() {
+            var _this28 = this;
+
+            if (this._initialized) return;
+            this._initialized = true;
+            var /** @type {?} */keyframes = this.keyframes.map(function (styles) {
+                var /** @type {?} */formattedKeyframe = {};
+                Object.keys(styles).forEach(function (prop, index) {
+                    var /** @type {?} */value = styles[prop];
+                    if (value == __WEBPACK_IMPORTED_MODULE_2__angular_animations__["AUTO_STYLE"]) {
+                        value = _computeStyle(_this28.element, prop);
+                    }
+                    if (value != undefined) {
+                        formattedKeyframe[prop] = value;
+                    }
+                });
+                return formattedKeyframe;
+            });
+            var /** @type {?} */previousStyleProps = Object.keys(this.previousStyles);
+            if (previousStyleProps.length) {
+                var /** @type {?} */startingKeyframe = keyframes[0];
+                var /** @type {?} */missingStyleProps = [];
+                previousStyleProps.forEach(function (prop) {
+                    if (startingKeyframe[prop] != null) {
+                        missingStyleProps.push(prop);
+                    }
+                    startingKeyframe[prop] = _this28.previousStyles[prop];
+                });
+                if (missingStyleProps.length) {
+                    var i;
+
+                    (function () {
+                        var /** @type {?} */self = _this28;
+                        // tslint:disable-next-line
+
+                        var _loop3 = function _loop3() {
+                            var /** @type {?} */kf = keyframes[i];
+                            missingStyleProps.forEach(function (prop) {
+                                kf[prop] = _computeStyle(self.element, prop);
+                            });
+                        };
+
+                        for ( /** @type {?} */i = 1; i < keyframes.length; i++) {
+                            _loop3();
+                        }
+                    })();
+                }
+            }
+            this._player = this._triggerWebAnimation(this.element, keyframes, this.options);
+            this._finalKeyframe = keyframes.length ? _copyKeyframeStyles(keyframes[keyframes.length - 1]) : {};
+            // this is required so that the player doesn't start to animate right away
+            this._resetDomPlayerState();
+            this._player.addEventListener('finish', function () {
+                return _this28._onFinish();
+            });
+        }
+        /**
+         * \@internal
+         * @param {?} element
+         * @param {?} keyframes
+         * @param {?} options
+         * @return {?}
+         */
+
+    }, {
+        key: '_triggerWebAnimation',
+        value: function _triggerWebAnimation(element, keyframes, options) {
+            // jscompiler doesn't seem to know animate is a native property because it's not fully
+            // supported yet across common browsers (we polyfill it for Edge/Safari) [CL #143630929]
+            return element['animate'](keyframes, options);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'onStart',
+
+        /**
+         * @param {?} fn
+         * @return {?}
+         */
+        value: function onStart(fn) {
+            this._onStartFns.push(fn);
+        }
+        /**
+         * @param {?} fn
+         * @return {?}
+         */
+
+    }, {
+        key: 'onDone',
+        value: function onDone(fn) {
+            this._onDoneFns.push(fn);
+        }
+        /**
+         * @param {?} fn
+         * @return {?}
+         */
+
+    }, {
+        key: 'onDestroy',
+        value: function onDestroy(fn) {
+            this._onDestroyFns.push(fn);
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'play',
+        value: function play() {
+            this.init();
+            if (!this.hasStarted()) {
+                this._onStartFns.forEach(function (fn) {
+                    return fn();
+                });
+                this._onStartFns = [];
+                this._started = true;
+            }
+            this._player.play();
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'pause',
+        value: function pause() {
+            this.init();
+            this._player.pause();
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'finish',
+        value: function finish() {
+            this.init();
+            this._onFinish();
+            this._player.finish();
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'reset',
+        value: function reset() {
+            this._resetDomPlayerState();
+            this._destroyed = false;
+            this._finished = false;
+            this._started = false;
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: '_resetDomPlayerState',
+        value: function _resetDomPlayerState() {
+            if (this._player) {
+                this._player.cancel();
+            }
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'restart',
+        value: function restart() {
+            this.reset();
+            this.play();
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'hasStarted',
+        value: function hasStarted() {
+            return this._started;
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'destroy',
+        value: function destroy() {
+            if (!this._destroyed) {
+                this._resetDomPlayerState();
+                this._onFinish();
+                this._destroyed = true;
+                this._onDestroyFns.forEach(function (fn) {
+                    return fn();
+                });
+                this._onDestroyFns = [];
+            }
+        }
+        /**
+         * @param {?} p
+         * @return {?}
+         */
+
+    }, {
+        key: 'setPosition',
+        value: function setPosition(p) {
+            this._player.currentTime = p * this.time;
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: 'getPosition',
+        value: function getPosition() {
+            return this._player.currentTime / this.time;
+        }
+        /**
+         * @return {?}
+         */
+
+    }, {
+        key: '_captureStyles',
+        value: function _captureStyles() {
+            var _this29 = this;
+
+            var /** @type {?} */styles = {};
+            if (this.hasStarted()) {
+                Object.keys(this._finalKeyframe).forEach(function (prop) {
+                    if (prop != 'offset') {
+                        styles[prop] = _this29._finished ? _this29._finalKeyframe[prop] : _computeStyle(_this29.element, prop);
+                    }
+                });
+            }
+            return styles;
+        }
+    }, {
+        key: 'domPlayer',
+        get: function get() {
+            return this._player;
+        }
+    }]);
+
+    return WebAnimationsPlayer;
+}();
+/**
+ * @param {?} element
+ * @param {?} prop
+ * @return {?}
+ */
+
+
+function _computeStyle(element, prop) {
+    return window.getComputedStyle(element)[prop];
+}
+/**
+ * @param {?} styles
+ * @return {?}
+ */
+function _copyKeyframeStyles(styles) {
+    var /** @type {?} */newStyles = {};
+    Object.keys(styles).forEach(function (prop) {
+        if (prop != 'offset') {
+            newStyles[prop] = styles[prop];
+        }
+    });
+    return newStyles;
+}
+
+var WebAnimationsDriver = function () {
+    function WebAnimationsDriver() {
+        _classCallCheck(this, WebAnimationsDriver);
+    }
+
+    _createClass(WebAnimationsDriver, [{
+        key: 'animate',
+
+        /**
+         * @param {?} element
+         * @param {?} keyframes
+         * @param {?} duration
+         * @param {?} delay
+         * @param {?} easing
+         * @param {?=} previousPlayers
+         * @return {?}
+         */
+        value: function animate(element, keyframes, duration, delay, easing) {
+            var previousPlayers = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : [];
+
+            var /** @type {?} */playerOptions = { 'duration': duration, 'delay': delay, 'fill': 'forwards' };
+            // we check for this to avoid having a null|undefined value be present
+            // for the easing (which results in an error for certain browsers #9752)
+            if (easing) {
+                playerOptions['easing'] = easing;
+            }
+            var /** @type {?} */previousWebAnimationPlayers = previousPlayers.filter(function (player) {
+                return player instanceof WebAnimationsPlayer;
+            });
+            return new WebAnimationsPlayer(element, keyframes, playerOptions, previousWebAnimationPlayers);
+        }
+    }]);
+
+    return WebAnimationsDriver;
+}();
+/**
+ * @return {?}
+ */
+
+
+function supportsWebAnimations() {
+    return typeof Element !== 'undefined' && typeof Element.prototype['animate'] === 'function';
+}
+
+var InjectableAnimationEngine = function (_DomAnimationEngine) {
+    _inherits(InjectableAnimationEngine, _DomAnimationEngine);
+
+    /**
+     * @param {?} driver
+     * @param {?} normalizer
+     */
+    function InjectableAnimationEngine(driver, normalizer) {
+        _classCallCheck(this, InjectableAnimationEngine);
+
+        return _possibleConstructorReturn(this, (InjectableAnimationEngine.__proto__ || Object.getPrototypeOf(InjectableAnimationEngine)).call(this, driver, normalizer));
+    }
+
+    return InjectableAnimationEngine;
+}(DomAnimationEngine);
+
+InjectableAnimationEngine.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"] }];
+/** @nocollapse */
+InjectableAnimationEngine.ctorParameters = function () {
+    return [{ type: AnimationDriver }, { type: AnimationStyleNormalizer }];
+};
+/**
+ * @return {?}
+ */
+function instantiateSupportedAnimationDriver() {
+    if (supportsWebAnimations()) {
+        return new WebAnimationsDriver();
+    }
+    return new NoopAnimationDriver();
+}
+/**
+ * @return {?}
+ */
+function instantiateDefaultStyleNormalizer() {
+    return new WebAnimationsStyleNormalizer();
+}
+/**
+ * @param {?} renderer
+ * @param {?} engine
+ * @param {?} zone
+ * @return {?}
+ */
+function instantiateRendererFactory(renderer, engine, zone) {
+    return new AnimationRendererFactory(renderer, engine, zone);
+}
+/**
+ * Separate providers from the actual module so that we can do a local modification in Google3 to
+ * include them in the BrowserModule.
+ */
+var /** @type {?} */BROWSER_ANIMATIONS_PROVIDERS = [{ provide: AnimationDriver, useFactory: instantiateSupportedAnimationDriver }, { provide: AnimationStyleNormalizer, useFactory: instantiateDefaultStyleNormalizer }, { provide: AnimationEngine, useClass: InjectableAnimationEngine }, {
+    provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["RendererFactoryV2"],
+    useFactory: instantiateRendererFactory,
+    deps: [__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["ɵDomRendererFactoryV2"], AnimationEngine, __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]]
+}];
+/**
+ * Separate providers from the actual module so that we can do a local modification in Google3 to
+ * include them in the BrowserTestingModule.
+ */
+var /** @type {?} */BROWSER_NOOP_ANIMATIONS_PROVIDERS = [{ provide: AnimationEngine, useClass: NoopAnimationEngine }, {
+    provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["RendererFactoryV2"],
+    useFactory: instantiateRendererFactory,
+    deps: [__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["ɵDomRendererFactoryV2"], AnimationEngine, __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgZone"]]
+}];
+
+/**
+ * \@experimental Animation support is experimental.
+ */
+
+var BrowserAnimationsModule = function BrowserAnimationsModule() {
+    _classCallCheck(this, BrowserAnimationsModule);
+};
+
+BrowserAnimationsModule.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"], args: [{
+        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["BrowserModule"]],
+        providers: BROWSER_ANIMATIONS_PROVIDERS
+    }] }];
+/** @nocollapse */
+BrowserAnimationsModule.ctorParameters = function () {
+    return [];
+};
+/**
+ * \@experimental Animation support is experimental.
+ */
+
+var NoopAnimationsModule = function NoopAnimationsModule() {
+    _classCallCheck(this, NoopAnimationsModule);
+};
+
+NoopAnimationsModule.decorators = [{ type: __WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"], args: [{
+        imports: [__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["BrowserModule"]],
+        providers: BROWSER_NOOP_ANIMATIONS_PROVIDERS
+    }] }];
+/** @nocollapse */
+NoopAnimationsModule.ctorParameters = function () {
+    return [];
+};
+
+var Animation = function () {
+    /**
+     * @param {?} input
+     */
+    function Animation(input) {
+        _classCallCheck(this, Animation);
+
+        var ast = Array.isArray(input) ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_animations__["sequence"])(input) : input;
+        var errors = validateAnimationSequence(ast);
+        if (errors.length) {
+            var errorMessage = 'animation validation failed:\n' + errors.join("\n");
+            throw new Error(errorMessage);
+        }
+        this._animationAst = ast;
+    }
+    /**
+     * @param {?} startingStyles
+     * @param {?} destinationStyles
+     * @return {?}
+     */
+
+
+    _createClass(Animation, [{
+        key: 'buildTimelines',
+        value: function buildTimelines(startingStyles, destinationStyles) {
+            var /** @type {?} */start = Array.isArray(startingStyles) ? normalizeStyles(startingStyles) : startingStyles;
+            var /** @type {?} */dest = Array.isArray(destinationStyles) ? normalizeStyles(destinationStyles) : destinationStyles;
+            return buildAnimationKeyframes(this._animationAst, start, dest);
+        }
+        /**
+         * @param {?} injector
+         * @param {?} element
+         * @param {?=} startingStyles
+         * @param {?=} destinationStyles
+         * @return {?}
+         */
+
+    }, {
+        key: 'create',
+        value: function create(injector, element) {
+            var startingStyles = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+            var destinationStyles = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+            var /** @type {?} */instructions = this.buildTimelines(startingStyles, destinationStyles);
+            // note the code below is only here to make the tests happy (once the new renderer is
+            // within core then the code below will interact with Renderer.transition(...))
+            var /** @type {?} */driver = injector.get(AnimationDriver);
+            var /** @type {?} */normalizer = injector.get(AnimationStyleNormalizer);
+            var /** @type {?} */engine = new DomAnimationEngine(driver, normalizer);
+            return engine.animateTimeline(element, instructions);
+        }
+    }]);
+
+    return Animation;
+}();
+
+
+
+
+/***/ }),
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var common_1 = __webpack_require__(7);
-var toast_container_component_1 = __webpack_require__(9);
-var toast_manager_1 = __webpack_require__(15);
+var common_1 = __webpack_require__(9);
+var toast_container_component_1 = __webpack_require__(11);
+var toast_manager_1 = __webpack_require__(16);
+var toast_options_1 = __webpack_require__(7);
 var ToastModule = (function () {
     function ToastModule() {
     }
     ToastModule.forRoot = function () {
         return {
             ngModule: ToastModule,
-            providers: [toast_manager_1.ToastsManager],
+            providers: [toast_manager_1.ToastsManager, toast_options_1.ToastOptions],
         };
     };
     return ToastModule;
@@ -61649,7 +64963,7 @@ exports.ToastModule = ToastModule;
 //# sourceMappingURL=toast.module.js.map
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61691,7 +65005,7 @@ exports.InnerSubscriber = InnerSubscriber;
 //# sourceMappingURL=InnerSubscriber.js.map
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61727,7 +65041,7 @@ exports.OuterSubscriber = OuterSubscriber;
 //# sourceMappingURL=OuterSubscriber.js.map
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61737,7 +65051,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Subscription_1 = __webpack_require__(6);
+var Subscription_1 = __webpack_require__(8);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @ignore
@@ -61773,18 +65087,18 @@ exports.SubjectSubscription = SubjectSubscription;
 //# sourceMappingURL=SubjectSubscription.js.map
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var Observable_1 = __webpack_require__(1);
-var first_1 = __webpack_require__(40);
+var first_1 = __webpack_require__(41);
 Observable_1.Observable.prototype.first = first_1.first;
 //# sourceMappingURL=first.js.map
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61795,9 +65109,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = __webpack_require__(1);
-var ScalarObservable_1 = __webpack_require__(38);
-var EmptyObservable_1 = __webpack_require__(37);
-var isScheduler_1 = __webpack_require__(22);
+var ScalarObservable_1 = __webpack_require__(39);
+var EmptyObservable_1 = __webpack_require__(38);
+var isScheduler_1 = __webpack_require__(23);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -61912,7 +65226,7 @@ exports.ArrayObservable = ArrayObservable;
 //# sourceMappingURL=ArrayObservable.js.map
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61925,7 +65239,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Subject_1 = __webpack_require__(4);
 var Observable_1 = __webpack_require__(1);
 var Subscriber_1 = __webpack_require__(3);
-var Subscription_1 = __webpack_require__(6);
+var Subscription_1 = __webpack_require__(8);
 /**
  * @class ConnectableObservable<T>
  */
@@ -62080,7 +65394,7 @@ var RefCountSubscriber = (function (_super) {
 //# sourceMappingURL=ConnectableObservable.js.map
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62167,7 +65481,7 @@ exports.EmptyObservable = EmptyObservable;
 //# sourceMappingURL=EmptyObservable.js.map
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62231,17 +65545,17 @@ exports.ScalarObservable = ScalarObservable;
 //# sourceMappingURL=ScalarObservable.js.map
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var merge_1 = __webpack_require__(41);
+var merge_1 = __webpack_require__(42);
 exports.merge = merge_1.mergeStatic;
 //# sourceMappingURL=merge.js.map
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62252,7 +65566,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = __webpack_require__(3);
-var EmptyError_1 = __webpack_require__(46);
+var EmptyError_1 = __webpack_require__(47);
 /**
  * Emits only the first value (or the first value that meets some condition)
  * emitted by the source Observable.
@@ -62399,15 +65713,15 @@ var FirstSubscriber = (function (_super) {
 //# sourceMappingURL=first.js.map
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var Observable_1 = __webpack_require__(1);
-var ArrayObservable_1 = __webpack_require__(35);
-var mergeAll_1 = __webpack_require__(42);
-var isScheduler_1 = __webpack_require__(22);
+var ArrayObservable_1 = __webpack_require__(36);
+var mergeAll_1 = __webpack_require__(43);
+var isScheduler_1 = __webpack_require__(23);
 /* tslint:enable:max-line-length */
 /**
  * Creates an output Observable which concurrently emits all values from every
@@ -62550,7 +65864,7 @@ exports.mergeStatic = mergeStatic;
 //# sourceMappingURL=merge.js.map
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62560,8 +65874,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var OuterSubscriber_1 = __webpack_require__(32);
-var subscribeToResult_1 = __webpack_require__(52);
+var OuterSubscriber_1 = __webpack_require__(33);
+var subscribeToResult_1 = __webpack_require__(53);
 /**
  * Converts a higher-order Observable into a first-order Observable which
  * concurrently delivers all values that are emitted on the inner Observables.
@@ -62667,12 +65981,12 @@ exports.MergeAllSubscriber = MergeAllSubscriber;
 //# sourceMappingURL=mergeAll.js.map
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var ConnectableObservable_1 = __webpack_require__(36);
+var ConnectableObservable_1 = __webpack_require__(37);
 /* tslint:enable:max-line-length */
 /**
  * Returns an Observable that emits the results of invoking a specified selector on items
@@ -62730,12 +66044,12 @@ exports.MulticastOperator = MulticastOperator;
 //# sourceMappingURL=multicast.js.map
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var multicast_1 = __webpack_require__(43);
+var multicast_1 = __webpack_require__(44);
 var Subject_1 = __webpack_require__(4);
 function shareSubjectFactory() {
     return new Subject_1.Subject();
@@ -62760,7 +66074,7 @@ exports.share = share;
 //# sourceMappingURL=share.js.map
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62800,7 +66114,7 @@ exports.$$iterator = symbolIteratorPonyfill(root_1.root);
 //# sourceMappingURL=iterator.js.map
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62834,7 +66148,7 @@ exports.EmptyError = EmptyError;
 //# sourceMappingURL=EmptyError.js.map
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62867,7 +66181,7 @@ exports.ObjectUnsubscribedError = ObjectUnsubscribedError;
 //# sourceMappingURL=ObjectUnsubscribedError.js.map
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62898,7 +66212,7 @@ exports.UnsubscriptionError = UnsubscriptionError;
 //# sourceMappingURL=UnsubscriptionError.js.map
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62907,7 +66221,7 @@ exports.isArray = Array.isArray || (function (x) { return x && typeof x.length =
 //# sourceMappingURL=isArray.js.map
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62916,7 +66230,7 @@ exports.isArrayLike = (function (x) { return x && typeof x.length === 'number'; 
 //# sourceMappingURL=isArrayLike.js.map
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62928,19 +66242,19 @@ exports.isPromise = isPromise;
 //# sourceMappingURL=isPromise.js.map
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var root_1 = __webpack_require__(5);
-var isArrayLike_1 = __webpack_require__(50);
-var isPromise_1 = __webpack_require__(51);
-var isObject_1 = __webpack_require__(21);
+var isArrayLike_1 = __webpack_require__(51);
+var isPromise_1 = __webpack_require__(52);
+var isObject_1 = __webpack_require__(22);
 var Observable_1 = __webpack_require__(1);
-var iterator_1 = __webpack_require__(45);
-var InnerSubscriber_1 = __webpack_require__(31);
-var observable_1 = __webpack_require__(11);
+var iterator_1 = __webpack_require__(46);
+var InnerSubscriber_1 = __webpack_require__(32);
+var observable_1 = __webpack_require__(12);
 function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
     var destination = new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex);
     if (destination.closed) {
@@ -63012,14 +66326,14 @@ exports.subscribeToResult = subscribeToResult;
 //# sourceMappingURL=subscribeToResult.js.map
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var Subscriber_1 = __webpack_require__(3);
-var rxSubscriber_1 = __webpack_require__(12);
-var Observer_1 = __webpack_require__(18);
+var rxSubscriber_1 = __webpack_require__(13);
+var Observer_1 = __webpack_require__(19);
 function toSubscriber(nextOrObserver, error, complete) {
     if (nextOrObserver) {
         if (nextOrObserver instanceof Subscriber_1.Subscriber) {
@@ -63038,12 +66352,12 @@ exports.toSubscriber = toSubscriber;
 //# sourceMappingURL=toSubscriber.js.map
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var errorObject_1 = __webpack_require__(19);
+var errorObject_1 = __webpack_require__(20);
 var tryCatchTarget;
 function tryCatcher() {
     try {
@@ -63063,7 +66377,7 @@ exports.tryCatch = tryCatch;
 //# sourceMappingURL=tryCatch.js.map
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -63079,14 +66393,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var ng2_toastr_1 = __webpack_require__(14);
+var ng2_toastr_1 = __webpack_require__(10);
 var AppComponent = (function () {
     function AppComponent(toastr, containerRef) {
         this.toastr = toastr;
         this.toastr.setRootViewContainerRef(containerRef);
     }
     AppComponent.prototype.showSuccess = function () {
-        this.toastr.success('You are awesome!', 'Success!', { toastLife: 3000 });
+        this.toastr.success('You are awesome!', 'Success!', { toastLife: 3000, showCloseButton: false });
     };
     AppComponent.prototype.showError = function () {
         this.toastr.error('This is not good!', 'Oops!');
@@ -63120,17 +66434,50 @@ exports.AppComponent = AppComponent;
 
 
 /***/ }),
-/* 56 */
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ng2_toastr_1 = __webpack_require__(10);
+var CustomOption = (function (_super) {
+    __extends(CustomOption, _super);
+    function CustomOption() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.animate = 'flyRight'; // you can pass any options to override defaults
+        _this.newestOnTop = false;
+        _this.showCloseButton = true;
+        _this.dismiss = 'auto';
+        return _this;
+    }
+    return CustomOption;
+}(ng2_toastr_1.ToastOptions));
+exports.CustomOption = CustomOption;
+
+
+/***/ }),
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(24);
+__webpack_require__(25);
+__webpack_require__(28);
 __webpack_require__(27);
-__webpack_require__(26);
-var platform_browser_dynamic_1 = __webpack_require__(23);
-var app_module_1 = __webpack_require__(25);
+var platform_browser_dynamic_1 = __webpack_require__(24);
+var app_module_1 = __webpack_require__(26);
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 
 

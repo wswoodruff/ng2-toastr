@@ -17,7 +17,7 @@ var AppComponent = (function () {
         this.toastr.setRootViewContainerRef(containerRef);
     }
     AppComponent.prototype.showSuccess = function () {
-        this.toastr.success('You are awesome!', 'Success!', { toastLife: 3000 });
+        this.toastr.success('You are awesome!', 'Success!', { toastLife: 3000, showCloseButton: false });
     };
     AppComponent.prototype.showError = function () {
         this.toastr.error('This is not good!', 'Oops!');
@@ -45,8 +45,7 @@ AppComponent = __decorate([
         selector: 'my-app',
         template: "\n      <h1> Angular 2 Toastr Demo.</h1>\n      <div style=\"border: .2rem solid #f7f7f9; position: relative; margin: 1rem -1rem; padding: 10px;\">\n        <button type=\"button\" class=\"btn btn-success\" (click)=\"showSuccess()\">Success</button>\n        <button type=\"button\" class=\"btn btn-info\" (click)=\"showInfo()\">Information</button>\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"showWarning()\">Warning</button>\n        <button type=\"button\" class=\"btn btn-danger\" (click)=\"showError()\">Error</button>\n      </div>\n      <div style=\"border: .2rem solid #f7f7f9; position: relative; margin: 1rem -1rem; padding: 10px;\">\n        <button type=\"button\" class=\"btn btn-info\" (click)=\"showClickToDismiss()\">Click to Dismiss</button>\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"showCustomLife()\">8-second Toast</button>\n        <button type=\"button\" class=\"btn btn-default\" (click)=\"showCustomHTML()\">Custom HTML Toast</button>\n      </div>\n  "
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof ng2_toastr_1.ToastsManager !== "undefined" && ng2_toastr_1.ToastsManager) === "function" && _a || Object, core_1.ViewContainerRef])
+    __metadata("design:paramtypes", [ng2_toastr_1.ToastsManager, core_1.ViewContainerRef])
 ], AppComponent);
 exports.AppComponent = AppComponent;
-var _a;
 //# sourceMappingURL=app.component.js.map

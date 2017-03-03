@@ -5,11 +5,16 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
-import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import {ToastModule, ToastOptions} from 'ng2-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CustomOption} from './custom-option';
 
 @NgModule({
-  imports: [BrowserModule, ToastModule.forRoot()],
+  imports: [BrowserModule, BrowserAnimationsModule, ToastModule.forRoot()],
   declarations: [AppComponent],
+  providers: [
+    {provide: ToastOptions, useClass: CustomOption},
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

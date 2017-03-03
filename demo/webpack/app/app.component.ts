@@ -1,5 +1,5 @@
 import {
-  Component, ViewContainerRef, ApplicationRef
+  Component, ViewContainerRef
 } from '@angular/core';
 import {ToastsManager} from 'ng2-toastr/ng2-toastr';
 
@@ -27,7 +27,7 @@ export class AppComponent {
   }
 
   showSuccess() {
-    this.toastr.success('You are awesome!', 'Success!', {toastLife: 3000});
+    this.toastr.success('You are awesome!', 'Success!', {toastLife: 3000, showCloseButton: false});
   }
 
   showError() {
