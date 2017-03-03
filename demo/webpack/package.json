@@ -11,25 +11,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@angular/common": "2.4.0",
-    "@angular/compiler": "2.4.0",
-    "@angular/core": "2.4.0",
-    "@angular/platform-browser": "2.4.0",
-    "@angular/platform-browser-dynamic": "2.4.0",
-    "bootstrap": "^3.3.7",
+    "@angular/common": "4.0.0-rc.2",
+    "@angular/compiler": "4.0.0-rc.2",
+    "@angular/core": "4.0.0-rc.2",
+    "@angular/animations": "4.0.0-rc.2",
+    "@angular/platform-browser": "4.0.0-rc.2",
+    "@angular/platform-browser-dynamic": "4.0.0-rc.2",
     "core-js": "^2.4.1",
-    "reflect-metadata": "^0.1.8",
-    "rxjs": "^5.0.1",
-    "systemjs": "0.19.39",
-    "zone.js": "^0.6.26",
-    "ng2-toastr": "PointInside/ng2-toastr"
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^5.2.0",
+    "zone.js": "^0.7.7",
+    "ng2-toastr": "PointInside/ng2-toastr#dev"
   },
   "devDependencies": {
-    "typescript": "^2.0.2",
+    "typescript": "^2.2.0",
     "lite-server": "^2.2.2",
-    "webpack": "1.12.15",
-    "css-loader": "^0.23.1",
-    "style-loader": "^0.13.1",
-    "ts-loader": "^0.8.1"
+    "webpack": "2.2.1",
+    "css-loader": "^0.26.2",
+    "style-loader": "^0.13.2",
+    "ts-loader": "^2.0.1"
   }
 }

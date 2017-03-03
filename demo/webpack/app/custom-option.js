@@ -10,7 +10,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
+var ng2_toastr_1 = require("ng2-toastr");
 var CustomOption = (function (_super) {
     __extends(CustomOption, _super);
     function CustomOption() {
@@ -18,6 +18,7 @@ var CustomOption = (function (_super) {
         _this.animate = 'flyRight'; // you can pass any options to override defaults
         _this.newestOnTop = false;
         _this.showCloseButton = true;
+        _this.dismiss = 'auto';
         return _this;
     }
     return CustomOption;

@@ -8,7 +8,7 @@ import {AppComponent} from './app.component';
 import {ToastModule} from 'ng2-toastr/ng2-toastr';
 
 @NgModule({
-  imports: [BrowserModule, ToastModule],
+  imports: [BrowserModule, ToastModule.forRoot()],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
 })

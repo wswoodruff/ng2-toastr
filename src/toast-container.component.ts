@@ -1,5 +1,5 @@
 import {
-  Component, Optional, ChangeDetectorRef,
+  Component, ChangeDetectorRef,
   NgZone, OnDestroy, AnimationTransitionEvent} from '@angular/core';
 import {transition, state, trigger, style, animate} from '@angular/animations';
 import {Toast} from './toast';
