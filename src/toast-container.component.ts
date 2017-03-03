@@ -98,13 +98,13 @@ import {Observable} from 'rxjs/Observable';
 })
 export class ToastContainer implements OnDestroy {
   position = 'fixed';
-  messageClass = 'toast-message';
-  titleClass = 'toast-title';
-  positionClass = 'toast-top-right';
+  messageClass: string;
+  titleClass: string;
+  positionClass: string;
+  maxShown: number;
+  newestOnTop: boolean;
+  animate: string;
   toasts: Toast[] = [];
-  maxShown = 5;
-  newestOnTop = false;
-  animate: string = 'fade';
 
   private _fresh: boolean = true;
   private onToastClicked: (toast: Toast) => void;
@@ -115,11 +115,9 @@ export class ToastContainer implements OnDestroy {
   constructor(private sanitizer: DomSanitizer,
               private cdr: ChangeDetectorRef,
               private _zone: NgZone,
-              @Optional() options: ToastOptions)
+              options: ToastOptions)
   {
-    if (options) {
-      Object.assign(this, options);
-    }
+    Object.assign(this, options);
   }
 
   onEnter(): Observable<void> {

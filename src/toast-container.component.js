@@ -12,19 +12,11 @@ var ToastContainer = (function () {
         this.cdr = cdr;
         this._zone = _zone;
         this.position = 'fixed';
-        this.messageClass = 'toast-message';
-        this.titleClass = 'toast-title';
-        this.positionClass = 'toast-top-right';
         this.toasts = [];
-        this.maxShown = 5;
-        this.newestOnTop = false;
-        this.animate = 'fade';
         this._fresh = true;
         this._onEnter = new Subject_1.Subject();
         this._onExit = new Subject_1.Subject();
-        if (options) {
-            Object.assign(this, options);
-        }
+        Object.assign(this, options);
     }
     ToastContainer.prototype.onEnter = function () {
         return this._onEnter.asObservable();
@@ -199,7 +191,7 @@ ToastContainer.ctorParameters = function () { return [
     { type: platform_browser_1.DomSanitizer, },
     { type: core_1.ChangeDetectorRef, },
     { type: core_1.NgZone, },
-    { type: toast_options_1.ToastOptions, decorators: [{ type: core_1.Optional },] },
+    { type: toast_options_1.ToastOptions, },
 ]; };
 exports.ToastContainer = ToastContainer;
 //# sourceMappingURL=toast-container.component.js.map
