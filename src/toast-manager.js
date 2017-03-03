@@ -8,9 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var toast_container_component_1 = require("./toast-container.component");
@@ -21,12 +18,9 @@ var ToastsManager = (function () {
     function ToastsManager(componentFactoryResolver, appRef, options) {
         this.componentFactoryResolver = componentFactoryResolver;
         this.appRef = appRef;
-        this.options = {};
+        this.options = options;
         this.index = 0;
         this.toastClicked = new Subject_1.Subject();
-        if (options) {
-            Object.assign(this.options, options);
-        }
     }
     ToastsManager.prototype.setRootViewContainerRef = function (vRef) {
         this._rootViewContainerRef = vRef;
@@ -73,14 +67,11 @@ var ToastsManager = (function () {
         return task.toString();
     };
     ToastsManager.prototype.setupToast = function (toast, options) {
-        var _this = this;
         toast.id = ++this.index;
+        var customConfig = Object.assign({}, this.options, options || {});
         Object.keys(toast.config).forEach(function (k) {
-            if (_this.options.hasOwnProperty(k)) {
-                toast.config[k] = _this.options[k];
-            }
-            if (options && options.hasOwnProperty(k)) {
-                toast.config[k] = options[k];
+            if (customConfig.hasOwnProperty(k)) {
+                toast.config[k] = customConfig[k];
             }
         });
         if (toast.config.dismiss === 'auto') {
@@ -145,7 +136,6 @@ var ToastsManager = (function () {
 }());
 ToastsManager = __decorate([
     core_1.Injectable(),
-    __param(2, core_1.Optional()),
     __metadata("design:paramtypes", [core_1.ComponentFactoryResolver,
         core_1.ApplicationRef,
         toast_options_1.ToastOptions])

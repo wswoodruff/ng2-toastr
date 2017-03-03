@@ -5,8 +5,8 @@ import { Observable } from 'rxjs/Observable';
 export declare class ToastsManager {
     private componentFactoryResolver;
     private appRef;
-    container: ComponentRef<any>;
     private options;
+    container: ComponentRef<any>;
     private index;
     private toastClicked;
     private _rootViewContainerRef;

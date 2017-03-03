@@ -12,7 +12,7 @@ export class AppComponent {
   }
 
   showSuccess() {
-    this.toastr.success('You are awesome!', 'Success!', {toastLife: 5000, showCloseButton: false});
+    this.toastr.success('You are awesome!', 'Success!', {toastLife: 3000, showCloseButton: false});
   }
 
   showError() {

@@ -1,6 +1,6 @@
 import {
   Injectable, ComponentRef, ApplicationRef,
-  Optional, ReflectiveInjector, ViewContainerRef, ComponentFactoryResolver,
+  ReflectiveInjector, ViewContainerRef, ComponentFactoryResolver,
 } from '@angular/core';
 import {ToastContainer} from './toast-container.component';
 import {ToastOptions} from './toast-options';
@@ -12,17 +12,13 @@ import { Subject } from 'rxjs/Subject';
 export class ToastsManager {
   container: ComponentRef<any>;
 
-  private options: any = {};
   private index = 0;
   private toastClicked: Subject<Toast> = new Subject<Toast>();
   private _rootViewContainerRef: ViewContainerRef;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
-              @Optional() options: ToastOptions) {
-    if (options) {
-      Object.assign(this.options, options);
-    }
+              private options: ToastOptions) {
   }
 
   setRootViewContainerRef(vRef: ViewContainerRef) {
@@ -47,7 +43,7 @@ export class ToastsManager {
 
         // get options providers
         let providers = ReflectiveInjector.resolve([
-          {provide: ToastOptions, useValue: <ToastOptions>this.options }
+          {provide: ToastOptions, useValue: this.options }
         ]);
 
         // create and load ToastContainer
@@ -78,13 +74,11 @@ export class ToastsManager {
   setupToast(toast: Toast, options?: Object): Toast {
     toast.id = ++this.index;
 
-    Object.keys(toast.config).forEach(k => {
-      if (this.options.hasOwnProperty(k)) {
-        toast.config[k] = this.options[k];
-      }
+    const customConfig: any = Object.assign({}, this.options, options || {});
 
-      if (options && options.hasOwnProperty(k)) {
-        toast.config[k] = options[k];
+    Object.keys(toast.config).forEach(k => {
+      if (customConfig.hasOwnProperty(k)) {
+        toast.config[k] = customConfig[k];
       }
     });
 
