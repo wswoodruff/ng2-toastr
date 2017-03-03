@@ -1,51 +1,28 @@
 Angular: Toaster (ng2-toastr)
 ===================
 
-[![](https://img.shields.io/badge/npm-v1.5.1-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
-
-NOTE: Since version 1.1.0, ng2-toastr has added animation for displaying/dismissing toasts. 
-For configuration, see [Choose animation option](#animate-option). 
-For some browsers, a polyfill is required. Grab [web-animations.min.js](https://github.com/web-animations/web-animations-js) 
-and add it to your page.
+[![](https://img.shields.io/badge/npm-v4.0.0-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
 
 The lib is inspired by [angular-toastr] (https://github.com/Foxandxss/angular-toastr), and will show bootstrap-like toasts. 
-Please update Modern Angular (v2.0.0 and above) to latest version to avoid any unexpected issues.
+Please update Modern Angular (v4.0.0+) latest version to avoid any unexpected issues.
+
+NOTE 1: In order to use animation, please include Animation Module from `angular v4.x` to your project:
+
+```
+    import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+    
+    @NgModule({
+      imports: [BrowserModule, BrowserAnimationsModule, ToastModule.forRoot()],
+      ...
+    })
+    export class AppModule {
+    }
+```
 
 ![Examples](toastr-examples.jpg?raw=true "Bootstrap Toasts")
 
-## <a name="breaking-changes"></a>Breaking Changes v1.5.0
-Version 1.5.x and above works with Angular v4 (Tested with Angular v4.0.0-beta.8 and Angular-Cli v1.0.0-beta.32.3).
-
-In v1.5.x, in order to custom global options for toaster you have to subclass `ToastOptions`, see example below: 
-
-```
-    // custom-option.ts
-    import {ToastOptions} from 'ng2-toastr';
-    
-    export class CustomOption extends ToastOptions {
-      animate = 'flyRight'; // you can override any options available
-      newestOnTop = false;
-      showCloseButton = true;
-    }
-    
-    // app.module.ts
-    import { CustomOption } from './custom-option';
-    
-    @NgModule({
-      declarations: [ ... ],
-      imports: [
-        ...
-        ToastModule.forRoot(),
-      ],
-      providers: [ 
-        {provide: ToastOptions, useClass: CustomOption},
-        ...
-      ],
-      bootstrap: [ ... ]
-    })
-
-```
-      
+NOTE 2: Version 4.0.x and above works with Angular v4 (Tested with Angular v4.0.0-rc.2 and Angular-Cli v1.0.0-beta.32.3).
+Use v1.6.0 if you are working with `angular v2.x`.      
     
 ## Usage
 
@@ -94,7 +71,6 @@ In v1.5.x, in order to custom global options for toaster you have to subclass `T
         export class AppComponent {
         
           constructor(public toastr: ToastsManager, vcr: ViewContainerRef) {
-             // Use with angular v2.2 or above
              this.toastr.setRootViewContainerRef(vcr);
           }
             
@@ -183,29 +159,32 @@ Defaults to 'fade'. You can set `animate: null` to disable animations.
 ##### enableHTML: (boolean)
 Allow input of message to be HTML. Default to false.
 
-Use dependency inject for custom configurations. You can either inject into `app.module.ts` or any component class 
-(v1.4.x and before). For v1.5.x and above, see [Breaking Changes](#breaking-changes):
+Use dependency inject for custom configurations. You can either inject into `app.module.ts` or any component class.
    
-    import {NgModule} from '@angular/core';
-    import {BrowserModule} from '@angular/platform-browser';
-    import {AppComponent} from './app.component';
-    import {ToastModule, ToastOptions} from 'ng2-toastr/ng2-toastr';
+    // custom-option.ts
+    import {ToastOptions} from 'ng2-toastr';
     
-    let options: ToastOptions = new ToastOptions({
-      animate: 'flyRight',
-      positionClass: 'toast-bottom-right',
-    });
-        
+    export class CustomOption extends ToastOptions {
+      animate = 'flyRight'; // you can override any options available
+      newestOnTop = false;
+      showCloseButton = true;
+    }
+    
+    // app.module.ts
+    import { CustomOption } from './custom-option';
+    
     @NgModule({
-      imports: [BrowserModule, 
-            ToastModule.forRoot(options),
-        ],
-      declarations: [AppComponent],
-      bootstrap: [AppComponent],
-    })
-    export class AppModule {
-    
-    }    
+      declarations: [ ... ],
+      imports: [
+        ...
+        ToastModule.forRoot(),
+      ],
+      providers: [ 
+        {provide: ToastOptions, useClass: CustomOption},
+        ...
+      ],
+      bootstrap: [ ... ]
+    })   
     
 ### <a name='override'></a>Override global option:
  
