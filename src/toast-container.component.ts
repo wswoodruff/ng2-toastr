@@ -1,7 +1,6 @@
 import {
-  Component, Optional, transition, state, trigger, style, animate, ChangeDetectorRef,
-  NgZone, OnDestroy, AnimationTransitionEvent
-} from '@angular/core';
+  Component, ChangeDetectorRef, transition, state, trigger, style, animate,
+  NgZone, OnDestroy, AnimationTransitionEvent} from '@angular/core';
 import {Toast} from './toast';
 import {ToastOptions} from './toast-options';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -98,15 +97,15 @@ import {Observable} from 'rxjs/Observable';
 })
 export class ToastContainer implements OnDestroy {
   position = 'fixed';
-  messageClass = 'toast-message';
-  titleClass = 'toast-title';
-  positionClass = 'toast-top-right';
+  messageClass: string;
+  titleClass: string;
+  positionClass: string;
+  maxShown: number;
+  newestOnTop: boolean;
+  animate: string;
   toasts: Toast[] = [];
-  maxShown = 5;
-  newestOnTop = false;
-  animate: string = 'fade';
-  private _fresh = true;
 
+  private _fresh: boolean = true;
   private onToastClicked: (toast: Toast) => void;
 
   private _onEnter: Subject<any> = new Subject();
@@ -115,11 +114,9 @@ export class ToastContainer implements OnDestroy {
   constructor(private sanitizer: DomSanitizer,
               private cdr: ChangeDetectorRef,
               private _zone: NgZone,
-              @Optional() options: ToastOptions)
+              options: ToastOptions)
   {
-    if (options) {
-      Object.assign(this, options);
-    }
+    Object.assign(this, options);
   }
 
   onEnter(): Observable<void> {
@@ -198,19 +195,17 @@ export class ToastContainer implements OnDestroy {
   }
 
   onAnimationEnd(event: AnimationTransitionEvent) {
-    console.log(event);
-    if (event.toState === 'void') {
+    if (event.toState === 'void' && !this.anyToast()) {
       this._ngExit();
-    } else {
-      if (this._fresh) {
+    } else if (this._fresh && event.fromState === 'void') {
         // notify when first animation is done
         this._fresh = false;
         this._zone.run(() => {
           this._onEnter.next();
           this._onEnter.complete();
         });
-      }
     }
+
   }
 
   private _ngExit() {

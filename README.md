@@ -1,7 +1,7 @@
 Angular: Toaster (ng2-toastr)
 ===================
 
-[![](https://img.shields.io/badge/npm-v1.5.1-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
+[![](https://img.shields.io/badge/npm-v1.6.0-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
 
 NOTE: Since version 1.1.0, ng2-toastr has added animation for displaying/dismissing toasts. 
 For configuration, see [Choose animation option](#animate-option). 
@@ -13,8 +13,8 @@ Please update Modern Angular (v2.0.0 and above) to latest version to avoid any u
 
 ![Examples](toastr-examples.jpg?raw=true "Bootstrap Toasts")
 
-## <a name="breaking-changes"></a>Breaking Changes v1.5.0
-Version 1.5.x and above works with Angular v4 (Tested with Angular v4.0.0-beta.8 and Angular-Cli v1.0.0-beta.32.3).
+## <a name="breaking-changes"></a>Breaking Changes Since v1.5.x
+Version 1.5.x and above works with Angular v4 (Tested with Angular v4.0.0-rc.2 and Angular-Cli v1.0.0-rc.0).
 
 In v1.5.x, in order to custom global options for toaster you have to subclass `ToastOptions`, see example below: 
 
@@ -139,7 +139,7 @@ By default, the toastr will show up at top right corner of the page view, and wi
 You can configure the toasts using ToastOptions class. Currently we support following options:
 
 ##### toastLife: (number)
-Determines how long an auto-dismissed toast will be shown. Defaults to 3000 miliseconds.
+Determines how long an auto-dismissed toast will be shown. Defaults to 5000 miliseconds.
 
 ##### dismiss: (string)
 Determine how a displayed toaster can be dismissed. Allowed values are: 'auto', 'click', 'controlled' (value should all be lowercase).

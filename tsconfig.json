@@ -15,7 +15,8 @@
   },
   "exclude": [
     "node_modules",
-    "demo"
+    "demo",
+    "compiled"
   ],
   "angularCompilerOptions": {
     "genDir": "compiled"

@@ -12,10 +12,10 @@ export declare class ToastContainer implements OnDestroy {
     messageClass: string;
     titleClass: string;
     positionClass: string;
-    toasts: Toast[];
     maxShown: number;
     newestOnTop: boolean;
     animate: string;
+    toasts: Toast[];
     private _fresh;
     private onToastClicked;
     private _onEnter;

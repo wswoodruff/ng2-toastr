@@ -16,4 +16,5 @@ export class ToastOptions {
   showCloseButton: boolean = false;
 
   constructor() {}
+
 }

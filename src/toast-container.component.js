@@ -8,9 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var toast_options_1 = require("./toast-options");
@@ -23,19 +20,11 @@ var ToastContainer = (function () {
         this.cdr = cdr;
         this._zone = _zone;
         this.position = 'fixed';
-        this.messageClass = 'toast-message';
-        this.titleClass = 'toast-title';
-        this.positionClass = 'toast-top-right';
         this.toasts = [];
-        this.maxShown = 5;
-        this.newestOnTop = false;
-        this.animate = 'fade';
         this._fresh = true;
         this._onEnter = new Subject_1.Subject();
         this._onExit = new Subject_1.Subject();
-        if (options) {
-            Object.assign(this, options);
-        }
+        Object.assign(this, options);
     }
     ToastContainer.prototype.onEnter = function () {
         return this._onEnter.asObservable();
@@ -105,19 +94,16 @@ var ToastContainer = (function () {
     };
     ToastContainer.prototype.onAnimationEnd = function (event) {
         var _this = this;
-        console.log(event);
-        if (event.toState === 'void') {
+        if (event.toState === 'void' && !this.anyToast()) {
             this._ngExit();
         }
-        else {
-            if (this._fresh) {
-                // notify when first animation is done
-                this._fresh = false;
-                this._zone.run(function () {
-                    _this._onEnter.next();
-                    _this._onEnter.complete();
-                });
-            }
+        else if (this._fresh && event.fromState === 'void') {
+            // notify when first animation is done
+            this._fresh = false;
+            this._zone.run(function () {
+                _this._onEnter.next();
+                _this._onEnter.complete();
+            });
         }
     };
     ToastContainer.prototype._ngExit = function () {
@@ -207,7 +193,6 @@ ToastContainer = __decorate([
             ]),
         ],
     }),
-    __param(3, core_1.Optional()),
     __metadata("design:paramtypes", [platform_browser_1.DomSanitizer,
         core_1.ChangeDetectorRef,
         core_1.NgZone,
