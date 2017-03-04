@@ -1,6 +1,6 @@
 import {
   Injectable, ComponentRef, ApplicationRef,
-  Optional, ReflectiveInjector, ViewContainerRef, ComponentFactoryResolver,
+  ReflectiveInjector, ViewContainerRef, ComponentFactoryResolver,
 } from '@angular/core';
 import {ToastContainer} from './toast-container.component';
 import {ToastOptions} from './toast-options';
@@ -12,17 +12,13 @@ import { Subject } from 'rxjs/Subject';
 export class ToastsManager {
   container: ComponentRef<any>;
 
-  private options: any = {};
   private index = 0;
   private toastClicked: Subject<Toast> = new Subject<Toast>();
   private _rootViewContainerRef: ViewContainerRef;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
-              @Optional() options: ToastOptions) {
-    if (options) {
-      Object.assign(this.options, options);
-    }
+              private options: ToastOptions) {
   }
 
   setRootViewContainerRef(vRef: ViewContainerRef) {
@@ -47,7 +43,7 @@ export class ToastsManager {
 
         // get options providers
         let providers = ReflectiveInjector.resolve([
-          {provide: ToastOptions, useValue: <ToastOptions>this.options }
+          {provide: ToastOptions, useValue: this.options }
         ]);
 
         // create and load ToastContainer
@@ -56,7 +52,11 @@ export class ToastsManager {
         this.container = this._rootViewContainerRef.createComponent(toastFactory, this._rootViewContainerRef.length, childInjector);
         this.container.instance.onToastClicked = (toast: Toast) => {
           this._onToastClicked(toast);
-        }
+        };
+
+        this.container.instance.onExit().subscribe(() => {
+          this.dispose();
+        });
       }
 
       resolve(this.setupToast(toast, options));
@@ -71,16 +71,18 @@ export class ToastsManager {
     return task.toString();
   }
 
-  setupToast(toast: Toast, options?: Object): Toast {
+  setupToast(toast: Toast, options?: any): Toast {
     toast.id = ++this.index;
 
-    Object.keys(toast.config).forEach(k => {
-      if (this.options.hasOwnProperty(k)) {
-        toast.config[k] = this.options[k];
-      }
+    if (options && options.hasOwnProperty('toastLife')) {
+      options.dismiss = 'auto';
+    }
 
-      if (options && options.hasOwnProperty(k)) {
-        toast.config[k] = options[k];
+    const customConfig: any = Object.assign({}, this.options, options || {});
+
+    Object.keys(toast.config).forEach(k => {
+      if (customConfig.hasOwnProperty(k)) {
+        toast.config[k] = customConfig[k];
       }
     });
 
@@ -107,9 +109,6 @@ export class ToastsManager {
     if (this.container) {
       let instance = this.container.instance;
       instance.removeToast(toast);
-      if (!instance.anyToast()) {
-        this.dispose();
-      }
     }
   }
 
@@ -122,13 +121,8 @@ export class ToastsManager {
   }
 
   dispose() {
-    // using timeout to allow animation to finish
-    setTimeout(() => {
-      if (this.container && !this.container.instance.anyToast()) {
-        this.container.destroy();
-        this.container = null;
-      }
-    }, 2000);
+    this.container.destroy();
+    this.container = null;
   }
 
   error(message: string, title?: string, options?: any): Promise<Toast> {

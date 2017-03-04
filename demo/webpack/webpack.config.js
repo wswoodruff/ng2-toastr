@@ -1,4 +1,4 @@
-var path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -9,10 +9,10 @@ module.exports = {
   },
   devtool: '#source-map',
   resolve: {
-    extensions: ['', '.ts', '.js'],
+    extensions: ['.ts', '.js'],
   },
   module: {
-    loaders: [
+    rules: [
       { test: /\.ts$/,
         loader: 'ts-loader',
       },
@@ -23,4 +23,10 @@ module.exports = {
       },
     ]
   },
+  plugins: [
+    // new webpack.optimize.UglifyJsPlugin({
+    //   minimize: true,
+    //   compress: { warnings: false },
+    // }),
+  ],
 };
