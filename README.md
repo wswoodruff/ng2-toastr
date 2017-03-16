@@ -1,10 +1,11 @@
-Angular: Toaster (ng2-toastr)
+Angular Toaster Module (ng2-toastr)
 ===================
 
 [![](https://img.shields.io/badge/npm-v4.0.0-brightgreen.svg)](https://www.npmjs.com/package/ng2-toastr)
 
 The lib is inspired by [angular-toastr] (https://github.com/Foxandxss/angular-toastr), and will show bootstrap-like toasts. 
-Please update Modern Angular (v4.0.0+) latest version to avoid any unexpected issues.
+Please update Modern Angular (v4.0.0+) latest version to avoid any unexpected issues. 
+We jumped version from v1.x to v4.x in order to match Angular version.
 
 NOTE 1: In order to use animation, please include Animation Module from `angular v4.x` to your project:
 
@@ -21,7 +22,7 @@ NOTE 1: In order to use animation, please include Animation Module from `angular
 
 ![Examples](toastr-examples.jpg?raw=true "Bootstrap Toasts")
 
-NOTE 2: Version 4.0.x and above works with Angular v4 (Tested with Angular v4.0.0-rc.2 and Angular-Cli v1.0.0-beta.32.3).
+NOTE 2: Version 4.0.x and above works with Angular v4 (Tested with Angular v4.0.0-rc.3 and Angular-Cli v1.0.0-rc.2).
 Use v1.6.0 if you are working with `angular v2.x`.      
     
 ## Usage
@@ -95,19 +96,6 @@ Use v1.6.0 if you are working with `angular v2.x`.
           }
         }
     ```
-
-NOTE: Since version 1.2.0, all 'show' methods return `Promise<Toast>`. 
-Should you need specific logic to determine when a toaster will be dismissed you can store the displayed `Toast`. 
-Be cautious when the toaster can be dismissed in other ways such as `dismiss: 'auto'` or `dismiss: 'click'`.
-
-    
-        this.toastr.success('You are awesome!', 'Success!', {dismiss: 'controlled'})
-            .then((toast: Toast) => {
-                setTimeout(() => {
-                    this.toastr.dismissToast(toast);
-                }, 10000);
-            });
-    
 
 ### ToastOptions Configurations
 
@@ -195,6 +183,17 @@ Use dependency inject for custom configurations. You can either inject into `app
  
  NOTE: specify a value for `toastLife` overrides `dismiss` and always set `dismiss = 'auto'`.
 
+ Should you need specific logic to determine when a toaster will be dismissed you can store the displayed `Toast`. 
+ Be cautious when the toaster can be dismissed in other ways such as `dismiss: 'auto'` or `dismiss: 'click'`.
+
+    
+        this.toastr.success('You are awesome!', 'Success!', {dismiss: 'controlled'})
+            .then((toast: Toast) => {
+                setTimeout(() => {
+                    this.toastr.dismissToast(toast);
+                }, 10000);
+            });
+    
 
 ## Use `onClickToast` observable on `ToastManager` instance
 1. Now you can added custom data object to each toast.
