@@ -223,10 +223,10 @@ Use dependency inject for custom configurations. You can either inject into `app
 
 ## Run demo app
     
-#### systemjs
+#### angular-cli
     
-    > cd demo/systemjs && npm install
-    > npm start    
+    > cd demo/ngcli && npm install
+    > ng serve   
 
 Then navigate your browser to http://localhost:3000    
     
