@@ -1,6 +1,7 @@
 import {
-  Component, ChangeDetectorRef, transition, state, trigger, style, animate,
+  Component, ChangeDetectorRef,
   NgZone, OnDestroy, AnimationTransitionEvent} from '@angular/core';
+import {transition, state, trigger, style, animate} from '@angular/animations';
 import {Toast} from './toast';
 import {ToastOptions} from './toast-options';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -37,7 +38,7 @@ import {Observable} from 'rxjs/Observable';
         animate('0.2s ease-in')
       ]),
       transition('flyRight => void', [
-        animate('0.2s 10 ease-out', style({
+        animate('0.2s 10ms ease-out', style({
           opacity: 0,
           transform: 'translateX(100%)'
         }))
@@ -50,7 +51,7 @@ import {Observable} from 'rxjs/Observable';
         animate('0.2s ease-in')
       ]),
       transition('flyLeft => void', [
-        animate('0.2s 10 ease-out', style({
+        animate('0.2s 10ms ease-out', style({
           opacity: 0,
           transform: 'translateX(-100%)'
         }))
@@ -62,7 +63,7 @@ import {Observable} from 'rxjs/Observable';
         animate('0.3s ease-in')
       ]),
       transition('fade => void', [
-        animate('0.3s 10 ease-out', style({
+        animate('0.3s 10ms ease-out', style({
           opacity: 0,
         }))
       ]),
@@ -74,7 +75,7 @@ import {Observable} from 'rxjs/Observable';
         animate('0.3s ease-in')
       ]),
       transition('slideDown => void', [
-        animate('0.3s 10 ease-out', style({
+        animate('0.3s 10ms ease-out', style({
           opacity: 0,
           transform: 'translateY(-200%)'
         }))
@@ -87,7 +88,7 @@ import {Observable} from 'rxjs/Observable';
         animate('0.3s ease-in')
       ]),
       transition('slideUp => void', [
-        animate('0.3s 10 ease-out', style({
+        animate('0.3s 10ms ease-out', style({
           opacity: 0,
           transform: 'translateY(200%)'
         }))
