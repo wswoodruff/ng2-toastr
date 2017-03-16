@@ -228,7 +228,7 @@ Use dependency inject for custom configurations. You can either inject into `app
     > cd demo/ngcli && npm install
     > ng serve   
 
-Then navigate your browser to http://localhost:3000    
+Then navigate your browser to http://localhost:4200    
     
 #### webpack
     
