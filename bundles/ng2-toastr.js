@@ -125,25 +125,25 @@ System.registerDynamic("ng2-toastr/src/toast-container.component", ["@angular/co
       })), animations_1.transition('void => flyRight', [animations_1.style({
         opacity: 0,
         transform: 'translateX(100%)'
-      }), animations_1.animate('0.2s ease-in')]), animations_1.transition('flyRight => void', [animations_1.animate('0.2s 10 ease-out', animations_1.style({
+      }), animations_1.animate('0.2s ease-in')]), animations_1.transition('flyRight => void', [animations_1.animate('0.2s 10ms ease-out', animations_1.style({
         opacity: 0,
         transform: 'translateX(100%)'
       }))]), animations_1.transition('void => flyLeft', [animations_1.style({
         opacity: 0,
         transform: 'translateX(-100%)'
-      }), animations_1.animate('0.2s ease-in')]), animations_1.transition('flyLeft => void', [animations_1.animate('0.2s 10 ease-out', animations_1.style({
+      }), animations_1.animate('0.2s ease-in')]), animations_1.transition('flyLeft => void', [animations_1.animate('0.2s 10ms ease-out', animations_1.style({
         opacity: 0,
         transform: 'translateX(-100%)'
-      }))]), animations_1.transition('void => fade', [animations_1.style({opacity: 0}), animations_1.animate('0.3s ease-in')]), animations_1.transition('fade => void', [animations_1.animate('0.3s 10 ease-out', animations_1.style({opacity: 0}))]), animations_1.transition('void => slideDown', [animations_1.style({
+      }))]), animations_1.transition('void => fade', [animations_1.style({opacity: 0}), animations_1.animate('0.3s ease-in')]), animations_1.transition('fade => void', [animations_1.animate('0.3s 10ms ease-out', animations_1.style({opacity: 0}))]), animations_1.transition('void => slideDown', [animations_1.style({
         opacity: 0,
         transform: 'translateY(-200%)'
-      }), animations_1.animate('0.3s ease-in')]), animations_1.transition('slideDown => void', [animations_1.animate('0.3s 10 ease-out', animations_1.style({
+      }), animations_1.animate('0.3s ease-in')]), animations_1.transition('slideDown => void', [animations_1.animate('0.3s 10ms ease-out', animations_1.style({
         opacity: 0,
         transform: 'translateY(-200%)'
       }))]), animations_1.transition('void => slideUp', [animations_1.style({
         opacity: 0,
         transform: 'translateY(200%)'
-      }), animations_1.animate('0.3s ease-in')]), animations_1.transition('slideUp => void', [animations_1.animate('0.3s 10 ease-out', animations_1.style({
+      }), animations_1.animate('0.3s ease-in')]), animations_1.transition('slideUp => void', [animations_1.animate('0.3s 10ms ease-out', animations_1.style({
         opacity: 0,
         transform: 'translateY(200%)'
       }))])])]
