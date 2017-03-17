@@ -78,6 +78,7 @@ button.toast-close-button {
     left: 12px;
 }
 #toast-container {
+    pointer-events: none;
     position: fixed;
     z-index: 99999;
 }
@@ -144,6 +145,7 @@ button.toast-close-button {
 }
 .toast {
     background-color: #FFFFFF;
+    pointer-events: auto;
 }
 .toast-success {
     background-color: #51A351;
