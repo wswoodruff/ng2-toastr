@@ -22,7 +22,7 @@ NOTE 1: In order to use animation, please include Animation Module from `angular
 
 ![Examples](toastr-examples.jpg?raw=true "Bootstrap Toasts")
 
-NOTE 2: Version 4.0.x and above works with Angular v4 (Tested with Angular v4.0.0-rc.3 and Angular-Cli v1.0.0-rc.2).
+NOTE 2: Version 4.0.x and above works with Angular v4 (Tested with Angular v4.0.0 and Angular-Cli v1.0.0).
 Use v1.6.0 if you are working with `angular v2.x`.      
     
 ## Usage
