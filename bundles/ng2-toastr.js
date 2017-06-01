@@ -199,8 +199,9 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
   var toast_1 = $__require('./toast');
   var Subject_1 = $__require('rxjs/Subject');
   var ToastsManager = (function() {
-    function ToastsManager(componentFactoryResolver, appRef, options) {
+    function ToastsManager(componentFactoryResolver, ngZone, appRef, options) {
       this.componentFactoryResolver = componentFactoryResolver;
+      this.ngZone = ngZone;
       this.appRef = appRef;
       this.options = options;
       this.index = 0;
@@ -242,9 +243,14 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
     };
     ToastsManager.prototype.createTimeout = function(toast) {
       var _this = this;
-      var task = setTimeout(function() {
-        _this.clearToast(toast);
-      }, toast.config.toastLife);
+      var task;
+      this.ngZone.runOutsideAngular(function() {
+        task = setTimeout(function() {
+          return _this.ngZone.run(function() {
+            return _this.clearToast(toast);
+          });
+        }, toast.config.toastLife);
+      });
       return task.toString();
     };
     ToastsManager.prototype.setupToast = function(toast, options) {
@@ -319,7 +325,7 @@ System.registerDynamic("ng2-toastr/src/toast-manager", ["@angular/core", "./toas
   }());
   ToastsManager.decorators = [{type: core_1.Injectable}];
   ToastsManager.ctorParameters = function() {
-    return [{type: core_1.ComponentFactoryResolver}, {type: core_1.ApplicationRef}, {type: toast_options_1.ToastOptions}];
+    return [{type: core_1.ComponentFactoryResolver}, {type: core_1.NgZone}, {type: core_1.ApplicationRef}, {type: toast_options_1.ToastOptions}];
   };
   exports.ToastsManager = ToastsManager;
   global.define = __define;
