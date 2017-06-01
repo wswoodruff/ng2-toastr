@@ -6,8 +6,9 @@ var toast_options_1 = require("./toast-options");
 var toast_1 = require("./toast");
 var Subject_1 = require("rxjs/Subject");
 var ToastsManager = (function () {
-    function ToastsManager(componentFactoryResolver, appRef, options) {
+    function ToastsManager(componentFactoryResolver, ngZone, appRef, options) {
         this.componentFactoryResolver = componentFactoryResolver;
+        this.ngZone = ngZone;
         this.appRef = appRef;
         this.options = options;
         this.index = 0;
@@ -52,9 +53,10 @@ var ToastsManager = (function () {
     };
     ToastsManager.prototype.createTimeout = function (toast) {
         var _this = this;
-        var task = setTimeout(function () {
-            _this.clearToast(toast);
-        }, toast.config.toastLife);
+        var task;
+        this.ngZone.runOutsideAngular(function () {
+            task = setTimeout(function () { return _this.ngZone.run(function () { return _this.clearToast(toast); }); }, toast.config.toastLife);
+        });
         return task.toString();
     };
     ToastsManager.prototype.setupToast = function (toast, options) {
@@ -134,6 +136,7 @@ ToastsManager.decorators = [
 /** @nocollapse */
 ToastsManager.ctorParameters = function () { return [
     { type: core_1.ComponentFactoryResolver, },
+    { type: core_1.NgZone, },
     { type: core_1.ApplicationRef, },
     { type: toast_options_1.ToastOptions, },
 ]; };
