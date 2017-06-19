@@ -1,6 +1,6 @@
 {
   "name": "ng2-toastr",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "description": "bootstrap style of toast for modern angular",
   "main": "ng2-toastr.js",
   "typings": "ng2-toastr.d.ts",

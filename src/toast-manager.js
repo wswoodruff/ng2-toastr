@@ -99,8 +99,10 @@ var ToastsManager = (function () {
         }
     };
     ToastsManager.prototype.dispose = function () {
-        this.container.destroy();
-        this.container = null;
+        if (this.container) {
+            this.container.destroy();
+            this.container = null;
+        }
     };
     ToastsManager.prototype.error = function (message, title, options) {
         var data = options && options.data ? options.data : null;

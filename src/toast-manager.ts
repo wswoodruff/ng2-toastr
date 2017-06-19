@@ -124,8 +124,10 @@ export class ToastsManager {
   }
 
   dispose() {
-    this.container.destroy();
-    this.container = null;
+    if (this.container) {
+      this.container.destroy();
+      this.container = null;
+    }
   }
 
   error(message: string, title?: string, options?: any): Promise<Toast> {
