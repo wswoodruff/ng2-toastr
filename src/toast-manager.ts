@@ -1,5 +1,5 @@
 import {
-  Injectable, ComponentRef, ApplicationRef,
+  Injectable, ComponentRef, ApplicationRef, NgZone,
   ReflectiveInjector, ViewContainerRef, ComponentFactoryResolver,
 } from '@angular/core';
 import {ToastContainer} from './toast-container.component';
@@ -17,6 +17,7 @@ export class ToastsManager {
   private _rootViewContainerRef: ViewContainerRef;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
+              private ngZone: NgZone,
               private appRef: ApplicationRef,
               private options: ToastOptions) {
   }
@@ -64,9 +65,11 @@ export class ToastsManager {
   }
 
   createTimeout(toast: Toast): any {
-    const task = setTimeout(() => {
-      this.clearToast(toast);
-    }, toast.config.toastLife);
+    let task: number;
+    this.ngZone.runOutsideAngular(() => {
+      task = setTimeout(() => this.ngZone.run(() => this.clearToast(toast)),
+                        toast.config.toastLife);
+    });
 
     return task.toString();
   }
@@ -121,8 +124,10 @@ export class ToastsManager {
   }
 
   dispose() {
-    this.container.destroy();
-    this.container = null;
+    if (this.container) {
+      this.container.destroy();
+      this.container = null;
+    }
   }
 
   error(message: string, title?: string, options?: any): Promise<Toast> {

@@ -18,7 +18,7 @@ import {Observable} from 'rxjs/Observable';
         </div> 
         <div *ngIf="toast.title" class="{{toast.config.titleClass || titleClass}}">{{toast.title}}</div>
         <div [ngSwitch]="toast.config.enableHTML">
-          <span *ngSwitchCase="true" [innerHTML]="sanitizer.bypassSecurityTrustHtml(toast.message)"></span>
+          <span *ngSwitchCase="true" class="{{toast.config.messageClass || messageClass}}" [innerHTML]="sanitizer.bypassSecurityTrustHtml(toast.message)"></span>
           <span *ngSwitchDefault class="{{toast.config.messageClass || messageClass}}">{{toast.message}}</span>
         </div>             
       </div>
@@ -37,7 +37,7 @@ import {Observable} from 'rxjs/Observable';
         animate('0.2s ease-in')
       ]),
       transition('flyRight => void', [
-        animate('0.2s 10 ease-out', style({
+        animate('0.2s 10ms ease-out', style({
           opacity: 0,
           transform: 'translateX(100%)'
         }))
@@ -50,7 +50,7 @@ import {Observable} from 'rxjs/Observable';
         animate('0.2s ease-in')
       ]),
       transition('flyLeft => void', [
-        animate('0.2s 10 ease-out', style({
+        animate('0.2s 10ms ease-out', style({
           opacity: 0,
           transform: 'translateX(-100%)'
         }))
@@ -62,7 +62,7 @@ import {Observable} from 'rxjs/Observable';
         animate('0.3s ease-in')
       ]),
       transition('fade => void', [
-        animate('0.3s 10 ease-out', style({
+        animate('0.3s 10ms ease-out', style({
           opacity: 0,
         }))
       ]),
@@ -74,7 +74,7 @@ import {Observable} from 'rxjs/Observable';
         animate('0.3s ease-in')
       ]),
       transition('slideDown => void', [
-        animate('0.3s 10 ease-out', style({
+        animate('0.3s 10ms ease-out', style({
           opacity: 0,
           transform: 'translateY(-200%)'
         }))
@@ -87,7 +87,7 @@ import {Observable} from 'rxjs/Observable';
         animate('0.3s ease-in')
       ]),
       transition('slideUp => void', [
-        animate('0.3s 10 ease-out', style({
+        animate('0.3s 10ms ease-out', style({
           opacity: 0,
           transform: 'translateY(200%)'
         }))
