@@ -18,7 +18,7 @@ export class ToastsManager {
 
   constructor(private loader: DynamicComponentLoader,
               private appRef: ApplicationRef,
-              @Optional() @Inject(ToastOptions) options) {
+              @Optional() @Inject(ToastOptions) options: any) {
     if (options) {
       Object.assign(this.options, options);
     }
@@ -27,7 +27,12 @@ export class ToastsManager {
   show(toast: Toast) {
     if (!this.container) {
       // a hack to get app element in shadow dom
-      let appElement: ViewContainerRef = new ViewContainerRef_(this.appRef['_rootComponents'][0]._hostElement);
+
+      let appRef: any = this.appRef;
+      let rootComponents: any = appRef['_rootComponents'];
+      let firstRootComponent: any = rootComponents[0];
+      let hostElement: any = firstRootComponent._hostElement;
+      let appElement: ViewContainerRef = new ViewContainerRef_(hostElement);
 
       let bindings = ReflectiveInjector.resolve([
         provide(ToastOptions, { useValue: <ToastOptions>this.options })

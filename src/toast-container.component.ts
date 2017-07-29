@@ -22,7 +22,7 @@ export class ToastContainer {
   maxShown = 5;
   autoDismiss = true;
 
-  constructor(@Optional() @Inject(ToastOptions) options) {
+  constructor(@Optional() @Inject(ToastOptions) options: any) {
     if (options) {
       Object.assign(this, options);
     }
@@ -49,7 +49,7 @@ export class ToastContainer {
     });
   }
 
-  dismiss(toast) {
+  dismiss(toast: Toast) {
     if (!this.autoDismiss) {
       this.removeToast(toast.id);
     }
